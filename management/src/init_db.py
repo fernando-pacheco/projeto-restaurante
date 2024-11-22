@@ -1,8 +1,10 @@
 from sqlalchemy import inspect
+
 from src.db import db_instance
+from src.models.empresa import EmpresaModel
+from src.models.funcionario import FuncionarioModel
 from src.models.token import TokenBlocklistModel
 from src.models.usuario import UsuarioModel
-from src.models.empresa import EmpresaModel
 
 
 def model_exists(model_class):
@@ -16,6 +18,6 @@ def model_exists(model_class):
 def init_load_data():
     if model_exists(UsuarioModel):
         UsuarioModel.init_data()
-    
+
     if model_exists(EmpresaModel):
         EmpresaModel.init_data()

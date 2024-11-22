@@ -20,7 +20,7 @@ class EmpresaModel(db.Model):
         unique=True,
         nullable=False,
     )
-    # nome = db.Column(db.String(100), nullable=True)
+    nome = db.Column(db.String(100), nullable=True)
     razao_social = db.Column(db.String(100), nullable=False)
     cnpj = db.Column(db.String(19), nullable=False, unique=True)
     status = db.Column(db.Boolean, default=True)
@@ -29,11 +29,9 @@ class EmpresaModel(db.Model):
         db.DateTime(timezone=True), default=func.now(), onupdate=func.now()
     )
 
-    def __init__(self, nome, razao_social, cnpj, status):
-        self.nome = nome
+    def __init__(self, razao_social, cnpj):
         self.razao_social = razao_social
         self.cnpj = cnpj
-        self.status = status
 
     def __repr__(self):
         return f'<EmpresaModel(id={self.id}, nome_usuario={self.razao_social}), senha={self.cnpj})>'

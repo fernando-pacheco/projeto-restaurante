@@ -14,11 +14,11 @@ from src.login_manager import login_manager
 
 @login_manager.user_loader
 def get_user(user_id):
-    return UsuarioModel.query.filter_by(id=user_id).first()
+    return FuncionarioModel.query.filter_by(id=user_id).first()
 
 
-class UsuarioModel(db.Model, UserMixin):
-    __tablename__ = 'Usuarios'
+class FuncionarioModel(db.Model, UserMixin):
+    __tablename__ = 'Funcionarios'
     __table_args__ = {'schema': os.getenv('DEFAULT_DB_SCHEMA')}
 
     id = db.Column(
@@ -38,7 +38,12 @@ class UsuarioModel(db.Model, UserMixin):
     data_atualizacao = db.Column(
         db.DateTime(timezone=True), default=func.now(), onupdate=func.now()
     )
+    empresa_id = db.Column(
+        UUID(as_uuid=True), db.ForeignKey('Empresas.id'), nullable=False
+    )
     ativo = db.Column(db.Boolean, default=True)
+
+    empresa = db.relationship('EmpresaModel', backref='funcionarios')
 
     def __init__(self, nome_usuario, senha, cpf, nome, email, sobrenome):
         self.nome_usuario = nome_usuario
@@ -49,7 +54,7 @@ class UsuarioModel(db.Model, UserMixin):
         self.sobrenome = sobrenome
 
     def __repr__(self):
-        return f'<UsuarioModel(id={self.id}, nome_usuario={self.nome_usuario}), senha={self.senha})>'
+        return f'<FuncionarioModel(id={self.id}, nome_usuario={self.nome_usuario}), senha={self.senha})>'
 
     def definir_senha(self, senha):
         self.senha = generate_password_hash(senha)
@@ -72,18 +77,6 @@ class UsuarioModel(db.Model, UserMixin):
 
     def verificar_senha(self, senha):
         return check_password_hash(self.senha, senha)
-
-    @staticmethod
-    def init_data():
-        if db.session.query(UsuarioModel.id).count() == 0:
-            usuario = UsuarioModel(
-                nome_usuario='fepacheco',
-                senha='4210',
-                cpf='111.111.111-11',
-                email='email@xpto.com',
-                nome='fernando',
-            )
-            usuario.salvar()
 
 
 sa.orm.configure_mappers()
