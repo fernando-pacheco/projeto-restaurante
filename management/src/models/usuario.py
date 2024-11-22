@@ -40,13 +40,12 @@ class UsuarioModel(db.Model, UserMixin):
     )
     ativo = db.Column(db.Boolean, default=True)
 
-    def __init__(self, nome_usuario, senha, cpf, nome, email, sobrenome):
+    def __init__(self, nome_usuario, senha, cpf, nome, email):
         self.nome_usuario = nome_usuario
         self.definir_senha(senha)
         self.cpf = cpf
         self.nome = nome
         self.email = email
-        self.sobrenome = sobrenome
 
     def __repr__(self):
         return f'<UsuarioModel(id={self.id}, nome_usuario={self.nome_usuario}), senha={self.senha})>'

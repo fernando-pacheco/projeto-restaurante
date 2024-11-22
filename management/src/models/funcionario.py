@@ -39,7 +39,7 @@ class FuncionarioModel(db.Model, UserMixin):
         db.DateTime(timezone=True), default=func.now(), onupdate=func.now()
     )
     empresa_id = db.Column(
-        UUID(as_uuid=True), db.ForeignKey('Empresas.id'), nullable=False
+        UUID(as_uuid=True), db.ForeignKey('management.Empresas.id', ondelete='CASCADE'), nullable=False
     )
     ativo = db.Column(db.Boolean, default=True)
 
