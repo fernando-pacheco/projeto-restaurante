@@ -1,5 +1,6 @@
 from sqlalchemy import inspect
 from src.db import db_instance
+from src.models.token import TokenBlocklistModel
 from src.models.usuario import UsuarioModel
 
 
