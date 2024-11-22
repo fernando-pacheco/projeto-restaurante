@@ -1,0 +1,44 @@
+import os
+
+from flask import Flask
+from src.db import config_sql_alchemy, db_instance
+# from src.init_db import init_load_data
+from src.migrate import load_migrate
+from src.routes import config_app_routes
+from src.schema import config_marshmallow
+from src.swagger_docs import config_swagger
+# from src.versioning_db import config_versioning
+
+app = Flask(__name__)
+
+app.config['BUNDLE_ERRORS'] = True
+app.config['DEBUG'] = int(os.environ.get('FLASK_DEBUG', '0')) == 1
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
+# Config SQLAlchemy
+config_sql_alchemy(app)
+# config_versioning()
+
+
+@app.cli.command('initdb')
+def initdb_command():
+    """Initializes the database."""
+    # init_load_data()
+    print('Initialized the database.')
+
+
+# Config Marshmallow
+config_marshmallow(app)
+
+# Config Swagger Documentation
+docs = config_swagger(app)
+
+# Config Flask Restful
+api = config_app_routes(app, docs)
+
+# Load Flask Migrate
+migrate = load_migrate(db_instance, app)
+
+
+if __name__ == '__main__':
+    app.run()
