@@ -1,5 +1,6 @@
 venv/
 .env
+*.env
 .terragrunt-cache/
 .terraform.*
 *pytest*/
