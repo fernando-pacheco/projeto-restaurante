@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 from src.db import config_sql_alchemy, db_instance
+
 # from src.init_db import init_load_data
 from src.migrate import load_migrate
 from src.routes import config_app_routes
@@ -13,7 +14,7 @@ app = Flask(__name__)
 
 app.config['BUNDLE_ERRORS'] = True
 app.config['DEBUG'] = int(os.environ.get('FLASK_DEBUG', '0')) == 1
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback_sk')
 
 # Config SQLAlchemy
 config_sql_alchemy(app)

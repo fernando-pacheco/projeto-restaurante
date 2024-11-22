@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 app.config['BUNDLE_ERRORS'] = True
 app.config['DEBUG'] = int(os.environ.get('FLASK_DEBUG', '0')) == 1
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback_sk')
 
 # Config SQLAlchemy
 config_sql_alchemy(app)
@@ -24,7 +24,6 @@ config_versioning()
 
 @app.cli.command('initdb')
 def initdb_command():
-    """Initializes the database."""
     init_load_data()
     print('Base de dados inicializada.')
 
