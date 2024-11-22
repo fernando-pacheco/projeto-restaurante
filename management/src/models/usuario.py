@@ -22,7 +22,7 @@ def get_user(user_id):
 class UsuarioModel(db.Model, UserMixin):
     __versioned__ = {'exclude': ['data_criacao', 'data_atualizacao']}
     __tablename__ = 'Usuarios'
-    __table_args__ = {'schema': os.getenv('MANAGEMENT_DB_SCHEMA')}
+    __table_args__ = {'schema': os.getenv('DEFAULT_DB_SCHEMA')}
 
     id = db.Column(
         UUID(as_uuid=True),
@@ -43,12 +43,13 @@ class UsuarioModel(db.Model, UserMixin):
     )
     ativo = db.Column(db.Boolean, default=True)
 
-    def __init__(self, nome_usuario, senha, cpf, nome, email):
+    def __init__(self, nome_usuario, senha, cpf, nome, email, sobrenome):
         self.nome_usuario = nome_usuario
         self.definir_senha(senha)
         self.cpf = cpf
         self.nome = nome
         self.email = email
+        self.sobrenome = sobrenome
 
     def __repr__(self):
         return '<UserModel(id={self.id!r}, nome_usuario={self.nome_usuario!r}), senha={self.senha!r})>'.format(
