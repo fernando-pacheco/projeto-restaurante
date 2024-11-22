@@ -52,9 +52,7 @@ class UsuarioModel(db.Model, UserMixin):
         self.sobrenome = sobrenome
 
     def __repr__(self):
-        return '<UserModel(id={self.id!r}, nome_usuario={self.nome_usuario!r}), senha={self.senha!r})>'.format(
-            self=self
-        )
+        return f'<UsuarioModel(id={self.id}, nome_usuario={self.nome_usuario}), senha={self.senha})>'
 
     def definir_senha(self, senha):
         self.senha = generate_password_hash(senha)
