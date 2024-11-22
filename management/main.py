@@ -2,8 +2,8 @@ import os
 
 from flask import Flask
 from src.db import config_sql_alchemy, db_instance
-# from src.init_db import init_load_data
-# from src.login_manager import init_login_manager
+from src.init_db import init_load_data
+from src.login_manager import init_login_manager
 from src.migrate import load_migrate
 from src.routes import config_app_routes
 from src.schema import config_marshmallow
@@ -25,15 +25,15 @@ config_versioning()
 @app.cli.command('initdb')
 def initdb_command():
     """Initializes the database."""
-    # init_load_data()
-    print('Initialized the database.')
+    init_load_data()
+    print('Base de dados inicializada.')
 
 
 # Config Marshmallow
 config_marshmallow(app)
 
 # Init Login Manager
-# init_login_manager(app)
+init_login_manager(app)
 
 # Config Flask JWT Extended
 jwt = config_jwt_token(app)
