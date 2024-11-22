@@ -2,6 +2,7 @@ import os
 
 import sqlalchemy as sa
 from sqlalchemy.sql import func
+
 from src.db import db_instance as db
 from src.db import db_persist
 

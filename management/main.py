@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+
 from src.db import config_sql_alchemy, db_instance
 from src.init_db import init_load_data
 from src.login_manager import init_login_manager

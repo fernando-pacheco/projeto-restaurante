@@ -4,6 +4,7 @@ from flask_apispec.views import MethodResource
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 from marshmallow import fields
+
 from src.models.usuario import UsuarioModel
 from src.schemas.token import MessageSchema
 from src.schemas.usuario import (

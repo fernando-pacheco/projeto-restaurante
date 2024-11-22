@@ -4,6 +4,7 @@ from logging.config import fileConfig
 
 from alembic import context
 from flask import current_app
+
 from src.db import db_instance as db
 
 # Configuração básica de logging

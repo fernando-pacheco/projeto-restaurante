@@ -6,10 +6,11 @@ from flask_login import UserMixin
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 from sqlalchemy_history import make_versioned
+from werkzeug.security import check_password_hash, generate_password_hash
+
 from src.db import db_instance as db
 from src.db import db_persist
 from src.login_manager import login_manager
-from werkzeug.security import check_password_hash, generate_password_hash
 
 make_versioned(user_cls='UsuarioModel')
 

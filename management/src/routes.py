@@ -1,4 +1,5 @@
 from flask_restful import Api
+
 from src.resources.health_checker import HealthCheckerResource
 from src.resources.token import TokenRefresherResource, TokenResource
 from src.resources.usuario import UsuarioRegisterResource
