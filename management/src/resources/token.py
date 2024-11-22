@@ -47,7 +47,7 @@ class TokenResource(MethodResource, Resource):
             {
                 'access_token': token_acesso,
                 'refresh_token': refresh_token,
-                'uid': usuario.id,
+                'usuario_id': usuario.id,
             },
             201,
         )
