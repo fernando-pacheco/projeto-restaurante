@@ -2,7 +2,6 @@ import os
 
 from flask import Flask
 from src.db import config_sql_alchemy, db_instance
-
 # from src.init_db import init_load_data
 # from src.login_manager import init_login_manager
 from src.migrate import load_migrate
@@ -10,8 +9,7 @@ from src.routes import config_app_routes
 from src.schema import config_marshmallow
 from src.security import config_app_cors, config_jwt_token
 from src.swagger_docs import config_swagger
-
-# from src.versioning_db import config_versioning
+from src.versioning_db import config_versioning
 
 app = Flask(__name__)
 
@@ -21,7 +19,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 # Config SQLAlchemy
 config_sql_alchemy(app)
-# config_versioning()
+config_versioning()
 
 
 @app.cli.command('initdb')

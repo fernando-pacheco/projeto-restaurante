@@ -7,7 +7,7 @@ from src.migrate import load_migrate
 from src.routes import config_app_routes
 from src.schema import config_marshmallow
 from src.swagger_docs import config_swagger
-# from src.versioning_db import config_versioning
+from src.versioning_db import config_versioning
 
 app = Flask(__name__)
 
@@ -17,7 +17,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 # Config SQLAlchemy
 config_sql_alchemy(app)
-# config_versioning()
+config_versioning()
 
 
 @app.cli.command('initdb')
