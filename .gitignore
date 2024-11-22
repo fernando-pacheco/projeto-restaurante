@@ -6,4 +6,3 @@ venv/
 *pytest*/
 __pycache__/
 .coverage
-*.json
