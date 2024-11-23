@@ -34,7 +34,7 @@ class FuncaoModel(db.Model):
         return cls.query.filter_by(id=id).first()
 
     @classmethod
-    def encontrar_por_numero(cls, funcao):
+    def encontrar_por_funcao(cls, funcao):
         return cls.query.filter_by(funcao=funcao).first()
 
     @staticmethod
