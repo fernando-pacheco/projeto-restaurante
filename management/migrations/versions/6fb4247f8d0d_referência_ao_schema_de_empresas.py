@@ -3,7 +3,6 @@
 Revision ID: 6fb4247f8d0d
 Revises: 925461498a71
 Create Date: 2024-11-22 20:21:57.914712
-
 """
 from alembic import op
 import sqlalchemy as sa
@@ -23,12 +22,25 @@ def upgrade():
 
     with op.batch_alter_table('Funcionarios', schema=None) as batch_op:
         batch_op.create_unique_constraint(None, ['id'])
-        batch_op.drop_constraint('Funcionarios_empresa_id_fkey', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'Empresas', ['empresa_id'], ['id'], referent_schema='management', ondelete='CASCADE')
+        batch_op.drop_constraint(
+            'Funcionarios_empresa_id_fkey', type_='foreignkey'
+        )
+        batch_op.create_foreign_key(
+            None,
+            'Empresas',
+            ['empresa_id'],
+            ['id'],
+            referent_schema='management',
+            ondelete='CASCADE',
+        )
 
     with op.batch_alter_table('TokenBlockList', schema=None) as batch_op:
         batch_op.drop_index('ix_TokenBlockList_jti')
-        batch_op.create_index(batch_op.f('ix_management_TokenBlockList_jti'), ['jti'], unique=False)
+        batch_op.create_index(
+            batch_op.f('ix_management_TokenBlockList_jti'),
+            ['jti'],
+            unique=False,
+        )
 
     with op.batch_alter_table('Usuarios', schema=None) as batch_op:
         batch_op.create_unique_constraint(None, ['id'])
@@ -47,7 +59,9 @@ def downgrade():
 
     with op.batch_alter_table('Funcionarios', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='foreignkey')
-        batch_op.create_foreign_key('Funcionarios_empresa_id_fkey', 'Empresas', ['empresa_id'], ['id'])
+        batch_op.create_foreign_key(
+            'Funcionarios_empresa_id_fkey', 'Empresas', ['empresa_id'], ['id']
+        )
         batch_op.drop_constraint(None, type_='unique')
 
     with op.batch_alter_table('Empresas', schema=None) as batch_op:
