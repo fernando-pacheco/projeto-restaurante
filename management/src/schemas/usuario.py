@@ -65,7 +65,7 @@ class UsuarioRequestPutSchema(Schema):
 
 
 class UsuarioRequestGetSchema(Schema):
-    usuario_id = fields.UUID(required=True, default='id', help='Invalid id')
+    usuario_id = fields.UUID(required=True, default='id', help='ID inválido')
 
 
 usuario_schema = UsuarioResponseSchema()

@@ -16,7 +16,7 @@ from src.schemas.usuario import (
 )
 
 
-@doc(description='User Register API', tags=['User'])
+@doc(description='Usuário Registro API', tags=['Usuário'])
 class UsuarioRegisterResource(MethodResource, Resource):
     @marshal_with(UsuarioResponseSchema, code=201)
     @marshal_with(MessageSchema, code=400)

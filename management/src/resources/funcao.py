@@ -17,15 +17,11 @@ class FuncaoResource(MethodResource, Resource):
     @use_kwargs(FuncaoRequestGetSchema, location='query')
     @doc(description='Obter função')
     def get(self, **kwargs):
-        resposta = make_response(
-            {'message': 'Função não encontrada'}, 400
-        )
-        
+        resposta = make_response({'message': 'Função não encontrada'}, 400)
+
         funcao = FuncaoModel.encontrar_por_funcao(kwargs['funcao'])
-        
+
         if funcao:
-            resposta = make_response(
-                funcao_schema.dump(funcao), 201
-            )
-        
+            resposta = make_response(funcao_schema.dump(funcao), 201)
+
         return resposta
