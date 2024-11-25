@@ -1,20 +1,38 @@
 from flask_restful import Api
 
+from src.resources.funcionario import FuncionarioRegisterResource
 from src.resources.empresa import EmpresaRegisterResource
 from src.resources.health_checker import HealthCheckerResource
-from src.resources.token import TokenRefresherResource, TokenResource
+from src.resources.token import (
+    TokenRefresherResource,
+    TokenFuncionarioResource,
+    TokenUsuarioResource,
+)
 from src.resources.usuario import UsuarioRegisterResource
 from src.resources.funcao import FuncaoResource
 
 
 def config_app_routes(app, docs):
     api = Api(app)
-    __setting_route_doc(UsuarioRegisterResource, '/user', api, docs)
-    __setting_route_doc(TokenResource, '/token', api, docs)
-    __setting_route_doc(TokenRefresherResource, '/token/refresh', api, docs)
-    __setting_route_doc(HealthCheckerResource, '/health', api, docs)
-    __setting_route_doc(FuncaoResource, '/funcao', api, docs)
+
+    # Entidade
+    __setting_route_doc(UsuarioRegisterResource, '/usuario', api, docs)
+    __setting_route_doc(FuncionarioRegisterResource, '/funcionario', api, docs)
     __setting_route_doc(EmpresaRegisterResource, '/empresa', api, docs)
+
+    # Token
+    __setting_route_doc(TokenUsuarioResource, '/token-usuario', api, docs)
+    __setting_route_doc(
+        TokenFuncionarioResource, '/token-funcionario', api, docs
+    )
+    __setting_route_doc(TokenRefresherResource, '/token/refresh', api, docs)
+
+    # Health Checker
+    __setting_route_doc(HealthCheckerResource, '/health', api, docs)
+
+    # Permissão
+    __setting_route_doc(FuncaoResource, '/funcao', api, docs)
+
     return api
 
 
