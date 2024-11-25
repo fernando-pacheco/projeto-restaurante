@@ -31,7 +31,7 @@ class UsuarioRegisterResource(MethodResource, Resource):
             resposta = make_response(
                 {'message': 'Esse nome de usuário já existe'}, 400
             )
-            
+
         if UsuarioModel.encontrar_por_email(kwargs['email']):
             resposta = make_response(
                 {'message': 'Esse email já está cadastrado'}, 400
@@ -59,37 +59,43 @@ class UsuarioRegisterResource(MethodResource, Resource):
     @doc(description='Atualizar usuário salvo')
     @jwt_required()
     def put(self, **kwargs):
+        resposta = make_response(
+            {'message': 'Erro ao atualizar usuário.'}, 400
+        )
+
         usuario_id = kwargs['usuario_id']
         usuario = UsuarioModel.encontrar_por_id(usuario_id)
 
-        if not usuario:
-            return make_response(
+        if usuario:
+            for campo, valor in kwargs.items():
+                if (
+                    campo not in ['usuario_id', 'Authorization']
+                    and valor is not None
+                ):
+
+                    if campo == 'senha':
+                        usuario.definir_senha(valor)
+
+                    elif hasattr(usuario, campo):
+                        if isinstance(getattr(usuario, campo), bool):
+                            valor = str(valor).lower() == 'true'
+
+                        setattr(usuario, campo, valor)
+
+                    else:
+                        resposta = make_response(
+                            {'message': f'O campo {campo} não é válido.'}, 400
+                        )
+
+            if usuario.salvar():
+                resposta = make_response(usuario_schema.dump(usuario), 200)
+
+        else:
+            resposta = make_response(
                 {'message': 'ID de usuário não existente'}, 400
             )
 
-        for campo, valor in kwargs.items():
-            if (
-                campo not in ['usuario_id', 'Authorization']
-                and valor is not None
-            ):
-
-                if campo == 'senha':
-                    usuario.definir_senha(valor)
-
-                elif hasattr(usuario, campo):
-                    if isinstance(getattr(usuario, campo), bool):
-                        valor = str(valor).lower() == 'true'
-
-                    setattr(usuario, campo, valor)
-
-                else:
-                    return make_response(
-                        {'message': f'O campo {campo} não é válido.'}, 400
-                    )
-
-        usuario.salvar()
-
-        return make_response(usuario_schema.dump(usuario), 201)
+        return resposta
 
     @use_kwargs(
         {
