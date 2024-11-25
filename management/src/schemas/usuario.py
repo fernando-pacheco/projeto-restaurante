@@ -26,7 +26,6 @@ class UsuarioResponseSchema(ma.Schema):
             'data_atualizacao',
             'ativo',
         )
-        ordered = True
 
     _links = ma.Hyperlinks({'self': ma.URLFor('usuario')})
 

@@ -10,7 +10,6 @@ class FuncaoResponseSchema(ma.Schema):
 
     class Meta:
         fields = ('id', 'funcao', 'nivel')
-        ordered = True
 
     _links = ma.Hyperlinks({'self': ma.URLFor('funcao')})
 
