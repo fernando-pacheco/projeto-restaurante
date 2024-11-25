@@ -1,5 +1,6 @@
 from flask_restful import Api
 
+from src.resources.empresa import EmpresaRegisterResource
 from src.resources.health_checker import HealthCheckerResource
 from src.resources.token import TokenRefresherResource, TokenResource
 from src.resources.usuario import UsuarioRegisterResource
@@ -13,6 +14,7 @@ def config_app_routes(app, docs):
     __setting_route_doc(TokenRefresherResource, '/token/refresh', api, docs)
     __setting_route_doc(HealthCheckerResource, '/health', api, docs)
     __setting_route_doc(FuncaoResource, '/funcao', api, docs)
+    __setting_route_doc(EmpresaRegisterResource, '/empresa', api, docs)
     return api
 
 
