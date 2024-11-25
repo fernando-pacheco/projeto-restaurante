@@ -70,7 +70,7 @@ class FuncionarioRegisterResource(MethodResource, Resource):
     @use_kwargs(FuncionarioRequestGetSchema, location='query')
     @marshal_with(FuncionarioResponseSchema, code=201)
     @marshal_with(MessageSchema, code=400)
-    @doc(description='Register a new user')
+    @doc(description='Obter informações de um funcionário')
     @jwt_required()
     def get(self, **kwargs):
         funcionario_id = kwargs['id']
