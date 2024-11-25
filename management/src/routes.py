@@ -1,5 +1,8 @@
 from flask_restful import Api
 
+from management.src.resources.funcao_funcionario import (
+    FuncaoFuncionarioRegisterResource,
+)
 from src.resources.funcionario import FuncionarioRegisterResource
 from src.resources.empresa import EmpresaRegisterResource
 from src.resources.health_checker import HealthCheckerResource
@@ -32,6 +35,9 @@ def config_app_routes(app, docs):
 
     # Permissão
     __setting_route_doc(FuncaoResource, '/funcao', api, docs)
+    __setting_route_doc(
+        FuncaoFuncionarioRegisterResource, '/funcao-funcionario', api, docs
+    )
 
     return api
 
