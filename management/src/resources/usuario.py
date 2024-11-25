@@ -1,10 +1,14 @@
 from flask import make_response
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_restful import Resource
 from marshmallow import fields
 
+from src.utils.funcoes_auxiliares import (
+    retorno_nao_autorizado,
+    atualizar_objeto,
+)
 from src.models.usuario import UsuarioModel
 from src.schemas.token import MessageSchema
 from src.schemas.usuario import (
@@ -59,41 +63,22 @@ class UsuarioRegisterResource(MethodResource, Resource):
     @doc(description='Atualizar usuário salvo')
     @jwt_required()
     def put(self, **kwargs):
-        resposta = make_response(
-            {'message': 'Erro ao atualizar usuário.'}, 400
-        )
-
         usuario_id = kwargs['usuario_id']
         usuario = UsuarioModel.encontrar_por_id(usuario_id)
 
-        if usuario:
-            for campo, valor in kwargs.items():
-                if (
-                    campo not in ['usuario_id', 'Authorization']
-                    and valor is not None
-                ):
+        if str(usuario_id) == get_jwt_identity():
+            if usuario:
+                usuario, resposta = atualizar_objeto(kwargs, usuario)
 
-                    if campo == 'senha':
-                        usuario.definir_senha(valor)
+                if usuario.salvar():
+                    resposta = make_response(usuario_schema.dump(usuario), 200)
 
-                    elif hasattr(usuario, campo):
-                        if isinstance(getattr(usuario, campo), bool):
-                            valor = str(valor).lower() == 'true'
-
-                        setattr(usuario, campo, valor)
-
-                    else:
-                        resposta = make_response(
-                            {'message': f'O campo {campo} não é válido.'}, 400
-                        )
-
-            if usuario.salvar():
-                resposta = make_response(usuario_schema.dump(usuario), 200)
-
+            else:
+                resposta = make_response(
+                    {'message': 'ID de usuário não existente'}, 400
+                )
         else:
-            resposta = make_response(
-                {'message': 'ID de usuário não existente'}, 400
-            )
+            resposta = retorno_nao_autorizado()
 
         return resposta
 
@@ -115,8 +100,12 @@ class UsuarioRegisterResource(MethodResource, Resource):
         usuario = UsuarioModel.encontrar_por_id(usuario_id)
         resposta = make_response({'message': 'Usuário não encontrado'}, 404)
 
-        if usuario:
-            resposta = make_response(usuario_schema.dump(usuario), 200)
+        if str(usuario_id) == get_jwt_identity():
+            if usuario:
+                resposta = make_response(usuario_schema.dump(usuario), 200)
+
+        else:
+            resposta = retorno_nao_autorizado()
 
         return resposta
 
@@ -138,10 +127,23 @@ class UsuarioRegisterResource(MethodResource, Resource):
         usuario = UsuarioModel.encontrar_por_id(usuario_id)
         resposta = make_response({'message': 'Usuário não encontrado'}, 404)
 
-        if usuario:
-            usuario.excluir()
-            resposta = make_response(
-                {'message': 'Usuário excluído com sucesso'}, 201
-            )
+        if str(usuario_id) == get_jwt_identity():
+            if usuario:
+                usuario.ativo == False
+                usuario.salvar()
+                resposta = make_response(
+                    {
+                        'message': 'Funcionário desativado, será excluído após um período de 30 dias.'
+                    },
+                    200,
+                )
+
+            else:
+                resposta = make_response(
+                    {'message': 'Funcionário já está desativada'}, 400
+                )
+
+        else:
+            resposta = retorno_nao_autorizado()
 
         return resposta
