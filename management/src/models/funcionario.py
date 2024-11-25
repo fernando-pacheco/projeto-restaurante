@@ -30,7 +30,7 @@ class FuncionarioModel(db.Model, UserMixin):
     )
     nome = db.Column(db.String(50), nullable=False)
     sobrenome = db.Column(db.String(100), nullable=True)
-    cpf = db.Column(db.String(14), nullable=False)
+    cpf = db.Column(db.String(14), nullable=False, unique=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
     nome_usuario = db.Column(db.String(50), unique=True, nullable=False)
     senha = db.Column(db.String(200))
@@ -47,12 +47,15 @@ class FuncionarioModel(db.Model, UserMixin):
 
     empresa = db.relationship('EmpresaModel', backref='funcionarios')
 
-    def __init__(self, nome_usuario, senha, cpf, nome, email, sobrenome):
+    def __init__(
+        self, nome_usuario, senha, cpf, nome, email, empresa_id, sobrenome
+    ):
         self.nome_usuario = nome_usuario
         self.definir_senha(senha)
         self.cpf = cpf
         self.nome = nome
         self.email = email
+        self.empresa_id = empresa_id
         self.sobrenome = sobrenome
 
     def __repr__(self):
@@ -74,8 +77,20 @@ class FuncionarioModel(db.Model, UserMixin):
         return cls.query.filter_by(nome_usuario=nome_usuario).first()
 
     @classmethod
+    def encontrar_por_email(cls, email):
+        return cls.query.filter_by(email=email).first()
+
+    @classmethod
+    def encontrar_por_cpf(cls, cpf):
+        return cls.query.filter_by(cpf=cpf).first()
+
+    @classmethod
     def encontrar_por_id(cls, id):
         return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def encontrar_empresa_id_por_funcionario_id(cls, funcionario_id):
+        return cls.query.filter_by(id=funcionario_id).first().empresa_id
 
     def verificar_senha(self, senha):
         return check_password_hash(self.senha, senha)
