@@ -16,6 +16,7 @@ from marshmallow import fields
 
 from src.models.token import TokenBlocklistModel
 from src.models.usuario import UsuarioModel
+from src.models.funcionario import FuncionarioModel
 from src.schemas.token import (
     AccessRefreshTokenRequestSchema,
     AccessRefreshTokenUidResponseSchema,
@@ -25,7 +26,7 @@ from src.schemas.token import (
 
 
 @doc(description='Token API', tags=['Token'])
-class TokenResource(MethodResource, Resource):
+class TokenUsuarioResource(MethodResource, Resource):
     @use_kwargs(AccessRefreshTokenRequestSchema, location='json')
     @marshal_with(AccessRefreshTokenUidResponseSchema, code=201)
     @marshal_with(MessageSchema, code=401)
@@ -49,6 +50,56 @@ class TokenResource(MethodResource, Resource):
                 'access_token': token_acesso,
                 'refresh_token': refresh_token,
                 'usuario_id': usuario.id,
+            },
+            201,
+        )
+
+    @use_kwargs(
+        {
+            'Authorization': fields.Str(
+                required=True, description='Bearer [access_token]'
+            )
+        },
+        location='headers',
+    )
+    @marshal_with(MessageSchema, code=201)
+    @doc(description='Revogar token de acesso atual')
+    @jwt_required()
+    def delete(self, **kwargs):
+        jti = get_jwt()['jti']
+        logout_user()
+        agora = datetime.now(timezone.utc)
+        TokenBlocklistModel(jti=jti, data_criacao=agora).salvar()
+        return make_response(
+            {'message': 'Token de acesso revogado ou expirado'}, 201
+        )
+
+
+@doc(description='Token API', tags=['Token'])
+class TokenFuncionarioResource(MethodResource, Resource):
+    @use_kwargs(AccessRefreshTokenRequestSchema, location='json')
+    @marshal_with(AccessRefreshTokenUidResponseSchema, code=201)
+    @marshal_with(MessageSchema, code=401)
+    @doc(description='Login e gerador de novo acesso')
+    def post(self, **kwargs):
+        nome_usuario = kwargs['nome_usuario']
+        senha = kwargs['senha']
+        funcionario = FuncionarioModel.query.filter_by(
+            nome_usuario=nome_usuario
+        ).first()
+        if not funcionario or not funcionario.verificar_senha(senha):
+            return make_response(
+                {'message': 'Nome de usuário ou senha inválido'}, 401
+            )
+
+        login_user(funcionario)
+        token_acesso = create_access_token(identity=funcionario.id)
+        refresh_token = create_refresh_token(funcionario.id)
+        return make_response(
+            {
+                'access_token': token_acesso,
+                'refresh_token': refresh_token,
+                'funcionario_id': funcionario.id,
             },
             201,
         )
