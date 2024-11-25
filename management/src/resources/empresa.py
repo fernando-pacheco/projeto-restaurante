@@ -26,7 +26,9 @@ class EmpresaRegisterResource(MethodResource, Resource):
         )
 
         if EmpresaModel.encontrar_por_cnpj(kwargs['cnpj']):
-            resposta = make_response({'message': 'Essa empresa já cadastrada.'}, 400)
+            resposta = make_response(
+                {'message': 'Essa empresa já cadastrada.'}, 400
+            )
 
         empresa = EmpresaModel(**kwargs)
 
@@ -125,9 +127,7 @@ class EmpresaRegisterResource(MethodResource, Resource):
         empresa = EmpresaModel.encontrar_por_id(kwargs['id'])
 
         if empresa.status:
-            print(empresa.status)
             empresa.status = False
-            print(empresa.status)
             empresa.salvar()
             resposta = make_response(
                 {
