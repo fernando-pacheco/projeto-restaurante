@@ -5,7 +5,7 @@ from flask import make_response
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
-# from src.models.token import TokenBlocklistModel
+from src.models.token import TokenBlocklistModel
 
 ACCESS_EXPIRES = timedelta(hours=12)
 REFRESH_EXPIRES = timedelta(hours=24)
@@ -20,11 +20,11 @@ def config_jwt_token(app):
 
     jwt = JWTManager(app)
 
-    # @jwt.token_in_blocklist_loader
-    # def check_if_token_is_revoked(jwt_header, jwt_payload):
-    #     jti = jwt_payload["jti"]
-    #     token = TokenBlocklistModel.get_token(jti)
-    #     return token is not None
+    @jwt.token_in_blocklist_loader
+    def check_if_token_is_revoked(jwt_header, jwt_payload):
+        jti = jwt_payload['jti']
+        token = TokenBlocklistModel.obter_token(jti)
+        return token is not None
 
     @jwt.expired_token_loader
     @jwt.revoked_token_loader
