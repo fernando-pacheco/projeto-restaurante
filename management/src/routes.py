@@ -1,6 +1,6 @@
 from flask_restful import Api
 
-from management.src.resources.funcao_funcionario import (
+from src.resources.funcao_funcionario import (
     FuncaoFuncionarioRegisterResource,
 )
 from src.resources.funcionario import FuncionarioRegisterResource

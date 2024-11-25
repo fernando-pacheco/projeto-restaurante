@@ -5,12 +5,15 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
 from marshmallow import fields
 
-from management.src.schemas.funcionario import FuncionarioRequestPostSchema, FuncionarioResponseSchema
+from src.schemas.funcionario import (
+    FuncionarioRequestPostSchema,
+    FuncionarioResponseSchema,
+)
 from src.utils.funcoes_auxiliares import (
     retorno_nao_autorizado,
     atualizar_objeto,
 )
-from schemas.funcao_funcionario import (
+from src.schemas.funcao_funcionario import (
     FuncaoFuncionarioResponseSchema,
     FuncaoFuncionarioResquestGetSchema,
     FuncaoFuncionarioResquestPostSchema,
@@ -37,7 +40,7 @@ class FuncaoFuncionarioRegisterResource(MethodResource, Resource):
     @jwt_required()
     def post(self, **kwargs):
         pass
-    
+
     @use_kwargs(
         {
             'Authorization': fields.Str(
@@ -52,7 +55,7 @@ class FuncaoFuncionarioRegisterResource(MethodResource, Resource):
     @jwt_required()
     def get(self, **kwargs):
         pass
-    
+
     @use_kwargs(
         {
             'Authorization': fields.Str(
@@ -68,7 +71,7 @@ class FuncaoFuncionarioRegisterResource(MethodResource, Resource):
     @jwt_required()
     def put(self, **kwargs):
         pass
-    
+
     @use_kwargs(
         {
             'Authorization': fields.Str(
