@@ -31,6 +31,11 @@ class UsuarioRegisterResource(MethodResource, Resource):
             resposta = make_response(
                 {'message': 'Esse nome de usuário já existe'}, 400
             )
+            
+        if UsuarioModel.encontrar_por_email(kwargs['email']):
+            resposta = make_response(
+                {'message': 'Esse email já está cadastrado'}, 400
+            )
 
         usuario = UsuarioModel(**kwargs)
 

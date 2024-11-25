@@ -69,6 +69,10 @@ class UsuarioModel(db.Model, UserMixin):
     def encontrar_por_id(cls, id):
         return cls.query.filter_by(id=id).first()
 
+    @classmethod
+    def encontrar_por_email(cls, email):
+        return cls.query.filter_by(email=email).first()
+
     def verificar_senha(self, senha):
         return check_password_hash(self.senha, senha)
 
