@@ -116,13 +116,14 @@ class FuncionarioRegisterResource(MethodResource, Resource):
 
         if str(funcionario_id) == get_jwt_identity():
             funcionario, resposta = atualizar_objeto(kwargs, funcionario)
-            
+
             if funcionario.salvar():
-                resposta = make_response(funcionario_schema.dump(funcionario), 201)
-            
+                resposta = make_response(
+                    funcionario_schema.dump(funcionario), 201
+                )
+
         else:
             resposta = retorno_nao_autorizado()
-
 
         return resposta
 
