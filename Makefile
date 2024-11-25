@@ -1,7 +1,7 @@
 .PHONY: lint test
 
 lint:
-	blue . && isort .
+	blue .
 
 test: lint
 	pytest -s -x --cov=src -vv
