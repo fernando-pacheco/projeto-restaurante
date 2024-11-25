@@ -22,16 +22,17 @@ class EmpresaModel(db.Model):
     )
     nome = db.Column(db.String(100), nullable=True)
     razao_social = db.Column(db.String(100), nullable=False)
-    cnpj = db.Column(db.String(19), nullable=False, unique=True)
+    cnpj = db.Column(db.String(18), nullable=False, unique=True)
     status = db.Column(db.Boolean, default=True)
     data_criacao = db.Column(db.DateTime(timezone=True), default=func.now())
     data_atualizacao = db.Column(
         db.DateTime(timezone=True), default=func.now(), onupdate=func.now()
     )
 
-    def __init__(self, razao_social, cnpj):
+    def __init__(self, razao_social, cnpj, nome):
         self.razao_social = razao_social
         self.cnpj = cnpj
+        self.nome = nome
 
     def __repr__(self):
         return f'<EmpresaModel(id={self.id}, nome_usuario={self.razao_social}), senha={self.cnpj})>'
@@ -48,11 +49,15 @@ class EmpresaModel(db.Model):
     def encontrar_por_id(cls, id):
         return cls.query.filter_by(id=id).first()
 
+    @classmethod
+    def encontrar_por_cnpj(cls, cnpj):
+        return cls.query.filter_by(cnpj=cnpj).first()
+
     @staticmethod
     def init_data():
         if db.session.query(EmpresaModel.id).count() == 0:
             usuario = EmpresaModel(
-                cnpj='00.000.00/0001-00',
+                cnpj='00.000.000/0001-00',
                 razao_social='Empresa XPTO',
             )
             usuario.salvar()
