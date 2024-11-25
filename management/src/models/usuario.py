@@ -73,6 +73,10 @@ class UsuarioModel(db.Model, UserMixin):
     def encontrar_por_email(cls, email):
         return cls.query.filter_by(email=email).first()
 
+    @classmethod
+    def encontrar_por_cpf(cls, cpf):
+        return cls.query.filter_by(cpf=cpf).first()
+
     def verificar_senha(self, senha):
         return check_password_hash(self.senha, senha)
 

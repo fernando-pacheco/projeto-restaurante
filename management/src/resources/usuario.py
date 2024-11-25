@@ -40,6 +40,11 @@ class UsuarioRegisterResource(MethodResource, Resource):
             resposta = make_response(
                 {'message': 'Esse email já está cadastrado'}, 400
             )
+        
+        if UsuarioModel.encontrar_por_cpf(kwargs['cpf']):
+            resposta = make_response(
+                {'message': 'Esse cpf já está cadastrado.'}, 400
+            )
 
         usuario = UsuarioModel(**kwargs)
 
