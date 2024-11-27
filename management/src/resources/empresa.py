@@ -5,7 +5,6 @@ from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 from marshmallow import fields
 from src.models.empresa import EmpresaModel
-from src.models.funcao_funcionario import FuncaoFuncionarioModel
 from src.schemas.empresa import (
     EmpresaRequestGetSchema,
     EmpresaRequestPostSchema,
