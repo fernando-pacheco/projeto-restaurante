@@ -17,6 +17,10 @@ class FuncaoFuncionarioResquestGetSchema(Schema):
     id = fields.Int(required=True)
 
 
+class FuncaoFuncionarioResquestGetByFuncionarioIDSchema(Schema):
+    funcionario_id = fields.UUID(required=True)
+
+
 class FuncaoFuncionarioResquestPostSchema(Schema):
     funcionario_id = fields.UUID(required=True)
     funcao_id = fields.Int(required=True)

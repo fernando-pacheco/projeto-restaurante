@@ -26,6 +26,10 @@ class FuncaoFuncionarioModel(db.Model):
         nullable=False,
     )
 
+    def __init__(self, funcao_id, funcionario_id):
+        self.funcionario_id = funcionario_id
+        self.funcao_id = funcao_id
+
     @db_persist
     def salvar(self):
         db.session.add(self)
@@ -37,3 +41,7 @@ class FuncaoFuncionarioModel(db.Model):
     @classmethod
     def encontrar_por_id(cls, id):
         return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def encontrar_por_funcionario_id(cls, funcionario_id):
+        return cls.query.filter_by(funcionario_id=funcionario_id).all()
