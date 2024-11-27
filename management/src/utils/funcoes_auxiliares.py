@@ -29,13 +29,3 @@ def atualizar_objeto(kwargs, objeto):
                 )
 
     return objeto, resposta
-
-
-def obter_portador_id(kwargs):
-    if 'empresa_id' in kwargs:
-        portador_id = kwargs['empresa_id']
-
-    else:
-        portador_id = kwargs['usuario_id']
-
-    return portador_id

@@ -20,17 +20,22 @@ class TelefoneModel(db.Model):
     empresa_id = db.Column(
         UUID(as_uuid=True),
         db.ForeignKey('management.Empresas.id', ondelete='CASCADE'),
+        nullable=True,
     )
     usuario_id = db.Column(
         UUID(as_uuid=True),
         db.ForeignKey('management.Usuarios.id', ondelete='CASCADE'),
+        nullable=True,
+    )
+    funcionario_id = db.Column(
+        UUID(as_uuid=True),
+        db.ForeignKey('management.Funcionarios.id', ondelete='CASCADE'),
+        nullable=True,
     )
 
     empresa = db.relationship('EmpresaModel', backref='telefones')
     usuario = db.relationship('UsuarioModel', backref='telefones')
-
-    def __init__(self, numero):
-        self.numero = numero
+    funcionario = db.relationship('FuncionarioModel', backref='telefones')
 
     @db_persist
     def salvar(self):
@@ -40,9 +45,29 @@ class TelefoneModel(db.Model):
     def excluir(self):
         db.session.delete(self)
 
+    def obter_portador_id(self):
+        return self._obter_campo_valido(
+            ['funcionario_id', 'empresa_id', 'usuario_id']
+        )
+
+    def _obter_campo_valido(self, campos):
+        retorno = None
+
+        for campo in campos:
+            value = getattr(self, campo, None)
+
+            if value:
+                retorno = value
+
+        return retorno
+
     @classmethod
     def encontrar_por_id(cls, id):
         return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def encontrar_por_numero(cls, numero):
+        return cls.query.filter_by(numero=numero).first()
 
     @classmethod
     def encontrar_por_numero(cls, numero):
