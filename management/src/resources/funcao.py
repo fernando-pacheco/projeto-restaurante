@@ -1,3 +1,5 @@
+import json
+
 from flask import make_response
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
@@ -23,5 +25,25 @@ class FuncaoResource(MethodResource, Resource):
 
         if funcao:
             resposta = make_response(funcao_schema.dump(funcao), 201)
+
+        return resposta
+
+
+@doc(description='Funcao API', tags=['Função'])
+class FuncaoListResource(MethodResource, Resource):
+    @marshal_with(FuncaoResponseSchema, code=201)
+    @doc(description='Obter função')
+    def get(self):
+        resposta = make_response({'message': 'Funções não encontradas'}, 400)
+        funcoes_retorno = []
+        funcoes = FuncaoModel.listar_funcoes()
+
+        if funcoes:
+            for funcao in funcoes:
+                funcoes_retorno.append(funcao_schema.dump(funcao))
+
+            retorno = {'funcoes': funcoes_retorno}
+
+            resposta = make_response(json.dumps(retorno, indent=4), 201)
 
         return resposta

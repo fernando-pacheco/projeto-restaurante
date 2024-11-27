@@ -37,6 +37,10 @@ class FuncaoModel(db.Model):
     def encontrar_por_funcao(cls, funcao):
         return cls.query.filter_by(funcao=funcao).first()
 
+    @classmethod
+    def listar_funcoes(cls):
+        return cls.query.all()
+
     @staticmethod
     def init_data():
         funcoes = ['operador', 'financeiro', 'administrador', 'principal']

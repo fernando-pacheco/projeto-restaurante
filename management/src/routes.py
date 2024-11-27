@@ -12,7 +12,7 @@ from src.resources.token import (
     TokenUsuarioResource,
 )
 from src.resources.usuario import UsuarioRegisterResource
-from src.resources.funcao import FuncaoResource
+from src.resources.funcao import FuncaoResource, FuncaoListResource
 
 
 def config_app_routes(app, docs):
@@ -35,6 +35,7 @@ def config_app_routes(app, docs):
 
     # Permissão
     __setting_route_doc(FuncaoResource, '/funcao', api, docs)
+    __setting_route_doc(FuncaoListResource, '/funcao/all', api, docs)
     __setting_route_doc(
         FuncaoFuncionarioRegisterResource, '/funcao-funcionario', api, docs
     )
