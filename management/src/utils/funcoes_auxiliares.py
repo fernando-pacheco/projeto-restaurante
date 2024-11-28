@@ -4,7 +4,7 @@ from flask import make_response
 def retorno_nao_autorizado():
     return make_response(
         {'message': 'Usuário não autorizado a realizar esta ação.'},
-        401,
+        403,
     )
 
 
