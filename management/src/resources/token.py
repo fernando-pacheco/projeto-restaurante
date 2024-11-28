@@ -26,6 +26,7 @@ from src.schemas.token import (
 
 @doc(
     description='Obtém informações de um funcionário',
+    consumes=["application/json"],
     responses={
         200: {
             'description': 'Sucesso',
@@ -150,20 +151,13 @@ class TokenFuncionarioResource(MethodResource, Resource):
 
 @doc(description='Token refresher API', tags=['Auth'])
 class TokenRefresherResource(MethodResource, Resource):
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [refresh_token]'
-            )
-        },
-        location='headers',
-    )
-    @marshal_with(AccessTokenResponseSchema, code=201)
-    @doc(description='Refresh current access token')
+    @use_kwargs(AccessRefreshTokenRequestSchema, location="json")
+    @marshal_with(AccessRefreshTokenUidResponseSchema, code=200)
+    @doc(description="Atualiza um token de acesso usando o token de atualização.")
     @jwt_required(refresh=True)
     def post(self, **kwargs):
         jwt_usuario_atual = get_jwt_identity()
         novo_token = create_access_token(
             identity=jwt_usuario_atual, fresh=False
         )
-        return make_response({'access_token': novo_token}, 201)
+        return make_response({'token_acesso': novo_token}, 201)

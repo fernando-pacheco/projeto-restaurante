@@ -5,6 +5,8 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
 from src.db import db_instance as db
 from src.db import db_persist
+from src.models.empresa import EmpresaModel
+from src.models.usuario import UsuarioModel
 
 
 class EnderecoModel(db.Model):

@@ -8,58 +8,47 @@ def config_swagger(app):
         title='Gerenciador de Usuários - Documentação API',
         version='v1',
         plugins=[MarshmallowPlugin()],
-        openapi_version='2.0.0',
-        info=dict(
-            description='API para gerenciamento de clientes e colaboradores do projeto Restaurantes'
-        ),
+        openapi_version='3.0.2',
         components={
             'securitySchemes': {
                 'BearerAuth': {
                     'type': 'http',
                     'scheme': 'bearer',
                     'bearerFormat': 'JWT',
+                    'description': 'Cabeçalho de autorização JWT usando o esquema Bearer. Insira seu token JWT no formato "Bearer <token>"',
                 }
-            }
+            },
+            'requestBodies': {
+                'DefaultRequestBody': {
+                    'content': {
+                        'application/json': {'schema': {'type': 'object'}}
+                    }
+                }
+            },
         },
-    )
-
-    spec.options.update(
-        {
-            'security': [{'BearerAuth': []}],
-            'tags': [
-                {'name': 'Auth', 'description': 'Operações de autenticação'},
-                {'name': 'Usuários', 'description': 'Gestão de usuários'},
-                {'name': 'Empresas', 'description': 'Gestão de empresas'},
-                {'name': 'Funções', 'description': 'Gestão de funções'},
-                {
-                    'name': 'Função Funcionário',
-                    'description': 'Gestão de permissionamento',
-                },
-                {
-                    'name': 'Funcionários',
-                    'description': 'Gestão de funcionários',
-                },
-                {'name': 'Telefones', 'description': 'Gestão de telefones'},
-                {
-                    'name': 'Health Checker',
-                    'description': 'Verificação de funcionamento do servidor',
-                },
-            ],
-            'servers': [
-                {
-                    'url': 'http://127.0.0.1:5000/',
-                    'description': 'Servidor de Desenvolvimento',
-                },
-                # {
-                #     'url': 'http://api.homologacao.com/api/v1',
-                #     'description': 'Servidor de Homologação',
-                # },
-                # {
-                #     'url': 'https://api.producao.com/api/v1',
-                #     'description': 'Servidor de Produção',
-                # },
-            ],
-        }
+        security=[{'BearerAuth': []}],
+        tags=[
+            {'name': 'Auth', 'description': 'Operações de autenticação'},
+            {'name': 'Usuários', 'description': 'Gestão de usuários'},
+            {'name': 'Empresas', 'description': 'Gestão de empresas'},
+            {'name': 'Funcionários', 'description': 'Gestão de funcionários'},
+            {'name': 'Funções', 'description': 'Gestão de funções'},
+            {
+                'name': 'Função Funcionário',
+                'description': 'Gestão de permissionamento',
+            },
+            {'name': 'Telefones', 'description': 'Gestão de telefones'},
+            {
+                'name': 'Health Checker',
+                'description': 'Verificação de funcionamento do servidor',
+            },
+        ],
+        servers=[
+            {
+                'url': 'http://127.0.0.1:8000/',
+                'description': 'Servidor de Desenvolvimento',
+            }
+        ],
     )
 
     app.config.update(
@@ -69,4 +58,5 @@ def config_swagger(app):
             'APISPEC_SWAGGER_UI_URL': '/api/v1/',
         }
     )
+
     return FlaskApiSpec(app)

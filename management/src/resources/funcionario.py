@@ -12,14 +12,14 @@ from src.schemas.funcionario import (
     FuncionarioResponseSchema,
     funcionario_schema,
 )
-from src.schemas.token import MessageSchema
+from src.schemas.message import MessageSchema
 from src.utils.funcoes_auxiliares import (
     atualizar_objeto,
     retorno_nao_autorizado,
 )
 
 
-@doc(description='Funcionário Registro API', tags=['Funcionário'])
+@doc(description='Funcionário Registro API', tags=['Funcionários'])
 class FuncionarioRegisterResource(MethodResource, Resource):
     @marshal_with(FuncionarioResponseSchema, code=201)
     @marshal_with(MessageSchema, code=400)
@@ -58,14 +58,6 @@ class FuncionarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
     @use_kwargs(FuncionarioRequestGetSchema, location='query')
     @marshal_with(FuncionarioResponseSchema, code=201)
     @marshal_with(MessageSchema, code=400)
@@ -96,14 +88,6 @@ class FuncionarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
     @use_kwargs(FuncionarioRequestGetSchema, location='query')
     @use_kwargs(FuncionarioRequestPutSchema, location='json')
     @marshal_with(FuncionarioResponseSchema, code=201)
@@ -126,14 +110,6 @@ class FuncionarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
     @marshal_with(FuncionarioResponseSchema, code=201)
     @marshal_with(MessageSchema, code=400)
     @use_kwargs(FuncionarioRequestGetSchema, location='query')

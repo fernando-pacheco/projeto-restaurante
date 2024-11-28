@@ -52,14 +52,6 @@ class UsuarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
     @marshal_with(UsuarioResponseSchema, code=201)
     @marshal_with(MessageSchema, code=400)
     @use_kwargs(UsuarioRequestGetSchema, location='query')
@@ -86,14 +78,6 @@ class UsuarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
     @marshal_with(UsuarioResponseSchema, code=201)
     @marshal_with(MessageSchema, code=404)
     @use_kwargs(UsuarioRequestGetSchema, location='query')
@@ -113,14 +97,6 @@ class UsuarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
     @marshal_with(MessageSchema, code=201)
     @marshal_with(MessageSchema, code=404)
     @use_kwargs(UsuarioRequestGetSchema, location='query')
