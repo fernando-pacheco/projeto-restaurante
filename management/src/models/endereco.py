@@ -40,13 +40,19 @@ class EnderecoModel(db.Model):
     empresa = db.relationship('EmpresaModel', backref='enderecos')
     usuario = db.relationship('UsuarioModel', backref='enderecos')
 
-    def __init__(self, logradouro, numero, bairro, cidade, estado, cep):
-        self.logradouro = logradouro
-        self.numero = numero
-        self.bairro = bairro
-        self.cidade = cidade
-        self.estado = estado
-        self.cep = cep
+    def obter_portador_id(self):
+        return self._obter_campo_valido(['empresa_id', 'usuario_id'])
+
+    def _obter_campo_valido(self, campos):
+        retorno = None
+
+        for campo in campos:
+            value = getattr(self, campo, None)
+
+            if value:
+                retorno = value
+
+        return retorno
 
     @db_persist
     def salvar(self):
@@ -59,3 +65,19 @@ class EnderecoModel(db.Model):
     @classmethod
     def encontrar_por_id(cls, id):
         return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def encontrar_por_cep(cls, cep):
+        return cls.query.filter_by(cep=cep).first()
+
+    @classmethod
+    def listar_enderecos_por_entidade(
+        cls, entidade_id=None, tipo_entidade=None
+    ):
+        tipo_entidade_stg = {
+            'usuario': cls.usuario_id,
+            'empresa': cls.empresa_id,
+        }
+
+        filtro = tipo_entidade_stg[tipo_entidade]
+        return cls.query.filter(filtro == entidade_id).all()
