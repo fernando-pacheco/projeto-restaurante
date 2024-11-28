@@ -4,9 +4,8 @@ Revision ID: dd17d0ced380
 Revises: 91ea5a72e47f
 Create Date: 2024-11-26 22:17:23.679609
 """
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = 'dd17d0ced380'

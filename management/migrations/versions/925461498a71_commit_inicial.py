@@ -4,9 +4,8 @@ Revision ID: 925461498a71
 Revises:
 Create Date: 2024-11-22 20:00:57.680568
 """
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = '925461498a71'

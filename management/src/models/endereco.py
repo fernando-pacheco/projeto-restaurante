@@ -1,7 +1,7 @@
 import os
-import sqlalchemy as sa
 import uuid
 
+import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
 from src.db import db_instance as db
 from src.db import db_persist

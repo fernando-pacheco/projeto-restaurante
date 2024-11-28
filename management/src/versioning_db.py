@@ -1,5 +1,4 @@
 from sqlalchemy_history import make_versioned
-
 from src.plugin.flask_plugin import FlaskPlugin
 
 

@@ -4,19 +4,18 @@ from flask_apispec.views import MethodResource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
 from marshmallow import fields
-
-from src.utils.funcoes_auxiliares import (
-    retorno_nao_autorizado,
-    atualizar_objeto,
-)
 from src.models.funcionario import FuncionarioModel
-from src.schemas.token import MessageSchema
 from src.schemas.funcionario import (
     FuncionarioRequestGetSchema,
     FuncionarioRequestPostSchema,
     FuncionarioRequestPutSchema,
     FuncionarioResponseSchema,
     funcionario_schema,
+)
+from src.schemas.token import MessageSchema
+from src.utils.funcoes_auxiliares import (
+    atualizar_objeto,
+    retorno_nao_autorizado,
 )
 
 

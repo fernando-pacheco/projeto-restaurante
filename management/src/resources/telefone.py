@@ -1,22 +1,21 @@
 from flask import make_response
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
-from marshmallow import fields
-from flask_restful import Resource
 from flask_jwt_extended import get_jwt_identity, jwt_required
-from src.utils.funcoes_auxiliares import (
-    retorno_nao_autorizado,
-    # obter_portador_id,
-    atualizar_objeto,
-)
+from flask_restful import Resource
+from marshmallow import fields
 from src.models.telefone import TelefoneModel
 from src.schemas.telefone import (
+    TelefoneRequestGetNumeroSchema,
     TelefoneRequestGetSchema,
     TelefoneRequestPostSchema,
     TelefoneRequestPutSchema,
     TelefoneResponseSchema,
-    TelefoneRequestGetNumeroSchema,
     telefone_schema,
+)
+from src.utils.funcoes_auxiliares import (  # obter_portador_id,
+    atualizar_objeto,
+    retorno_nao_autorizado,
 )
 
 

@@ -8,8 +8,8 @@ from src.models.empresa import EmpresaModel
 from src.schemas.empresa import (
     EmpresaRequestGetSchema,
     EmpresaRequestPostSchema,
-    EmpresaResponseSchema,
     EmpresaRequestPutSchema,
+    EmpresaResponseSchema,
     empresa_schema,
 )
 

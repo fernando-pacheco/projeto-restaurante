@@ -7,17 +7,17 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
 from marshmallow import fields
 from src.models.funcao_funcionario import FuncaoFuncionarioModel
-from src.utils.funcoes_auxiliares import (
-    retorno_nao_autorizado,
-    atualizar_objeto,
-)
 from src.schemas.funcao_funcionario import (
     FuncaoFuncionarioResponseSchema,
+    FuncaoFuncionarioResquestGetByFuncionarioIDSchema,
     FuncaoFuncionarioResquestGetSchema,
     FuncaoFuncionarioResquestPostSchema,
     FuncaoFuncionarioResquestPutSchema,
-    FuncaoFuncionarioResquestGetByFuncionarioIDSchema,
     funcao_funcionario_schema,
+)
+from src.utils.funcoes_auxiliares import (
+    atualizar_objeto,
+    retorno_nao_autorizado,
 )
 
 

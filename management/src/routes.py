@@ -1,19 +1,16 @@
 from flask_restful import Api
-
-from src.resources.telefone import TelefoneRegisterResource
-from src.resources.funcao_funcionario import (
-    FuncaoFuncionarioRegisterResource,
-)
-from src.resources.funcionario import FuncionarioRegisterResource
 from src.resources.empresa import EmpresaRegisterResource
+from src.resources.funcao import FuncaoListResource, FuncaoResource
+from src.resources.funcao_funcionario import FuncaoFuncionarioRegisterResource
+from src.resources.funcionario import FuncionarioRegisterResource
 from src.resources.health_checker import HealthCheckerResource
+from src.resources.telefone import TelefoneRegisterResource
 from src.resources.token import (
-    TokenRefresherResource,
     TokenFuncionarioResource,
+    TokenRefresherResource,
     TokenUsuarioResource,
 )
 from src.resources.usuario import UsuarioRegisterResource
-from src.resources.funcao import FuncaoResource, FuncaoListResource
 
 
 def config_app_routes(app, docs):

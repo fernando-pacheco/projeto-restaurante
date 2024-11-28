@@ -1,8 +1,8 @@
 import os
 
+from sqlalchemy.dialects.postgresql import UUID
 from src.db import db_instance as db
 from src.db import db_persist
-from sqlalchemy.dialects.postgresql import UUID
 
 
 class FuncaoFuncionarioModel(db.Model):

@@ -4,7 +4,6 @@ from flask import make_response
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
 from flask_restful import Resource
-
 from src.models.funcao import FuncaoModel
 from src.schemas.funcao import (
     FuncaoRequestGetSchema,

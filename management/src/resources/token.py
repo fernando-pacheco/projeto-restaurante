@@ -13,10 +13,9 @@ from flask_jwt_extended import (
 from flask_login import login_user, logout_user
 from flask_restful import Resource
 from marshmallow import fields
-
+from src.models.funcionario import FuncionarioModel
 from src.models.token import TokenBlocklistModel
 from src.models.usuario import UsuarioModel
-from src.models.funcionario import FuncionarioModel
 from src.schemas.message import MessageSchema
 from src.schemas.token import (
     AccessRefreshTokenRequestSchema,

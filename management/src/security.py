@@ -4,7 +4,6 @@ from datetime import timedelta
 from flask import make_response
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
-
 from src.models.token import TokenBlocklistModel
 
 ACCESS_EXPIRES = timedelta(hours=12)

@@ -1,16 +1,17 @@
 import json
+
 from flask import make_response
 from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
-from marshmallow import fields
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
+from marshmallow import fields
 from src.models.endereco import EnderecoModel
-from flask_jwt_extended import jwt_required, get_jwt_identity
 from src.schemas.endereco import (
-    EnderecoResponseSchema,
     EnderecoRequestGetSchema,
     EnderecoRequestPostSchema,
     EnderecoRequestPutSchema,
+    EnderecoResponseSchema,
     endereco_schema,
 )
 

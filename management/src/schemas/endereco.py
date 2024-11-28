@@ -1,5 +1,5 @@
-from src.schema import ma
 from marshmallow import Schema, fields
+from src.schema import ma
 
 
 class EnderecoResponseSchema(ma.Schema):
