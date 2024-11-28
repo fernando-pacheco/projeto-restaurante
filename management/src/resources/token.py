@@ -31,7 +31,9 @@ from src.schemas.token import (
         200: {
             'description': 'Sucesso',
             'content': {
-                'application/json': {'schema': AccessRefreshTokenUidResponseSchema}
+                'application/json': {
+                    'schema': AccessRefreshTokenUidResponseSchema
+                }
             },
         },
         400: {
