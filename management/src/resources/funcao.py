@@ -13,7 +13,7 @@ from src.schemas.funcao import (
 )
 
 
-@doc(description='Funcao API', tags=['Função'])
+@doc(description='Função API', tags=['Funções'])
 class FuncaoResource(MethodResource, Resource):
     @marshal_with(FuncaoResponseSchema, code=201)
     @use_kwargs(FuncaoRequestGetSchema, location='query')
@@ -29,7 +29,7 @@ class FuncaoResource(MethodResource, Resource):
         return resposta
 
 
-@doc(description='Funcao API', tags=['Função'])
+@doc(description='Função Listagem API', tags=['Funções'])
 class FuncaoListResource(MethodResource, Resource):
     @marshal_with(FuncaoResponseSchema, code=201)
     @doc(description='Obter função')

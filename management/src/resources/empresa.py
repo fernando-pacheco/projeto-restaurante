@@ -14,7 +14,7 @@ from src.schemas.empresa import (
 )
 
 
-@doc(description='Empresa Registro API', tags=['Empresa'])
+@doc(description='Empresa Registro API', tags=['Empresas'])
 class EmpresaRegisterResource(MethodResource, Resource):
     @marshal_with(EmpresaResponseSchema, code=201)
     @use_kwargs(EmpresaRequestPostSchema, location='json')

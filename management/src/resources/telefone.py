@@ -20,7 +20,7 @@ from src.schemas.telefone import (
 )
 
 
-@doc(description='Telefone Registro API', tags=['Telefone'])
+@doc(description='Telefone Registro API', tags=['Telefones'])
 class TelefoneRegisterResource(MethodResource, Resource):
     @marshal_with(TelefoneResponseSchema, code=201)
     @use_kwargs(TelefoneRequestPostSchema, location='json')
@@ -106,7 +106,7 @@ class TelefoneRegisterResource(MethodResource, Resource):
     @jwt_required()
     def delete(self, **kwargs):
         # TODO - Validação para exclusão ou edição para funcionário com permissões
-        
+
         resposta = make_response({'message': 'Este telefone não existe.'}, 400)
 
         telefone = TelefoneModel.encontrar_por_id(kwargs['id'])

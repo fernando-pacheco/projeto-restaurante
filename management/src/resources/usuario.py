@@ -10,7 +10,7 @@ from src.utils.funcoes_auxiliares import (
     atualizar_objeto,
 )
 from src.models.usuario import UsuarioModel
-from src.schemas.token import MessageSchema
+from src.schemas.message import MessageSchema
 from src.schemas.usuario import (
     UsuarioRequestGetSchema,
     UsuarioRequestPostSchema,
@@ -20,7 +20,7 @@ from src.schemas.usuario import (
 )
 
 
-@doc(description='Usuário Registro API', tags=['Usuário'])
+@doc(description='Usuário Registro API', tags=['Usuários'])
 class UsuarioRegisterResource(MethodResource, Resource):
     @marshal_with(UsuarioResponseSchema, code=201)
     @marshal_with(MessageSchema, code=400)
