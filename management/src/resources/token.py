@@ -17,23 +17,45 @@ from marshmallow import fields
 from src.models.token import TokenBlocklistModel
 from src.models.usuario import UsuarioModel
 from src.models.funcionario import FuncionarioModel
+from src.schemas.message import MessageSchema
 from src.schemas.token import (
     AccessRefreshTokenRequestSchema,
     AccessRefreshTokenUidResponseSchema,
     AccessTokenResponseSchema,
-    MessageSchema,
 )
 
 
-@doc(description='Token API', tags=['Token'])
+@doc(
+    description='Obtém informações de um funcionário',
+    responses={
+        200: {
+            'description': 'Sucesso',
+            'content': {
+                'application/json': {'schema': AccessRefreshTokenUidResponseSchema}
+            },
+        },
+        400: {
+            'description': 'Erro de cliente',
+            'content': {'application/json': {'schema': MessageSchema}},
+        },
+        403: {
+            'description': 'Erro de autenticação',
+            'content': {'application/json': {'schema': MessageSchema}},
+        },
+        404: {
+            'description': 'Erro na obtenção de informação',
+            'content': {'application/json': {'schema': MessageSchema}},
+        },
+    },
+    tags=['Auth'],
+)
 class TokenUsuarioResource(MethodResource, Resource):
     @use_kwargs(AccessRefreshTokenRequestSchema, location='json')
-    @marshal_with(AccessRefreshTokenUidResponseSchema, code=201)
-    @marshal_with(MessageSchema, code=401)
     @doc(description='Login e gerador de novo acesso')
     def post(self, **kwargs):
         nome_usuario = kwargs['nome_usuario']
         senha = kwargs['senha']
+        print(kwargs)
         usuario = UsuarioModel.query.filter_by(
             nome_usuario=nome_usuario
         ).first()
@@ -75,7 +97,7 @@ class TokenUsuarioResource(MethodResource, Resource):
         )
 
 
-@doc(description='Token API', tags=['Token'])
+@doc(description='Token API', tags=['Auth'])
 class TokenFuncionarioResource(MethodResource, Resource):
     @use_kwargs(AccessRefreshTokenRequestSchema, location='json')
     @marshal_with(AccessRefreshTokenUidResponseSchema, code=201)
@@ -125,7 +147,7 @@ class TokenFuncionarioResource(MethodResource, Resource):
         )
 
 
-@doc(description='Token refresher API', tags=['Token'])
+@doc(description='Token refresher API', tags=['Auth'])
 class TokenRefresherResource(MethodResource, Resource):
     @use_kwargs(
         {
