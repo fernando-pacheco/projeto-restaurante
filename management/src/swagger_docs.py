@@ -20,9 +20,8 @@ def config_swagger(app):
         security=[{'BearerAuth': []}],
         tags=[
             {'name': 'Auth', 'description': 'Operações de autenticação'},
-            {'name': 'Usuários', 'description': 'Gestão de usuários'},
+            {'name': 'Usuários', 'description': 'Gestão de Usuários'},
             {'name': 'Empresas', 'description': 'Gestão de empresas'},
-            {'name': 'Funcionários', 'description': 'Gestão de funcionários'},
             {'name': 'Funções', 'description': 'Gestão de funções'},
             {
                 'name': 'Função Funcionário',
