@@ -9,7 +9,7 @@ from src.resources.funcao_funcionario import (
 )
 from src.resources.funcionario import FuncionarioResource, FuncionariosResource
 from src.resources.health_checker import HealthCheckerResource
-from src.resources.telefone import TelefoneRegisterResource
+from src.resources.telefone import TelefoneResource, TelefonesResource
 from src.resources.token import (
     TokenFuncionarioResource,
     TokenRefresherResource,
@@ -37,7 +37,8 @@ def config_app_routes(app, docs):
     __setting_route_doc(EmpresasResource, '/empresa', api, docs)
     __setting_route_doc(EmpresaResource, '/empresa/<string:id>', api, docs)
     ## Telefones
-    __setting_route_doc(TelefoneRegisterResource, '/telefone', api, docs)
+    __setting_route_doc(TelefonesResource, '/telefone', api, docs)
+    __setting_route_doc(TelefoneResource, '/telefone/<int:id>', api, docs)
 
     # Token
     __setting_route_doc(TokenUsuarioResource, '/token-cliente', api, docs)

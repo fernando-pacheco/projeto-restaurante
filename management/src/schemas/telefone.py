@@ -6,9 +6,11 @@ class TelefoneResponseSchema(ma.Schema):
     id = fields.Int()
     numero = fields.Str()
     principal = fields.Bool()
+    empresa_id = fields.UUID()
+    cliente_id = fields.UUID()
 
     class Meta:
-        fields = ('id', 'numero', 'principal')
+        fields = ('id', 'numero', 'principal', 'empresa_id', 'cliente_id')
 
     _links = ma.Hyperlinks({'self': ma.URLFor('telefone')})
 
@@ -26,7 +28,6 @@ class TelefoneRequestPostSchema(Schema):
     principal = fields.Bool()
     empresa_id = fields.UUID()
     cliente_id = fields.UUID()
-    funcionario_id = fields.UUID()
 
 
 class TelefoneRequestPutSchema(Schema):
@@ -34,7 +35,6 @@ class TelefoneRequestPutSchema(Schema):
     principal = fields.Bool()
     empresa_id = fields.UUID()
     cliente_id = fields.UUID()
-    funcionario_id = fields.UUID()
 
 
 telefone_schema = TelefoneResponseSchema()

@@ -3,27 +3,29 @@ from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
-from marshmallow import fields
+from src.models.cliente import ClienteModel
+from src.models.funcionario import FuncionarioModel
 from src.models.telefone import TelefoneModel
 from src.schemas.telefone import (
-    TelefoneRequestGetNumeroSchema,
-    TelefoneRequestGetSchema,
     TelefoneRequestPostSchema,
     TelefoneRequestPutSchema,
     TelefoneResponseSchema,
     telefone_schema,
 )
-from src.utils.funcoes_auxiliares import (  # obter_portador_id,
+from src.utils.decorators import error_decorators
+from src.utils.funcoes_auxiliares import (
     atualizar_objeto,
     retorno_nao_autorizado,
 )
 
 
-@doc(description='Telefone Registro API', tags=['Telefones'])
-class TelefoneRegisterResource(MethodResource, Resource):
-    @marshal_with(TelefoneResponseSchema, code=201)
+@marshal_with(TelefoneResponseSchema, code=201)
+@error_decorators([400, 401, 403])
+@doc(tags=['Telefones'])
+class TelefonesResource(MethodResource, Resource):
     @use_kwargs(TelefoneRequestPostSchema, location='json')
     @doc(description='Cadastrar novo telefone')
+    @jwt_required()
     def post(self, **kwargs):
         resposta = make_response(
             {
@@ -32,9 +34,23 @@ class TelefoneRegisterResource(MethodResource, Resource):
             400,
         )
 
+        usuario_id = get_jwt_identity()
+        cliente = ClienteModel.encontrar_por_id(usuario_id)
+
         if TelefoneModel.encontrar_por_numero(kwargs['numero']):
             resposta = make_response({'message': 'Número já cadastrado.'}, 400)
         else:
+            if cliente:
+                kwargs['cliente_id'] = usuario_id
+
+            else:
+                empresa_id = (
+                    FuncionarioModel.encontrar_empresa_id_por_funcionario_id(
+                        usuario_id
+                    )
+                )
+                kwargs['empresa_id'] = empresa_id
+
             telefone = TelefoneModel(**kwargs)
 
             if telefone.salvar():
@@ -42,16 +58,11 @@ class TelefoneRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
-    @marshal_with(TelefoneResponseSchema, code=201)
-    @use_kwargs(TelefoneRequestGetSchema, location='query')
+
+@marshal_with(TelefoneResponseSchema, code=201)
+@error_decorators([400, 404, 403])
+@doc(tags=['Telefones'])
+class TelefoneResource(MethodResource, Resource):
     @use_kwargs(TelefoneRequestPutSchema, location='json')
     @doc(description='Atualizar um número')
     @jwt_required()
@@ -63,19 +74,25 @@ class TelefoneRegisterResource(MethodResource, Resource):
         telefone = TelefoneModel.encontrar_por_id(kwargs['id'])
         portador_id = telefone.obter_portador_id()
 
-        if str(portador_id) == get_jwt_identity():
-            telefone, resposta = atualizar_objeto(kwargs, telefone)
+        if 'numero' in kwargs:
+            if TelefoneModel.encontrar_por_numero(kwargs['numero']):
+                resposta = make_response(
+                    {'message': 'Número já cadastrado.'}, 400
+                )
+            else:
+                if str(portador_id) == get_jwt_identity():
+                    telefone, resposta = atualizar_objeto(kwargs, telefone)
 
-            if telefone.salvar():
-                resposta = make_response(telefone_schema.dump(telefone), 201)
+                    if telefone.salvar():
+                        resposta = make_response(
+                            telefone_schema.dump(telefone), 201
+                        )
 
-        else:
-            resposta = retorno_nao_autorizado()
+                else:
+                    resposta = retorno_nao_autorizado()
 
         return resposta
 
-    @marshal_with(TelefoneResponseSchema, code=201)
-    @use_kwargs(TelefoneRequestGetNumeroSchema, location='query')
     @doc(description='Obter informações de contato')
     def get(self, **kwargs):
         resposta = make_response(
@@ -92,15 +109,6 @@ class TelefoneRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
-    @use_kwargs(TelefoneRequestGetSchema, location='query')
     @doc(description='Excluir um número de telefone')
     @jwt_required()
     def delete(self, **kwargs):
