@@ -2,7 +2,7 @@ from marshmallow import Schema, fields
 from src.schema import ma
 
 
-class UsuarioResponseSchema(ma.Schema):
+class ClienteResponseSchema(ma.Schema):
     id = fields.UUID()
     nome_usuario = fields.Str()
     nome = fields.Str()
@@ -29,7 +29,7 @@ class UsuarioResponseSchema(ma.Schema):
     _links = ma.Hyperlinks({'self': ma.URLFor('usuario')})
 
 
-class UsuarioRequestPostSchema(Schema):
+class ClienteRequestPostSchema(Schema):
     nome_usuario = fields.Str(
         required=True, default='usuario', help='Esse campo não pode ser nulo'
     )
@@ -52,7 +52,7 @@ class UsuarioRequestPostSchema(Schema):
     sobrenome = fields.Str()
 
 
-class UsuarioRequestPutSchema(Schema):
+class ClienteRequestPutSchema(Schema):
     nome_usuario = fields.Str()
     senha = fields.Str()
     cpf = fields.Str()
@@ -62,9 +62,5 @@ class UsuarioRequestPutSchema(Schema):
     ativo = fields.Bool()
 
 
-class UsuarioRequestGetSchema(Schema):
-    usuario_id = fields.UUID(required=True, default='id', help='ID inválido')
-
-
-usuario_schema = UsuarioResponseSchema()
-usuario_post_schema = UsuarioRequestPostSchema()
+cliente_schema = ClienteResponseSchema()
+cliente_post_schema = ClienteRequestPostSchema()

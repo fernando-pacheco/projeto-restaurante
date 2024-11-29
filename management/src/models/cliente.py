@@ -13,11 +13,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 @login_manager.user_loader
 def get_user(user_id):
-    return UsuarioModel.query.filter_by(id=user_id).first()
+    return ClienteModel.query.filter_by(id=user_id).first()
 
 
-class UsuarioModel(db.Model, UserMixin):
-    __tablename__ = 'Usuarios'
+class ClienteModel(db.Model, UserMixin):
+    __tablename__ = 'Clientes'
     __table_args__ = {'schema': os.getenv('DEFAULT_DB_SCHEMA')}
 
     id = db.Column(
@@ -47,7 +47,7 @@ class UsuarioModel(db.Model, UserMixin):
         self.email = email
 
     def __repr__(self):
-        return f'<UsuarioModel(id={self.id}, nome_usuario={self.nome_usuario}), senha={self.senha})>'
+        return f'<ClienteModel(id={self.id}, nome_usuario={self.nome_usuario}), senha={self.senha})>'
 
     def definir_senha(self, senha):
         self.senha = generate_password_hash(senha)
@@ -81,8 +81,8 @@ class UsuarioModel(db.Model, UserMixin):
 
     @staticmethod
     def init_data():
-        if db.session.query(UsuarioModel.id).count() == 0:
-            usuario = UsuarioModel(
+        if db.session.query(ClienteModel.id).count() == 0:
+            usuario = ClienteModel(
                 nome_usuario='fepacheco',
                 senha='4210',
                 cpf='111.111.111-11',

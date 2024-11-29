@@ -11,14 +11,20 @@ from src.resources.token import (
     TokenRevokeResource,
     TokenUsuarioResource,
 )
-from src.resources.usuario import UsuarioRegisterResource
+from src.resources.cliente import (
+    ClienteRegisterResource,
+    ClienteResource,
+)
+from src.resources.usuario_info import UsuarioInfoResource
 
 
 def config_app_routes(app, docs):
     api = Api(app)
 
     # Entidade
-    __setting_route_doc(UsuarioRegisterResource, '/usuario', api, docs)
+    __setting_route_doc(ClienteRegisterResource, '/cliente', api, docs)
+    __setting_route_doc(ClienteResource, '/cliente/<string:id>', api, docs)
+    __setting_route_doc(UsuarioInfoResource, '/usuario-info', api, docs)
     __setting_route_doc(FuncionarioRegisterResource, '/funcionario', api, docs)
     __setting_route_doc(EmpresaRegisterResource, '/empresa', api, docs)
     __setting_route_doc(TelefoneRegisterResource, '/telefone', api, docs)

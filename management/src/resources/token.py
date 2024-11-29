@@ -12,15 +12,15 @@ from flask_jwt_extended import (
 )
 from flask_login import login_user, logout_user
 from flask_restful import Resource
-from src.utils.decorators import error_decorators, marshal_with
 from src.models.funcionario import FuncionarioModel
 from src.models.token import TokenBlocklistModel
-from src.models.usuario import UsuarioModel
+from src.models.cliente import ClienteModel
 from src.schemas.message import MessageTokenRevoked
 from src.schemas.token import (
     AccessRefreshTokenRequestSchema,
     AccessRefreshTokenUidResponseSchema,
 )
+from src.utils.decorators import error_decorators, marshal_with
 
 
 @doc(tags=['Auth'])
@@ -36,16 +36,16 @@ class TokenUsuarioResource(MethodResource, Resource):
         )
         nome_usuario = kwargs['nome_usuario']
         senha = kwargs['senha']
-        usuario = UsuarioModel.encontrar_por_nome_usuario(nome_usuario)
-        if usuario and usuario.verificar_senha(senha):
-            login_user(usuario)
-            token_acesso = create_access_token(identity=usuario.id)
-            refresh_token = create_refresh_token(usuario.id)
+        cliente = ClienteModel.encontrar_por_nome_usuario(nome_usuario)
+        if cliente and cliente.verificar_senha(senha):
+            login_user(cliente)
+            token_acesso = create_access_token(identity=cliente.id)
+            refresh_token = create_refresh_token(cliente.id)
             resposta = make_response(
                 {
                     'access_token': token_acesso,
                     'refresh_token': refresh_token,
-                    'usuario_id': usuario.id,
+                    'usuario_id': cliente.id,
                 },
                 201,
             )
@@ -87,12 +87,12 @@ class TokenFuncionarioResource(MethodResource, Resource):
 
 @doc(tags=['Auth'])
 @marshal_with(AccessRefreshTokenUidResponseSchema, code=200)
+@use_kwargs(AccessRefreshTokenRequestSchema, location='json')
 class TokenRefresherResource(MethodResource, Resource):
-    @use_kwargs(AccessRefreshTokenRequestSchema, location='json')
     @doc(
         description='Atualiza um token de acesso usando o token de atualização'
     )
-    @jwt_required(refresh=True)
+    @jwt_required()
     def post(self):
         jwt_usuario_atual = get_jwt_identity()
         novo_token = create_access_token(
@@ -105,8 +105,8 @@ class TokenRefresherResource(MethodResource, Resource):
 @error_decorators(status_codes=[400])
 @marshal_with(MessageTokenRevoked, code=200)
 class TokenRevokeResource(MethodResource, Resource):
-    @doc(description='Revogar token de acesso atual')
     @jwt_required()
+    @doc(description='Revogar token de acesso atual')
     def delete(self):
         resposta = make_response({'message': 'Erro ao excluir o token.'}, 400)
 

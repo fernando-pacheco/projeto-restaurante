@@ -6,7 +6,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from src.db import db_instance as db
 from src.db import db_persist
 from src.models.empresa import EmpresaModel
-from src.models.usuario import UsuarioModel
+from src.models.cliente import ClienteModel
 
 
 class EnderecoModel(db.Model):
@@ -33,17 +33,17 @@ class EnderecoModel(db.Model):
         db.ForeignKey('management.Empresas.id', ondelete='CASCADE'),
         nullable=True,
     )
-    usuario_id = db.Column(
+    cliente_id = db.Column(
         UUID(as_uuid=True),
-        db.ForeignKey('management.Usuarios.id', ondelete='CASCADE'),
+        db.ForeignKey('management.Clientes.id', ondelete='CASCADE'),
         nullable=True,
     )
 
     empresa = db.relationship('EmpresaModel', backref='enderecos')
-    usuario = db.relationship('UsuarioModel', backref='enderecos')
+    cliente = db.relationship('ClienteModel', backref='enderecos')
 
     def obter_portador_id(self):
-        return self._obter_campo_valido(['empresa_id', 'usuario_id'])
+        return self._obter_campo_valido(['empresa_id', 'cliente_id'])
 
     def _obter_campo_valido(self, campos):
         retorno = None
@@ -77,7 +77,7 @@ class EnderecoModel(db.Model):
         cls, entidade_id=None, tipo_entidade=None
     ):
         tipo_entidade_stg = {
-            'usuario': cls.usuario_id,
+            'usuario': cls.cliente_id,
             'empresa': cls.empresa_id,
         }
 

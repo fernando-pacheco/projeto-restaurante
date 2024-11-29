@@ -22,9 +22,9 @@ class TelefoneModel(db.Model):
         db.ForeignKey('management.Empresas.id', ondelete='CASCADE'),
         nullable=True,
     )
-    usuario_id = db.Column(
+    cliente_id = db.Column(
         UUID(as_uuid=True),
-        db.ForeignKey('management.Usuarios.id', ondelete='CASCADE'),
+        db.ForeignKey('management.Clientes.id', ondelete='CASCADE'),
         nullable=True,
     )
     funcionario_id = db.Column(
@@ -34,7 +34,7 @@ class TelefoneModel(db.Model):
     )
 
     empresa = db.relationship('EmpresaModel', backref='telefones')
-    usuario = db.relationship('UsuarioModel', backref='telefones')
+    cliente = db.relationship('ClienteModel', backref='telefones')
     funcionario = db.relationship('FuncionarioModel', backref='telefones')
 
     @db_persist
@@ -47,7 +47,7 @@ class TelefoneModel(db.Model):
 
     def obter_portador_id(self):
         return self._obter_campo_valido(
-            ['funcionario_id', 'empresa_id', 'usuario_id']
+            ['funcionario_id', 'empresa_id', 'cliente_id']
         )
 
     def _obter_campo_valido(self, campos):
