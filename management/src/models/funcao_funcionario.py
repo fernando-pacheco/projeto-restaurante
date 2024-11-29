@@ -26,10 +26,6 @@ class FuncaoFuncionarioModel(db.Model):
         nullable=False,
     )
 
-    def __init__(self, funcao_id, funcionario_id):
-        self.funcionario_id = funcionario_id
-        self.funcao_id = funcao_id
-
     @db_persist
     def salvar(self):
         db.session.add(self)

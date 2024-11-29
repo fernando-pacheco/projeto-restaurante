@@ -28,11 +28,6 @@ class EmpresaModel(db.Model):
         db.DateTime(timezone=True), default=func.now(), onupdate=func.now()
     )
 
-    def __init__(self, razao_social, cnpj, nome):
-        self.razao_social = razao_social
-        self.cnpj = cnpj
-        self.nome = nome
-
     def __repr__(self):
         return f'<EmpresaModel(id={self.id}, nome_usuario={self.razao_social}), senha={self.cnpj})>'
 
