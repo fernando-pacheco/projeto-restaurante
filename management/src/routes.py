@@ -8,6 +8,7 @@ from src.resources.telefone import TelefoneRegisterResource
 from src.resources.token import (
     TokenFuncionarioResource,
     TokenRefresherResource,
+    TokenRevokeResource,
     TokenUsuarioResource,
 )
 from src.resources.usuario import UsuarioRegisterResource
@@ -28,6 +29,7 @@ def config_app_routes(app, docs):
         TokenFuncionarioResource, '/token-funcionario', api, docs
     )
     __setting_route_doc(TokenRefresherResource, '/token/refresh', api, docs)
+    __setting_route_doc(TokenRevokeResource, '/token', api, docs)
 
     # Health Checker
     __setting_route_doc(HealthCheckerResource, '/health', api, docs)
