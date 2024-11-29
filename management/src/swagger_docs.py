@@ -8,23 +8,14 @@ def config_swagger(app):
         title='Gerenciador de Usuários - Documentação API',
         version='v1',
         plugins=[MarshmallowPlugin()],
-        openapi_version='3.0.2',
-        components={
-            'securitySchemes': {
-                'BearerAuth': {
-                    'type': 'http',
-                    'scheme': 'bearer',
-                    'bearerFormat': 'JWT',
-                    'description': 'Cabeçalho de autorização JWT usando o esquema Bearer. Insira seu token JWT no formato "Bearer <token>"',
-                }
-            },
-            'requestBodies': {
-                'DefaultRequestBody': {
-                    'content': {
-                        'application/json': {'schema': {'type': 'object'}}
-                    }
-                }
-            },
+        openapi_version='2.0.0',
+        securityDefinitions={
+            'BearerAuth': {
+                'type': 'apiKey',
+                'name': 'Authorization',
+                'in': 'header',
+                'description': 'Cabeçalho de autorização JWT usa o Bearer schema. Insira seu JWT token no formato "Bearer <token>"',
+            }
         },
         security=[{'BearerAuth': []}],
         tags=[
@@ -43,19 +34,13 @@ def config_swagger(app):
                 'description': 'Verificação de funcionamento do servidor',
             },
         ],
-        servers=[
-            {
-                'url': 'http://127.0.0.1:8000/',
-                'description': 'Servidor de Desenvolvimento',
-            }
-        ],
     )
 
     app.config.update(
         {
             'APISPEC_SPEC': spec,
-            'APISPEC_SWAGGER_URL': '/doc/v1/',
-            'APISPEC_SWAGGER_UI_URL': '/api/v1/',
+            'APISPEC_SWAGGER_URL': '/doc/',
+            'APISPEC_SWAGGER_UI_URL': '/api/',
         }
     )
 
