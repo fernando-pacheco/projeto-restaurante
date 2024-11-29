@@ -11,11 +11,11 @@ from src.models.funcionario import FuncionarioModel
 from src.models.telefone import TelefoneModel
 from src.schemas.endereco import endereco_schema
 from src.schemas.funcao_funcionario import funcao_funcionario_schema
-from src.schemas.telefone import telefone_schema
 from src.schemas.usuario import (
     cliente_shcema,
     empresa_schema,
     funcionario_schema,
+    telefone_schema,
 )
 
 

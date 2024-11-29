@@ -1,7 +1,12 @@
 from marshmallow import Schema, fields
 from src.schemas.endereco import EnderecoResponseSchema
 from src.schemas.funcao_funcionario import FuncaoFuncionarioResponseSchema
-from src.schemas.telefone import TelefoneResponseSchema
+
+
+class TelefoneResponseSchema(Schema):
+    id = fields.Int()
+    numero = fields.Str()
+    principal = fields.Bool()
 
 
 class EmpresaSchema(Schema):
@@ -39,3 +44,4 @@ class ClienteInfoSchema(Schema):
 funcionario_schema = FuncionarioInfoSchema()
 cliente_shcema = ClienteInfoSchema()
 empresa_schema = EmpresaSchema()
+telefone_schema = TelefoneResponseSchema()
