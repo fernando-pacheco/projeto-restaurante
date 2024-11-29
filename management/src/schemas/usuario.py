@@ -1,5 +1,6 @@
 from marshmallow import Schema, fields
 from src.schemas.endereco import EnderecoResponseSchema
+from src.schemas.funcao_funcionario import FuncaoFuncionarioResponseSchema
 from src.schemas.telefone import TelefoneResponseSchema
 
 
@@ -19,7 +20,7 @@ class FuncionarioInfoSchema(Schema):
     nome_usuario = fields.Str()
     ativo = fields.Bool()
     empresa = fields.Nested(EmpresaSchema)
-    funcoes = fields.Dict()
+    funcoes = fields.Nested(FuncaoFuncionarioResponseSchema)
     telefones = fields.List(fields.Nested(TelefoneResponseSchema))
 
 

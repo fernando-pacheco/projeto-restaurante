@@ -54,10 +54,11 @@ class UsuarioInfoResource(MethodResource, Resource):
                 ),
                 telefone_schema,
             )
+            funcao_funcionario = (
+                FuncaoFuncionarioModel.encontrar_por_funcionario_id(usuario_id)
+            )
             funcionario_data['funcoes'] = self.listar_objetos_model_por_schema(
-                FuncaoFuncionarioModel.encontrar_por_funcionario_id(
-                    usuario_id
-                ),
+                funcao_funcionario,
                 funcao_funcionario_schema,
             )
             funcionario_data['empresa'] = empresa_schema.dump(
