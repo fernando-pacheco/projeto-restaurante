@@ -13,12 +13,8 @@ class AccessTokenResponseSchema(Schema):
 
 class AccessRefreshTokenRequestSchema(Schema):
     nome_usuario = fields.Str(
-        required=True, default='user1', help='Invalid login or password'
+        required=True, example='user1', help='Invalid login or password'
     )
     senha = fields.Str(
-        required=True, default='pwd1', help='Invalid login or password'
+        required=True, example='pwd1', help='Invalid login or password'
     )
-
-
-class MessageSchema(Schema):
-    message = fields.Str()
