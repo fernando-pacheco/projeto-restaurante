@@ -70,5 +70,14 @@ class TelefoneModel(db.Model):
         return cls.query.filter_by(numero=numero).first()
 
     @classmethod
-    def encontrar_por_numero(cls, numero):
-        return cls.query.filter_by(numero=numero).first()
+    def listar_telefones_por_entidade(
+        cls, entidade_id=None, tipo_entidade=None
+    ):
+        tipo_entidade_stg = {
+            'cliente': cls.cliente_id,
+            'empresa': cls.empresa_id,
+            'funcionario': cls.funcionario_id,
+        }
+
+        filtro = tipo_entidade_stg[tipo_entidade]
+        return cls.query.filter(filtro == entidade_id).all()
