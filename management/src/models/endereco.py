@@ -5,8 +5,8 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
 from src.db import db_instance as db
 from src.db import db_persist
-from src.models.empresa import EmpresaModel
 from src.models.cliente import ClienteModel
+from src.models.empresa import EmpresaModel
 
 
 class EnderecoModel(db.Model):
@@ -77,7 +77,7 @@ class EnderecoModel(db.Model):
         cls, entidade_id=None, tipo_entidade=None
     ):
         tipo_entidade_stg = {
-            'usuario': cls.cliente_id,
+            'cliente': cls.cliente_id,
             'empresa': cls.empresa_id,
         }
 

@@ -1,5 +1,6 @@
 from sqlalchemy import inspect
 from src.db import db_instance
+from src.models.cliente import ClienteModel
 from src.models.empresa import EmpresaModel
 from src.models.endereco import EnderecoModel
 from src.models.funcao import FuncaoModel
@@ -7,7 +8,6 @@ from src.models.funcao_funcionario import FuncaoFuncionarioModel
 from src.models.funcionario import FuncionarioModel
 from src.models.telefone import TelefoneModel
 from src.models.token import TokenBlocklistModel
-from src.models.cliente import ClienteModel
 
 
 def model_exists(model_class):

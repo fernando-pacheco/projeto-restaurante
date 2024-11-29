@@ -25,7 +25,7 @@ class TelefoneRequestPostSchema(Schema):
     numero = fields.Str(required=True)
     principal = fields.Bool()
     empresa_id = fields.UUID()
-    usuario_id = fields.UUID()
+    cliente_id = fields.UUID()
     funcionario_id = fields.UUID()
 
 
@@ -33,7 +33,7 @@ class TelefoneRequestPutSchema(Schema):
     numero = fields.Str()
     principal = fields.Bool()
     empresa_id = fields.UUID()
-    usuario_id = fields.UUID()
+    cliente_id = fields.UUID()
     funcionario_id = fields.UUID()
 
 

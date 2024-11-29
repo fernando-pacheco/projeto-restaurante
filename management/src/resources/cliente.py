@@ -19,10 +19,10 @@ from src.utils.funcoes_auxiliares import (
 )
 
 
-@doc(description='Usuário Registro API', tags=['Usuários'])
+@doc(tags=['Usuários'])
 @marshal_with(ClienteResponseSchema, code=201)
 @error_decorators(status_codes=[400])
-class ClienteRegisterResource(MethodResource, Resource):
+class ClientesResource(MethodResource, Resource):
     @use_kwargs(ClienteRequestPostSchema, location='json')
     @jwt_required()
     @doc(description='Registrar novo usuário')
