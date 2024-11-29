@@ -1,5 +1,10 @@
 from flask_apispec import marshal_with
-from src.schemas.message import MessageErro400, MessageErro401, MessageErro403, MessageErro404
+from src.schemas.message import (
+    MessageErro400,
+    MessageErro401,
+    MessageErro403,
+    MessageErro404,
+)
 
 
 def error_decorators(status_codes=None):
