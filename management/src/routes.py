@@ -1,8 +1,12 @@
 from flask_restful import Api
 from src.resources.cliente import ClienteResource, ClientesResource
-from src.resources.empresa import EmpresasResource, EmpresaResource
+from src.resources.empresa import EmpresaResource, EmpresasResource
 from src.resources.funcao import FuncaoListResource, FuncaoResource
-from src.resources.funcao_funcionario import FuncaoFuncionarioRegisterResource
+from src.resources.funcao_funcionario import (
+    FuncaoFuncionarioIDResource,
+    FuncaoFuncionarioResource,
+    FuncaoFuncionariosResource,
+)
 from src.resources.funcionario import FuncionarioResource, FuncionariosResource
 from src.resources.health_checker import HealthCheckerResource
 from src.resources.telefone import TelefoneRegisterResource
@@ -50,7 +54,16 @@ def config_app_routes(app, docs):
     __setting_route_doc(FuncaoResource, '/funcao', api, docs)
     __setting_route_doc(FuncaoListResource, '/funcao/all', api, docs)
     __setting_route_doc(
-        FuncaoFuncionarioRegisterResource, '/funcao-funcionario', api, docs
+        FuncaoFuncionariosResource, '/funcao-funcionario', api, docs
+    )
+    __setting_route_doc(
+        FuncaoFuncionarioIDResource,
+        '/funcao-funcionario/<string:funcionario_id>',
+        api,
+        docs,
+    )
+    __setting_route_doc(
+        FuncaoFuncionarioResource, '/funcao-funcionario/<int:id>', api, docs
     )
 
     return api

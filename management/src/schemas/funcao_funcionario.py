@@ -4,21 +4,16 @@ from src.schema import ma
 
 class FuncaoFuncionarioResponseSchema(ma.Schema):
     id = fields.Int()
-    funcionario_id = fields.UUID()
     funcao_id = fields.Int()
+    nome_funcao = fields.Method('obter_nome_funcao')
+
+    def obter_nome_funcao(self, obj):
+        return getattr(obj.nome_funcao, 'funcao', None)
 
     class Meta:
-        fields = ('id', 'funcionario_id', 'funcao_id')
+        fields = ('id', 'funcao_id', 'nome_funcao')
 
     _links = ma.Hyperlinks({'self': ma.URLFor('funcao-funcionario')})
-
-
-class FuncaoFuncionarioResquestGetSchema(Schema):
-    id = fields.Int(required=True)
-
-
-class FuncaoFuncionarioResquestGetByFuncionarioIDSchema(Schema):
-    funcionario_id = fields.UUID(required=True)
 
 
 class FuncaoFuncionarioResquestPostSchema(Schema):

@@ -1,20 +1,18 @@
 import json
 
 from flask import make_response
-from flask_apispec import doc, marshal_with, use_kwargs
+from flask_apispec import doc, use_kwargs
 from flask_apispec.views import MethodResource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
-from marshmallow import fields
 from src.models.funcao_funcionario import FuncaoFuncionarioModel
 from src.schemas.funcao_funcionario import (
     FuncaoFuncionarioResponseSchema,
-    FuncaoFuncionarioResquestGetByFuncionarioIDSchema,
-    FuncaoFuncionarioResquestGetSchema,
     FuncaoFuncionarioResquestPostSchema,
     FuncaoFuncionarioResquestPutSchema,
     funcao_funcionario_schema,
 )
+from src.utils.decorators import error_decorators, marshal_with
 from src.utils.funcoes_auxiliares import (
     atualizar_objeto,
     retorno_nao_autorizado,
@@ -22,16 +20,9 @@ from src.utils.funcoes_auxiliares import (
 
 
 @doc(tags=['Função Funcionário'])
-class FuncaoFuncionarioRegisterResource(MethodResource, Resource):
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
-    @marshal_with(FuncaoFuncionarioResponseSchema, code=201)
+@marshal_with(FuncaoFuncionarioResponseSchema, code=201)
+@error_decorators([400, 403])
+class FuncaoFuncionariosResource(MethodResource, Resource):
     @use_kwargs(FuncaoFuncionarioResquestPostSchema, location='json')
     @doc(description='Registrar permissão para funcionário')
     @jwt_required()
@@ -39,8 +30,6 @@ class FuncaoFuncionarioRegisterResource(MethodResource, Resource):
         resposta = make_response(
             {'message': 'Erro ao definir função ao colaborador.'}, 400
         )
-
-        del kwargs['Authorization']
 
         funcao_funcionario = FuncaoFuncionarioModel(**kwargs)
 
@@ -51,18 +40,11 @@ class FuncaoFuncionarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
-    @use_kwargs(
-        FuncaoFuncionarioResquestGetByFuncionarioIDSchema, location='query'
-    )
-    @marshal_with(FuncaoFuncionarioResponseSchema, code=201)
+
+@doc(tags=['Função Funcionário'])
+@marshal_with(FuncaoFuncionarioResponseSchema, code=201)
+@error_decorators([400, 403, 404])
+class FuncaoFuncionarioIDResource(MethodResource, Resource):
     @doc(description='Obter informações de permissão do funcionário')
     @jwt_required()
     def get(self, **kwargs):
@@ -77,8 +59,10 @@ class FuncaoFuncionarioRegisterResource(MethodResource, Resource):
         )
 
         if funcoes_funcionario:
-            for funcao in funcoes_funcionario:
-                funcoes_retorno.append(funcao_funcionario_schema.dump(funcao))
+            for funcao_funcionario in funcoes_funcionario:
+                funcoes_retorno.append(
+                    funcao_funcionario_schema.dump(funcao_funcionario)
+                )
 
             retorno = {
                 'funcionario_id': str(funcionario_id),
@@ -92,17 +76,12 @@ class FuncaoFuncionarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
-    @use_kwargs(FuncaoFuncionarioResquestGetSchema, location='query')
+
+@doc(tags=['Função Funcionário'])
+@marshal_with(FuncaoFuncionarioResponseSchema, code=201)
+@error_decorators([400, 403, 404])
+class FuncaoFuncionarioResource(MethodResource, Resource):
     @use_kwargs(FuncaoFuncionarioResquestPutSchema, location='json')
-    @marshal_with(FuncaoFuncionarioResponseSchema, code=201)
     @doc(description='Atualizar permissões de um funcionário')
     @jwt_required()
     def put(self, **kwargs):
@@ -126,16 +105,6 @@ class FuncaoFuncionarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
-    @use_kwargs(FuncaoFuncionarioResquestGetSchema, location='query')
-    @marshal_with(FuncaoFuncionarioResponseSchema, code=201)
     @doc(description='Excluir uma função de um funcionário')
     @jwt_required()
     def delete(self, **kwargs):
