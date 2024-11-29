@@ -7,10 +7,6 @@ class AccessRefreshTokenUidResponseSchema(Schema):
     usuario_id = fields.UUID()
 
 
-class AccessTokenResponseSchema(Schema):
-    token_acesso = fields.Str()
-
-
 class AccessRefreshTokenRequestSchema(Schema):
     nome_usuario = fields.Str(
         required=True, example='user1', help='Invalid login or password'
