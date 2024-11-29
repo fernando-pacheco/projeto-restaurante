@@ -3,28 +3,27 @@ from flask_apispec import doc, marshal_with, use_kwargs
 from flask_apispec.views import MethodResource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
-from marshmallow import fields
 from src.models.funcionario import FuncionarioModel
 from src.schemas.funcionario import (
-    FuncionarioRequestGetSchema,
     FuncionarioRequestPostSchema,
     FuncionarioRequestPutSchema,
     FuncionarioResponseSchema,
     funcionario_schema,
 )
-from src.schemas.message import MessageSchema
+from src.utils.decorators import error_decorators
 from src.utils.funcoes_auxiliares import (
     atualizar_objeto,
     retorno_nao_autorizado,
 )
 
 
-@doc(description='Funcionário Registro API', tags=['Funcionários'])
-class FuncionarioRegisterResource(MethodResource, Resource):
-    @marshal_with(FuncionarioResponseSchema, code=201)
-    @marshal_with(MessageSchema, code=400)
+@doc(tags=['Usuários'])
+@marshal_with(FuncionarioResponseSchema, code=201)
+@error_decorators([400, 403])
+class FuncionariosResource(MethodResource, Resource):
     @use_kwargs(FuncionarioRequestPostSchema, location='json')
     @doc(description='Registrar novo funcionário')
+    @jwt_required()
     def post(self, **kwargs):
         resposta = make_response(
             {'message': 'Erro ao cadastrar um novo funcionário.'}, 400
@@ -58,9 +57,11 @@ class FuncionarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(FuncionarioRequestGetSchema, location='query')
-    @marshal_with(FuncionarioResponseSchema, code=201)
-    @marshal_with(MessageSchema, code=400)
+
+@error_decorators([400, 403, 404])
+@marshal_with(FuncionarioResponseSchema, code=201)
+@doc(tags=['Usuários'])
+class FuncionarioResource(MethodResource, Resource):
     @doc(description='Obter informações de um funcionário')
     @jwt_required()
     def get(self, **kwargs):
@@ -88,9 +89,7 @@ class FuncionarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(FuncionarioRequestGetSchema, location='query')
     @use_kwargs(FuncionarioRequestPutSchema, location='json')
-    @marshal_with(FuncionarioResponseSchema, code=201)
     @doc(description='Atualizar funcionario existente salvo')
     @jwt_required()
     def put(self, **kwargs):
@@ -110,9 +109,6 @@ class FuncionarioRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @marshal_with(FuncionarioResponseSchema, code=201)
-    @marshal_with(MessageSchema, code=400)
-    @use_kwargs(FuncionarioRequestGetSchema, location='query')
     @doc(description='Desativar cadastro de um funcionário')
     @jwt_required()
     def delete(self, **kwargs):
