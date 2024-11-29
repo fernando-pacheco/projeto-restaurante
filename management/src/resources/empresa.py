@@ -3,7 +3,6 @@ from flask_apispec import doc, use_kwargs
 from flask_apispec.views import MethodResource
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
-from src.utils.decorators import error_decorators, marshal_with
 from src.models.empresa import EmpresaModel
 from src.schemas.empresa import (
     EmpresaRequestPostSchema,
@@ -11,6 +10,7 @@ from src.schemas.empresa import (
     EmpresaResponseSchema,
     empresa_schema,
 )
+from src.utils.decorators import error_decorators, marshal_with
 
 
 @doc(tags=['Empresas'])
@@ -35,7 +35,7 @@ class EmpresasResource(MethodResource, Resource):
             resposta = make_response(empresa_schema.dump(empresa), 201)
 
         return resposta
-    
+
 
 @error_decorators([400, 403, 404])
 @doc(tags=['Empresas'])
