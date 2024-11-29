@@ -1,6 +1,6 @@
 from flask_restful import Api
 from src.resources.cliente import ClienteResource, ClientesResource
-from src.resources.empresa import EmpresaRegisterResource
+from src.resources.empresa import EmpresasResource, EmpresaResource
 from src.resources.funcao import FuncaoListResource, FuncaoResource
 from src.resources.funcao_funcionario import FuncaoFuncionarioRegisterResource
 from src.resources.funcionario import FuncionarioResource, FuncionariosResource
@@ -22,14 +22,17 @@ def config_app_routes(app, docs):
     ## Usuários
     __setting_route_doc(ClientesResource, '/cliente', api, docs)
     __setting_route_doc(ClienteResource, '/cliente/<string:id>', api, docs)
-    __setting_route_doc(UsuarioInfoResource, '/usuario-info', api, docs)
+    ## Funcionários
     __setting_route_doc(FuncionariosResource, '/funcionario', api, docs)
     __setting_route_doc(
         FuncionarioResource, '/funcionario/<string:id>', api, docs
     )
+    ## Usuário Info
+    __setting_route_doc(UsuarioInfoResource, '/usuario-info', api, docs)
     ## Empresas
-    __setting_route_doc(EmpresaRegisterResource, '/empresa', api, docs)
-    ## Telefone
+    __setting_route_doc(EmpresasResource, '/empresa', api, docs)
+    __setting_route_doc(EmpresaResource, '/empresa/<string:id>', api, docs)
+    ## Telefones
     __setting_route_doc(TelefoneRegisterResource, '/telefone', api, docs)
 
     # Token

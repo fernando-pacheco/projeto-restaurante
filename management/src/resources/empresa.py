@@ -1,12 +1,11 @@
 from flask import make_response
-from flask_apispec import doc, marshal_with, use_kwargs
+from flask_apispec import doc, use_kwargs
 from flask_apispec.views import MethodResource
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
-from marshmallow import fields
+from src.utils.decorators import error_decorators, marshal_with
 from src.models.empresa import EmpresaModel
 from src.schemas.empresa import (
-    EmpresaRequestGetSchema,
     EmpresaRequestPostSchema,
     EmpresaRequestPutSchema,
     EmpresaResponseSchema,
@@ -14,9 +13,10 @@ from src.schemas.empresa import (
 )
 
 
-@doc(description='Empresa Registro API', tags=['Empresas'])
-class EmpresaRegisterResource(MethodResource, Resource):
-    @marshal_with(EmpresaResponseSchema, code=201)
+@doc(tags=['Empresas'])
+@error_decorators([400, 403])
+@marshal_with(EmpresaResponseSchema, code=201)
+class EmpresasResource(MethodResource, Resource):
     @use_kwargs(EmpresaRequestPostSchema, location='json')
     @doc(description='Registrar nova empresa')
     def post(self, **kwargs):
@@ -35,17 +35,12 @@ class EmpresaRegisterResource(MethodResource, Resource):
             resposta = make_response(empresa_schema.dump(empresa), 201)
 
         return resposta
+    
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
-    @marshal_with(EmpresaResponseSchema, code=201)
-    @use_kwargs(EmpresaRequestGetSchema, location='query')
+@error_decorators([400, 403, 404])
+@doc(tags=['Empresas'])
+@marshal_with(EmpresaResponseSchema, code=201)
+class EmpresaResource(MethodResource, Resource):
     @use_kwargs(EmpresaRequestPutSchema, location='json')
     @doc(description='Atualizar empresa existente salvo')
     @jwt_required()
@@ -83,16 +78,6 @@ class EmpresaRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
-    @marshal_with(EmpresaResponseSchema, code=201)
-    @use_kwargs(EmpresaRequestGetSchema, location='query')
     @doc(description='Obter informações da empresa.')
     @jwt_required()
     def get(self, **kwargs):
@@ -108,16 +93,6 @@ class EmpresaRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    @use_kwargs(
-        {
-            'Authorization': fields.Str(
-                required=True, description='Bearer [access_token]'
-            )
-        },
-        location='headers',
-    )
-    @marshal_with(EmpresaResponseSchema, code=201)
-    @use_kwargs(EmpresaRequestGetSchema, location='query')
     @doc(description='Desativar uma empresa')
     @jwt_required()
     def delete(self, **kwargs):
