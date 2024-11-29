@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 
-from flask import Response, make_response
-from flask_apispec import doc, marshal_with, use_kwargs
+from flask import make_response
+from flask_apispec import doc, use_kwargs
 from flask_apispec.views import MethodResource
 from flask_jwt_extended import (
     create_access_token,
@@ -12,29 +12,19 @@ from flask_jwt_extended import (
 )
 from flask_login import login_user, logout_user
 from flask_restful import Resource
-from marshmallow import fields
+from src.utils.decorators import error_decorators, marshal_with
 from src.models.funcionario import FuncionarioModel
 from src.models.token import TokenBlocklistModel
 from src.models.usuario import UsuarioModel
-from src.schemas.message import (
-    MessageErro400,
-    MessageErro401,
-    MessageErro403,
-    MessageErro404,
-    MessageTokenRevoked,
-)
+from src.schemas.message import MessageTokenRevoked
 from src.schemas.token import (
     AccessRefreshTokenRequestSchema,
     AccessRefreshTokenUidResponseSchema,
-    AccessTokenResponseSchema,
 )
 
 
 @doc(tags=['Auth'])
-@marshal_with(MessageErro400, code=400)
-@marshal_with(MessageErro401, code=401)
-@marshal_with(MessageErro403, code=403)
-@marshal_with(MessageErro404, code=404)
+@error_decorators()
 @marshal_with(AccessRefreshTokenUidResponseSchema, code=200)
 class TokenUsuarioResource(MethodResource, Resource):
     @use_kwargs(AccessRefreshTokenRequestSchema, location='json')
@@ -65,10 +55,7 @@ class TokenUsuarioResource(MethodResource, Resource):
 
 @doc(tags=['Auth'])
 @marshal_with(AccessRefreshTokenUidResponseSchema, code=201)
-@marshal_with(MessageErro400, code=400)
-@marshal_with(MessageErro401, code=401)
-@marshal_with(MessageErro403, code=403)
-@marshal_with(MessageErro404, code=404)
+@error_decorators()
 class TokenFuncionarioResource(MethodResource, Resource):
     @use_kwargs(AccessRefreshTokenRequestSchema, location='json')
     @doc(description='Login e gerador de novo acesso de funcionário')
@@ -115,7 +102,7 @@ class TokenRefresherResource(MethodResource, Resource):
 
 
 @doc(tags=['Auth'])
-@marshal_with(MessageErro400, code=400)
+@error_decorators(status_codes=[400])
 @marshal_with(MessageTokenRevoked, code=200)
 class TokenRevokeResource(MethodResource, Resource):
     @doc(description='Revogar token de acesso atual')
