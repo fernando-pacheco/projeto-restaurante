@@ -16,10 +16,14 @@ class FuncaoModel(db.Model):
     )
     funcao = db.Column(db.String(20))
     nivel = db.Column(db.Integer)
+    funcao_funcionario = db.relationship(
+        'FuncaoFuncionarioModel',
+        back_populates='nome_funcao',
+        cascade='all, delete-orphan',
+    )
 
-    def __init__(self, funcao, nivel):
-        self.funcao = funcao
-        self.nivel = nivel
+    def __repr__(self):
+        return self.funcao
 
     @db_persist
     def salvar(self):

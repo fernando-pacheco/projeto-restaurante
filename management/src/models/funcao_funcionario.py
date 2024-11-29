@@ -25,6 +25,9 @@ class FuncaoFuncionarioModel(db.Model):
         db.ForeignKey('management.Funcoes.id', ondelete='CASCADE'),
         nullable=False,
     )
+    nome_funcao = db.relationship(
+        'FuncaoModel', back_populates='funcao_funcionario'
+    )
 
     @db_persist
     def salvar(self):
