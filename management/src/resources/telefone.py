@@ -27,6 +27,7 @@ class TelefonesResource(MethodResource, Resource):
     @doc(description='Cadastrar novo telefone')
     @jwt_required()
     def post(self, **kwargs):
+        #! TODO - Verificar a implementação do telefone
         resposta = make_response(
             {
                 'message': 'Não foi possível cadastrar um novo número de telefone.'

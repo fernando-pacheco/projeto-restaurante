@@ -16,8 +16,8 @@ from src.schemas.endereco import (
 )
 
 
-@doc(description='Endereco Registro API', tags=['Endereços'])
-class EnderecoRegisterResource(MethodResource, Resource):
+@doc(tags=['Endereços'])
+class EnderecosResource(MethodResource, Resource):
     @marshal_with(EnderecoResponseSchema, code=201)
     @use_kwargs(EnderecoRequestPostSchema, location='json')
     @doc(description='Cadastrar novo endereço')
@@ -33,19 +33,41 @@ class EnderecoRegisterResource(MethodResource, Resource):
 
         return resposta
 
-    def get():
+
+@doc(tags=['Endereços'])
+class EnderecoResource(MethodResource, Resource):
+    def get(self, **kwargs):
         pass
 
-    def put():
+    def put(self, **kwargs):
         pass
 
-    def delete():
+    def delete(self, **kwargs):
         pass
 
 
-@doc(description='Funcao Listagem API', tags=['Endereços'])
-class EnderecoListResource(MethodResource, Resource):
-    @use_kwargs()
+@doc(tags=['Endereços'])
+class EnderecosClienteResource(MethodResource, Resource):
+    @marshal_with(EnderecoResponseSchema, code=201)
+    @doc(description='Obter lista de endereços por usuário')
+    def get(self, **kwargs):
+        resposta = make_response({'message': 'Funções não encontradas'}, 400)
+        enderecos_retorno = []
+        enderecos = EnderecoModel.listar_enderecos_por_entidade()
+
+        if enderecos:
+            for endereco in enderecos:
+                enderecos_retorno.append(endereco_schema.dump(endereco))
+
+            retorno = {'enderecos': enderecos_retorno}
+
+            resposta = make_response(json.dumps(retorno, indent=4), 201)
+
+        return resposta
+
+
+@doc(tags=['Endereços'])
+class EnderecosEmpresaResource(MethodResource, Resource):
     @marshal_with(EnderecoResponseSchema, code=201)
     @doc(description='Obter lista de endereços por usuário')
     def get(self, **kwargs):

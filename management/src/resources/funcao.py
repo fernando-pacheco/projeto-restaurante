@@ -4,12 +4,9 @@ from flask import make_response
 from flask_apispec import doc, marshal_with
 from flask_apispec.views import MethodResource
 from flask_restful import Resource
-from src.utils.decorators import error_decorators
 from src.models.funcao import FuncaoModel
-from src.schemas.funcao import (
-    FuncaoResponseSchema,
-    funcao_schema,
-)
+from src.schemas.funcao import FuncaoResponseSchema, funcao_schema
+from src.utils.decorators import error_decorators
 
 
 @doc(tags=['Funções'])
