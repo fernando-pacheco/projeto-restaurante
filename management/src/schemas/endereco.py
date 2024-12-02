@@ -29,11 +29,7 @@ class EnderecoResponseSchema(ma.Schema):
     _links = ma.Hyperlinks({'self': ma.URLFor('endereco')})
 
 
-class EnderecoRequestGetSchema(Schema):
-    id = fields.Str(required=True)
-
-
-class EnderecoRequestPostSchema(Schema):
+class EnderecoRequestPutSchema(Schema):
     logradouro = fields.Str()
     numero = fields.Int()
     bairro = fields.Str()
@@ -44,7 +40,7 @@ class EnderecoRequestPostSchema(Schema):
     principal = fields.Bool()
 
 
-class EnderecoRequestPutSchema(Schema):
+class EnderecoRequestPostSchema(Schema):
     logradouro = fields.Str(required=True)
     numero = fields.Int(required=True)
     bairro = fields.Str(required=True)
