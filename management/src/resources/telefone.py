@@ -20,7 +20,6 @@ from src.utils.funcoes_auxiliares import (
 
 
 @marshal_with(TelefoneResponseSchema, code=201)
-@marshal_with(TelefoneResponseSchema, code=201)
 @error_decorators([400, 401, 403])
 @doc(tags=['Telefones'])
 class TelefonesResource(MethodResource, Resource):
@@ -61,7 +60,7 @@ class TelefonesResource(MethodResource, Resource):
         return resposta
 
 
-@marshal_with(TelefoneResponseSchema, code=201)
+@marshal_with(TelefoneResponseSchema, code=200)
 @error_decorators([400, 404, 403])
 @doc(tags=['Telefones'])
 class TelefoneResource(MethodResource, Resource):
@@ -135,6 +134,7 @@ class TelefoneResource(MethodResource, Resource):
 
 @doc(tags=['Telefones'])
 @error_decorators([400, 404])
+@marshal_with(TelefoneResponseSchema, code=200)
 class TelefonesClienteResource(MethodResource, Resource):
     @doc(description='Obter todos os telefones do cliente.')
     def get(self, **kwargs):
@@ -155,6 +155,8 @@ class TelefonesClienteResource(MethodResource, Resource):
 
 
 @doc(tags=['Telefones'])
+@error_decorators([400, 404])
+@marshal_with(TelefoneResponseSchema, code=200)
 class TelefonesEmpresaResource(MethodResource, Resource):
     @doc(description='Obter todos os telefones da empresa.')
     def get(self, **kwargs):
@@ -175,6 +177,8 @@ class TelefonesEmpresaResource(MethodResource, Resource):
 
 
 @doc(tags=['Telefones'])
+@error_decorators([400, 404])
+@marshal_with(TelefoneResponseSchema, code=200)
 class TelefonesFuncionarioResource(MethodResource, Resource):
     @doc(description='Obter todos os telefones do funcionario.')
     def get(self, **kwargs):
