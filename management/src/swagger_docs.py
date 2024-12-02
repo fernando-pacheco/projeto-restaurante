@@ -28,6 +28,7 @@ def config_swagger(app):
                 'description': 'Gestão de permissionamento',
             },
             {'name': 'Telefones', 'description': 'Gestão de telefones'},
+            {'name': 'Endereços', 'description': 'Gestão de funções'},
             {
                 'name': 'Health Checker',
                 'description': 'Verificação de funcionamento do servidor',

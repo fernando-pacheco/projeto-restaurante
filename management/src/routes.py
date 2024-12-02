@@ -1,7 +1,13 @@
 from flask_restful import Api
 from src.resources.cliente import ClienteResource, ClientesResource
 from src.resources.empresa import EmpresaResource, EmpresasResource
-from src.resources.funcao import FuncaoListResource, FuncaoResource
+from src.resources.endereco import (
+    EnderecoResource,
+    EnderecosClienteResource,
+    EnderecosEmpresaResource,
+    EnderecosResource,
+)
+from src.resources.funcao import FuncaoResource, FuncoesResource
 from src.resources.funcao_funcionario import (
     FuncaoFuncionarioIDResource,
     FuncaoFuncionarioResource,
@@ -39,6 +45,15 @@ def config_app_routes(app, docs):
     ## Telefones
     __setting_route_doc(TelefonesResource, '/telefone', api, docs)
     __setting_route_doc(TelefoneResource, '/telefone/<int:id>', api, docs)
+    ## Endereços
+    __setting_route_doc(EnderecosResource, '/endereco', api, docs)
+    __setting_route_doc(EnderecoResource, '/endereco/<string:id>', api, docs)
+    __setting_route_doc(
+        EnderecosEmpresaResource, '/empresa/<string:id>/enderecos', api, docs
+    )
+    __setting_route_doc(
+        EnderecosClienteResource, '/cliente/<string:id>/enderecos', api, docs
+    )
 
     # Token
     __setting_route_doc(TokenUsuarioResource, '/token-cliente', api, docs)
@@ -52,14 +67,14 @@ def config_app_routes(app, docs):
     __setting_route_doc(HealthCheckerResource, '/health', api, docs)
 
     # Permissão
-    __setting_route_doc(FuncaoResource, '/funcao', api, docs)
-    __setting_route_doc(FuncaoListResource, '/funcao/all', api, docs)
+    __setting_route_doc(FuncaoResource, '/funcao/<string:funcao>', api, docs)
+    __setting_route_doc(FuncoesResource, '/funcao', api, docs)
     __setting_route_doc(
         FuncaoFuncionariosResource, '/funcao-funcionario', api, docs
     )
     __setting_route_doc(
         FuncaoFuncionarioIDResource,
-        '/funcao-funcionario/<string:funcionario_id>',
+        '/funcionario/<string:id>/funcoes',
         api,
         docs,
     )
