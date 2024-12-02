@@ -20,6 +20,7 @@ from src.utils.funcoes_auxiliares import (
 
 
 @marshal_with(TelefoneResponseSchema, code=201)
+@marshal_with(TelefoneResponseSchema, code=201)
 @error_decorators([400, 401, 403])
 @doc(tags=['Telefones'])
 class TelefonesResource(MethodResource, Resource):
@@ -143,7 +144,16 @@ class TelefonesClienteResource(MethodResource, Resource):
         telefones = TelefoneModel.listar_telefones_por_entidade(
             cliente_id, 'cliente'
         )
-        print(telefones)
+        
+        if telefones:
+            for telefone in telefones:
+                telefones_retorno.append(
+                    telefone_schema.dump(telefone)
+                )
+                
+            resposta = make_response(
+                {'telefones': telefones_retorno}, 200
+            )
 
         return resposta
 
@@ -151,12 +161,46 @@ class TelefonesClienteResource(MethodResource, Resource):
 @doc(tags=['Telefones'])
 class TelefonesEmpresaResource(MethodResource, Resource):
     @doc(description='Obter todos os telefones da empresa.')
-    def get():
-        pass
+    def get(self, **kwargs):
+        resposta = make_response({'message': 'Empresa não encontrado.'}, 404)
+        telefones_retorno = []
+        empresa_id = kwargs['id']
+        telefones = TelefoneModel.listar_telefones_por_entidade(
+            empresa_id, 'empresa'
+        )
+        
+        if telefones:
+            for telefone in telefones:
+                telefones_retorno.append(
+                    telefone_schema.dump(telefone)
+                )
+                
+            resposta = make_response(
+                {'telefones': telefones_retorno}, 200
+            )
+
+        return resposta
 
 
 @doc(tags=['Telefones'])
 class TelefonesFuncionarioResource(MethodResource, Resource):
     @doc(description='Obter todos os telefones do funcionario.')
-    def get():
-        pass
+    def get(self, **kwargs):
+        resposta = make_response({'message': 'Funcionário não encontrado.'}, 404)
+        telefones_retorno = []
+        funcionario_id = kwargs['id']
+        telefones = TelefoneModel.listar_telefones_por_entidade(
+            funcionario_id, 'funcionario'
+        )
+        
+        if telefones:
+            for telefone in telefones:
+                telefones_retorno.append(
+                    telefone_schema.dump(telefone)
+                )
+                
+            resposta = make_response(
+                {'telefones': telefones_retorno}, 200
+            )
+
+        return resposta
