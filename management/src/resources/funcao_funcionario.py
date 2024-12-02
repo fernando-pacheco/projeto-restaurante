@@ -41,7 +41,7 @@ class FuncaoFuncionariosResource(MethodResource, Resource):
         return resposta
 
 
-@doc(tags=['Função Funcionário'])
+@doc(tags=['Funções'])
 @marshal_with(FuncaoFuncionarioResponseSchema, code=201)
 @error_decorators([400, 403, 404])
 class FuncaoFuncionarioIDResource(MethodResource, Resource):
@@ -53,7 +53,7 @@ class FuncaoFuncionarioIDResource(MethodResource, Resource):
             400,
         )
         funcoes_retorno = []
-        funcionario_id = kwargs['funcionario_id']
+        funcionario_id = kwargs['id']
         funcoes_funcionario = (
             FuncaoFuncionarioModel.encontrar_por_funcionario_id(funcionario_id)
         )
