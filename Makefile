@@ -10,3 +10,5 @@ build: cleanup
 	docker compose up --build
 db: cleanup
 	docker compose up --force-recreate db
+backend: cleanup
+	docker compose up --force-recreate db management
