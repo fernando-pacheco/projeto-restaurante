@@ -58,7 +58,10 @@ def config_app_routes(app, docs):
         TelefonesEmpresaResource, '/empresa/<string:id>/telefones', api, docs
     )
     __setting_route_doc(
-        TelefonesFuncionarioResource, '/funcionario/<string:id>/telefones', api, docs
+        TelefonesFuncionarioResource,
+        '/funcionario/<string:id>/telefones',
+        api,
+        docs,
     )
     ## Endereços
     __setting_route_doc(EnderecosResource, '/endereco', api, docs)
