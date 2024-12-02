@@ -130,3 +130,33 @@ class TelefoneResource(MethodResource, Resource):
             resposta = retorno_nao_autorizado()
 
         return resposta
+
+
+@doc(tags=['Telefones'])
+@error_decorators([400, 404])
+class TelefonesClienteResource(MethodResource, Resource):
+    @doc(description='Obter todos os telefones do cliente.')
+    def get(self, **kwargs):
+        resposta = make_response({'message': 'Cliente não encontrado.'}, 404)
+        telefones_retorno = []
+        cliente_id = kwargs['id']
+        telefones = TelefoneModel.listar_telefones_por_entidade(
+            cliente_id, 'cliente'
+        )
+        print(telefones)
+
+        return resposta
+
+
+@doc(tags=['Telefones'])
+class TelefonesEmpresaResource(MethodResource, Resource):
+    @doc(description='Obter todos os telefones da empresa.')
+    def get():
+        pass
+
+
+@doc(tags=['Telefones'])
+class TelefonesFuncionarioResource(MethodResource, Resource):
+    @doc(description='Obter todos os telefones do funcionario.')
+    def get():
+        pass

@@ -15,7 +15,13 @@ from src.resources.funcao_funcionario import (
 )
 from src.resources.funcionario import FuncionarioResource, FuncionariosResource
 from src.resources.health_checker import HealthCheckerResource
-from src.resources.telefone import TelefoneResource, TelefonesResource
+from src.resources.telefone import (
+    TelefoneResource,
+    TelefonesClienteResource,
+    TelefonesEmpresaResource,
+    TelefonesFuncionarioResource,
+    TelefonesResource,
+)
 from src.resources.token import (
     TokenFuncionarioResource,
     TokenRefresherResource,
@@ -45,6 +51,15 @@ def config_app_routes(app, docs):
     ## Telefones
     __setting_route_doc(TelefonesResource, '/telefone', api, docs)
     __setting_route_doc(TelefoneResource, '/telefone/<int:id>', api, docs)
+    __setting_route_doc(
+        TelefonesClienteResource, '/cliente/<string:id>/telefones', api, docs
+    )
+    __setting_route_doc(
+        TelefoneResource, '/empresa/<string:id>/telefones', api, docs
+    )
+    __setting_route_doc(
+        TelefoneResource, '/funcionario/<string:id>', api, docs
+    )
     ## Endereços
     __setting_route_doc(EnderecosResource, '/endereco', api, docs)
     __setting_route_doc(EnderecoResource, '/endereco/<string:id>', api, docs)
