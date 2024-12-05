@@ -1,5 +1,6 @@
 import { api } from '@/api/index'
 import { LoginProps } from './interface/login-interface'
+import { AxiosError } from 'axios'
 
 class LoginCliente {
     async obterToken(corpo: LoginProps) {
@@ -10,7 +11,11 @@ class LoginCliente {
             )
             return response
         } catch (error) {
-            console.error(error)
+            if (error instanceof AxiosError) {
+                return error.response?.data?.message
+            } else {
+                return 'Erro desconhecido'
+            }
         }
     }
 }
