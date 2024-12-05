@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timezone
 
 from flask import make_response
@@ -34,9 +35,14 @@ class TokenUsuarioResource(MethodResource, Resource):
             {'message': 'Erro na autenticação, credenciais inválidas.'},
             401,
         )
-        nome_usuario = kwargs['nome_usuario']
+        credencial = kwargs['credencial']
         senha = kwargs['senha']
-        cliente = ClienteModel.encontrar_por_nome_usuario(nome_usuario)
+
+        if re.match(r'[^@]+@[^@]+\.[^@]+', credencial):
+            cliente = ClienteModel.encontrar_por_email(credencial)
+        else:
+            cliente = ClienteModel.encontrar_por_nome_usuario(credencial)
+
         if cliente and cliente.verificar_senha(senha):
             login_user(cliente)
             token_acesso = create_access_token(identity=cliente.id)
@@ -65,9 +71,15 @@ class TokenFuncionarioResource(MethodResource, Resource):
             401,
         )
 
-        nome_usuario = kwargs['nome_usuario']
+        credencial = kwargs['credencial']
         senha = kwargs['senha']
-        funcionario = FuncionarioModel.encontrar_por_nome_usuario(nome_usuario)
+
+        if re.match(r'[^@]+@[^@]+\.[^@]+', credencial):
+            funcionario = FuncionarioModel.encontrar_por_email(credencial)
+        else:
+            funcionario = FuncionarioModel.encontrar_por_nome_usuario(
+                credencial
+            )
 
         if funcionario and funcionario.verificar_senha(senha):
             login_user(funcionario)

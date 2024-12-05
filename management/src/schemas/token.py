@@ -8,9 +8,5 @@ class AccessRefreshTokenUidResponseSchema(Schema):
 
 
 class AccessRefreshTokenRequestSchema(Schema):
-    nome_usuario = fields.Str(
-        required=True, example='user1', help='Invalid login or password'
-    )
-    senha = fields.Str(
-        required=True, example='pwd1', help='Invalid login or password'
-    )
+    credencial = fields.Str(required=True)
+    senha = fields.Str(required=True)
