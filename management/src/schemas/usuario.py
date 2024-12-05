@@ -42,6 +42,6 @@ class ClienteInfoSchema(Schema):
 
 
 funcionario_schema = FuncionarioInfoSchema()
-cliente_shcema = ClienteInfoSchema()
+cliente_schema = ClienteInfoSchema()
 empresa_schema = EmpresaSchema()
 telefone_schema = TelefoneResponseSchema()

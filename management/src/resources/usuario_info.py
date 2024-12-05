@@ -1,5 +1,5 @@
 from flask import make_response
-from flask_apispec import doc
+from flask_apispec import doc, marshal_with
 from flask_apispec.views import MethodResource
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
@@ -12,7 +12,8 @@ from src.models.telefone import TelefoneModel
 from src.schemas.endereco import endereco_schema
 from src.schemas.funcao_funcionario import funcao_funcionario_schema
 from src.schemas.usuario import (
-    cliente_shcema,
+    FuncionarioInfoSchema,
+    cliente_schema,
     empresa_schema,
     funcionario_schema,
     telefone_schema,
@@ -20,6 +21,7 @@ from src.schemas.usuario import (
 
 
 @doc(tags=['Usuários'])
+@marshal_with(FuncionarioInfoSchema, 200)
 class UsuarioInfoResource(MethodResource, Resource):
     @jwt_required()
     def get(self):
@@ -27,7 +29,7 @@ class UsuarioInfoResource(MethodResource, Resource):
         cliente = ClienteModel.encontrar_por_id(usuario_id)
 
         if cliente:
-            cliente_data = cliente_shcema.dump(cliente)
+            cliente_data = cliente_schema.dump(cliente)
             cliente_data['telefones'] = self.listar_objetos_model_por_schema(
                 TelefoneModel.listar_telefones_por_entidade(
                     usuario_id, 'cliente'
