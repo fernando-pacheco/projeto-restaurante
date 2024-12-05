@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 
 const getAuthToken = (): string | undefined => {
-  return Cookies.get('token')
+  return Cookies.get('jwt_token')
 }
 
 export const api = axios.create({
