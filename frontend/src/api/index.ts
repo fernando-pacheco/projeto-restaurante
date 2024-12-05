@@ -1,5 +1,5 @@
 import axios from 'axios'
-import * as Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 
 
 const getAuthToken = (): string | undefined => {
