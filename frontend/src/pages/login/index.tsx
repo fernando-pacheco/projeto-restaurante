@@ -25,8 +25,8 @@ export function Login() {
 
             Cookies.set("jwt_token", access_token, { secure: true, sameSite: "strict" })
 
-            toast.success("Login realizado com sucesso.", {
-                description: "Bem-vindo ao sistema!",
+            toast.success("Bem-vindo ao sistema!", {
+                description: "Login realizado com sucesso.",
                 action: {
                     label: "Fechar",
                     onClick: () => { },
