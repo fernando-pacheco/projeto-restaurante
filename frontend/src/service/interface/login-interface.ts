@@ -1,4 +1,4 @@
 export interface LoginProps{
-    nome_usuario: string
+    credencial: string
     senha: string
 }
