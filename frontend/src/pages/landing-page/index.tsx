@@ -1,4 +1,10 @@
+import { Button } from "@/components/molecules/button"
+import { LogIn, Pencil } from "lucide-react"
+import { useNavigate } from "react-router-dom"
+
 export function LandingPage() {
+    const navigate = useNavigate()
+
     return (
         <div className="h-screen flex flex-col">
             <header className="flex justify-between py-6">
@@ -8,9 +14,21 @@ export function LandingPage() {
                     <div>Seja Parceiro</div>
                     <div>Fale conosco</div>
                 </div>
-                <div className="flex space-x-6">
-                    <div>Registre-se</div>
-                    <div>Login</div>
+                <div className="flex space-x-6 items-center">
+                    <Button
+                        onClick={() => navigate("/register")}
+                        variant="secondary"
+                    >
+                        <Pencil />
+                        Registre-se
+                    </Button>
+                    <Button
+                        onClick={() => navigate("/login")}
+                        variant="primary"
+                    >
+                        <LogIn />
+                        Login
+                    </Button>
                 </div>
             </header>
             <body className="flex flex-col space-x-6 space-y-6 py-6 flex-1 items-center justify-center">
