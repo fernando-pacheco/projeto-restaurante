@@ -16,29 +16,33 @@ export function Login() {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
 
-        const response = await loginClienteService.obterToken(
-            { "credencial": credencial, "senha": senha }
-        )
+        const response = await loginClienteService.obterToken({
+            credencial: credencial,
+            senha: senha,
+        })
 
         if (response.status === 201) {
             const { access_token } = response?.data
 
-            Cookies.set("jwt_token", access_token, { secure: true, sameSite: "strict" })
+            Cookies.set("jwt_token", access_token, {
+                secure: true,
+                sameSite: "strict",
+            })
 
             toast.success("Bem-vindo ao sistema!", {
                 description: "Login realizado com sucesso.",
                 action: {
                     label: "Fechar",
-                    onClick: () => { },
+                    onClick: () => {},
                 },
             })
-            navigate('/home')
+            navigate("/home")
         } else {
             toast.error(response, {
                 description: "Verifique os parâmetros de entrada.",
                 action: {
                     label: "Fechar",
-                    onClick: () => { },
+                    onClick: () => {},
                 },
             })
         }
@@ -53,22 +57,38 @@ export function Login() {
                 <div className="bg-sky-900 flex-1 rounded-l-xl">
                     <div className="bg-white/50 p-8 rounded-l-xl h-full px-40">
                         <form onSubmit={handleSubmit}>
-                            <h1 className="text-3xl font-semibold mb-16">Seja Bem-Vindo(a)</h1>
-                            <h2 className="text-2xl font-semibold mb-4 flex justify-center">Login</h2>
+                            <h1 className="text-3xl font-semibold mb-16">
+                                Seja Bem-Vindo(a)
+                            </h1>
+                            <h2 className="text-2xl font-semibold mb-4 flex justify-center">
+                                Login
+                            </h2>
 
                             <div className="mb-4">
-                                <Label htmlFor="nome_usuario" className="block text-white mb-2">Usuário ou e-mail</Label>
+                                <Label
+                                    htmlFor="nome_usuario"
+                                    className="block text-white mb-2"
+                                >
+                                    Usuário ou e-mail
+                                </Label>
                                 <Input
                                     id="nome_usuario"
                                     type="text"
                                     value={credencial}
-                                    onChange={(e) => setNomeUsuario(e.target.value)}
+                                    onChange={(e) =>
+                                        setNomeUsuario(e.target.value)
+                                    }
                                     className="text-black border-sky-900"
                                 />
                             </div>
 
                             <div className="mb-4">
-                                <Label htmlFor="senha" className="block text-white mb-2">Senha</Label>
+                                <Label
+                                    htmlFor="senha"
+                                    className="block text-white mb-2"
+                                >
+                                    Senha
+                                </Label>
                                 <Input
                                     id="senha"
                                     type="password"
@@ -92,17 +112,11 @@ export function Login() {
                         </div>
 
                         <div className="flex justify-around space-x-4 mt-4">
-                            <Button
-                                className="w-full"
-                                variant="primary"
-                            >
+                            <Button className="w-full" variant="primary">
                                 <Chrome />
                                 Login com o Google
                             </Button>
-                            <Button
-                                className="w-full"
-                                variant="primary"
-                            >
+                            <Button className="w-full" variant="primary">
                                 <Phone />
                                 Login com o telefone
                             </Button>

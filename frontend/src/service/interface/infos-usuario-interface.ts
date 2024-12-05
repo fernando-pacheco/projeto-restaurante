@@ -1,6 +1,6 @@
 interface TelefoneUsuarioProps {
-    id: number,
-    numero: string,
+    id: number
+    numero: string
     principal: boolean
 }
 
@@ -12,8 +12,8 @@ interface EmpresaFuncionarioProps {
 }
 
 interface FuncaoFuncionarioProps {
-    "funcao_id": 0,
-    "id": 0
+    funcao_id: 0
+    id: 0
 }
 
 interface EnderecoUsuarioProps {
@@ -33,12 +33,11 @@ export interface InfosUsuarioProps {
     cpf: string
     email: string
     empresa: EmpresaFuncionarioProps
-    funcoes: FuncaoFuncionarioProps[],
+    funcoes: FuncaoFuncionarioProps[]
     id: string
-    nome: string,
+    nome: string
     nome_usuario: string
     sobrenome: string
     telefones: TelefoneUsuarioProps[]
     enderecos: EnderecoUsuarioProps[]
 }
-
