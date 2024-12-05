@@ -79,8 +79,8 @@ export function Login() {
                             </div>
                             <Button
                                 type="submit"
-                                className="w-full"
-                                variant={"primary"}
+                                className="w-full mt-2"
+                                variant="primary"
                             >
                                 Entrar
                             </Button>
@@ -91,17 +91,17 @@ export function Login() {
                             <div className="flex-grow h-px bg-gray-300"></div>
                         </div>
 
-                        <div className="flex justify-around space-x-4 mt-2">
+                        <div className="flex justify-around space-x-4 mt-4">
                             <Button
                                 className="w-full"
-                                variant={"primary"}
+                                variant="primary"
                             >
                                 <Chrome />
                                 Login com o Google
                             </Button>
                             <Button
                                 className="w-full"
-                                variant={"primary"}
+                                variant="primary"
                             >
                                 <Phone />
                                 Login com o telefone
