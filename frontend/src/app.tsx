@@ -1,9 +1,10 @@
 import { Routes, Route } from "react-router-dom"
-import { Login } from "./pages/login"
-import { LandingPage } from "./pages/landing-page"
-import { Home } from "./pages/home"
 import { Toaster } from "sonner"
-import { RegisterCliente } from "./pages/register/cliente"
+import { LandingPage } from "./pages/landing-page"
+import { Login } from "./pages/auth/login"
+import { Home } from "./pages/home"
+import { RegisterCliente } from "./pages/auth/register/cliente"
+import { PasswordRecovery } from "./pages/auth/password-recovery"
 
 export function App() {
     return (
@@ -14,6 +15,10 @@ export function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/register" element={<RegisterCliente />} />
+                <Route
+                    path="/password-recovery"
+                    element={<PasswordRecovery />}
+                />
             </Routes>
         </div>
     )
