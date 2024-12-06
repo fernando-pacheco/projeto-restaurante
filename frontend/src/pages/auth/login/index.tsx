@@ -102,8 +102,8 @@ export function Login() {
                         </div>
                         <button
                             type="reset"
-                            className="text-salmon-600"
-                            onClick={() => navigate("/pass-recovery")}
+                            className="text-salmon-600 hover:underline hover:text-salmon-700"
+                            onClick={() => navigate("/password-recovery")}
                         >
                             Esqueci minha senha
                         </button>
@@ -133,10 +133,20 @@ export function Login() {
                         Login com o telefone
                     </Button>
                 </div>
+
+                <div className="flex justify-center mt-8 space-x-1">
+                    <span>Ainda não tem cadastro?</span>
+                    <button
+                        className="text-salmon-600 hover:underline hover:text-salmon-700"
+                        onClick={() => navigate("/register")}
+                    >
+                        Cadastrar-se
+                    </button>
+                </div>
             </div>
 
             <div className="flex flex-1 justify-center h-screen w-full items-center bg-white/10">
-                imgem de fundo
+                imagem sem fundo
             </div>
         </AuthBase>
     )
