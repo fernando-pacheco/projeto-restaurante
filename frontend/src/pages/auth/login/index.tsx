@@ -77,32 +77,12 @@ export function Login() {
             form={
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4 mt-10">
-                        <Label
-                            htmlFor="credencial"
-                            className="block text-salmon-950 mb-2"
-                        >
-                            Usuário ou e-mail
-                        </Label>
-                        <Input
-                            id="credencial"
-                            type="text"
-                            name="credencial"
-                            className="border-sky-900"
-                        />
+                        <Label htmlFor="credencial">Usuário ou e-mail</Label>
+                        <Input id="credencial" type="text" name="credencial" />
                     </div>
                     <div className="mb-1">
-                        <Label
-                            htmlFor="senha"
-                            className="block text-salmon-950 mb-2"
-                        >
-                            Senha
-                        </Label>
-                        <Input
-                            id="senha"
-                            type="password"
-                            name="senha"
-                            className="border-sky-900"
-                        />
+                        <Label htmlFor="senha">Senha</Label>
+                        <Input id="senha" type="password" name="senha" />
                     </div>
                     <div className="flex justify-between">
                         <div className="flex space-x-2 items-center">
