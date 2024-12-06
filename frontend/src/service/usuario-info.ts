@@ -1,7 +1,7 @@
 import { api } from "@/api"
 
-class UsuarioInfo {
-    async obterInfoUsuario() {
+export class UsuarioInfoService {
+    async getInfoUsuario() {
         try {
             const response = await api.get("/usuario-info")
             return response
@@ -10,6 +10,3 @@ class UsuarioInfo {
         }
     }
 }
-
-const usuarioInfoService = new UsuarioInfo()
-export default usuarioInfoService

@@ -1,7 +1,7 @@
 import { Button } from "@/components/molecules/button"
 import { useState } from "react"
 import { InfosUsuarioProps } from "@/service/interface/infos-usuario-interface"
-import usuarioInfoService from "@/service/usuario-info"
+import { UsuarioInfoService } from "@/service/usuario-info"
 
 export function Home() {
     const [infosUsuario, setInfosUsuario] = useState<InfosUsuarioProps | null>(
@@ -9,7 +9,8 @@ export function Home() {
     )
 
     async function obterInfosUsuario() {
-        const response = await usuarioInfoService.obterInfoUsuario()
+        const service = new UsuarioInfoService()
+        const response = await service.getInfoUsuario()
         if (response && response.data) {
             setInfosUsuario(response.data)
         } else {

@@ -2,7 +2,7 @@ import { api } from "@/api"
 import { RegisterClienteProps } from "./interface/register-interface"
 import { AxiosError } from "axios"
 
-export class Cliente {
+export class ClienteService {
     async clienteRegister(body: RegisterClienteProps) {
         try {
             const response = await api.post("/cliente", body)
