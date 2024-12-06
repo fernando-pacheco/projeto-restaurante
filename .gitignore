@@ -1,8 +1,6 @@
 venv/
 .env
 *.env
-.terragrunt-cache/
-.terraform.*
 *pytest*/
 __pycache__/
 .coverage
