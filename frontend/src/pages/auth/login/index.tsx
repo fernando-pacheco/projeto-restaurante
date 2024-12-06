@@ -33,11 +33,24 @@ export function Login() {
 
             toast.success("Bem-vindo ao sistema!", {
                 description: "Login realizado com sucesso.",
+                duration: 5000,
+                style: {
+                    backgroundColor: "#f",
+                    color: "#571a1e",
+                    border: "1px solid #fbd4c4",
+                },
+                className: "custom-toast-success",
                 action: {
                     label: "Fechar",
-                    onClick: () => {},
+                    onClick: () => {
+                        console.log("Ação de fechar executada")
+                    },
+                    actionButtonStyle: {
+                        backgroundColor: "#f",
+                    },
                 },
             })
+
             navigate("/home")
         } else {
             toast.error(response, {
@@ -55,7 +68,7 @@ export function Login() {
             <div className="px-16 rounded-l-xl h-full min-w-80 w-[600px] z-50">
                 <form onSubmit={handleSubmit}>
                     <h1 className="text-3xl font-semibold mb-8">
-                        Seja Bem-Vindo(a)
+                        Seja Bem-Vindo(a)!
                     </h1>
                     <h1 className="text-2xl font-semibold flex justify-center">
                         Entrar
@@ -145,8 +158,19 @@ export function Login() {
                 </div>
             </div>
 
-            <div className="flex flex-1 justify-center h-screen w-full items-center bg-white/10">
-                imagem sem fundo
+            <div className="flex flex-1 justify-center h-screen w-full items-center">
+                <img
+                    alt="img-fundo"
+                    src="static/fundo-login.png"
+                    className="absolute bottom-8 right-[410px] z-10"
+                    width={250}
+                />
+                <img
+                    alt="img-fundo1"
+                    src="static/fundo-login1.png"
+                    className="absolute top-10 right-16"
+                    width={650}
+                />
             </div>
         </AuthBase>
     )

@@ -18,6 +18,20 @@ export function AuthBase({ children }: AuthBaseProps) {
                 <circle className="bg-gradient-to-t from-salmon-700/5 to-salmon-700/5 w-[2000px] h-[2000px] rounded-full absolute top-96 left-4" />
             </div>
             {children}
+            <div className="flex flex-1 justify-center h-screen w-full items-center">
+                <img
+                    alt="img-fundo"
+                    src="static/fundo-login.png"
+                    className="absolute bottom-8 right-[410px] z-10"
+                    width={250}
+                />
+                <img
+                    alt="img-fundo1"
+                    src="static/fundo-login1.png"
+                    className="absolute top-10 right-16"
+                    width={650}
+                />
+            </div>
         </div>
     )
 }
