@@ -27,7 +27,7 @@ export function LandingPage() {
                         variant="primary"
                     >
                         <LogIn />
-                        Login
+                        Entrar
                     </Button>
                 </div>
             </header>
