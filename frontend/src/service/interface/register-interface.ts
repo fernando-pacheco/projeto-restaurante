@@ -4,7 +4,7 @@ export interface RegisterClienteProps {
     nome: string
     nome_usuario: string
     senha: string
-    sobrenome: string
+    sobrenome?: string
 }
 
 export interface RegisterFuncionarioProps {
@@ -14,7 +14,7 @@ export interface RegisterFuncionarioProps {
     nome: string
     nome_usuario: string
     senha: string
-    sobrenome: string
+    sobrenome?: string
 }
 
 export interface RegisterEmpresaProps {

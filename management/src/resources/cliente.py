@@ -24,7 +24,6 @@ from src.utils.funcoes_auxiliares import (
 @error_decorators(status_codes=[400])
 class ClientesResource(MethodResource, Resource):
     @use_kwargs(ClienteRequestPostSchema, location='json')
-    @jwt_required()
     @doc(description='Registrar novo usuário')
     def post(self, **kwargs):
         resposta = make_response(
