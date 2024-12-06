@@ -1,97 +1,95 @@
-import { useState, FormEvent } from "react"
-import loginClienteService from "@/service/login-cliente"
 import Cookies from "js-cookie"
+import { FormEvent } from "react"
 import { Label } from "@/components/molecules/label"
 import { Input } from "@/components/molecules/input"
 import { Button } from "@/components/molecules/button"
-import { Chrome, Phone } from "lucide-react"
 import { useNavigate } from "react-router-dom"
-import { toast } from "sonner"
 import { Checkbox } from "@/components/molecules/checkbox"
-import { AuthBase } from "@/components/organisms/auth-base"
+import { FormAuthBase } from "@/components/organisms/form-auth-base"
+import { setupToast } from "@/utils/setup-toast"
+import { AxiosResponse } from "axios"
+import { LoginService } from "@/service/login"
 
 export function Login() {
-    const [credencial, setNomeUsuario] = useState("")
-    const [senha, setSenha] = useState("")
     const navigate = useNavigate()
 
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault()
+    const MESSAGES = {
+        success: {
+            title: "Bem-vindo ao sistema!",
+            description: "Login realizado com sucesso.",
+        },
+        error: {
+            title: "Problema ao realizar login.",
+        },
+    }
 
-        const response = await loginClienteService.obterToken({
-            credencial: credencial,
-            senha: senha,
+    function formatBody(formData: FormData) {
+        return {
+            credencial: formData.get("credencial") as string,
+            senha: formData.get("senha") as string,
+        }
+    }
+
+    function handleSuccess(response: AxiosResponse) {
+        const { access_token } = response?.data
+
+        Cookies.set("jwt_token", access_token, {
+            secure: true,
+            sameSite: "strict",
         })
 
+        setupToast({
+            status: "success",
+            title: MESSAGES.success.title,
+            description: MESSAGES.success.description,
+        })
+
+        navigate("/home")
+    }
+
+    function handleResponse(response: AxiosResponse) {
         if (response.status === 201) {
-            const { access_token } = response?.data
-
-            Cookies.set("jwt_token", access_token, {
-                secure: true,
-                sameSite: "strict",
-            })
-
-            toast.success("Bem-vindo ao sistema!", {
-                description: "Login realizado com sucesso.",
-                duration: 5000,
-                style: {
-                    backgroundColor: "#f",
-                    color: "#571a1e",
-                    border: "1px solid #fbd4c4",
-                },
-                className: "custom-toast-success",
-                action: {
-                    label: "Fechar",
-                    onClick: () => {
-                        console.log("Ação de fechar executada")
-                    },
-                    actionButtonStyle: {
-                        backgroundColor: "#f",
-                    },
-                },
-            })
-
-            navigate("/home")
+            handleSuccess(response)
         } else {
-            toast.error(response, {
-                description: "Verifique os parâmetros de entrada.",
-                action: {
-                    label: "Fechar",
-                    onClick: () => {},
-                },
+            setupToast({
+                status: "error",
+                title: MESSAGES.error.title,
+                description: response.data.message,
             })
         }
     }
 
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const service = new LoginService()
+        const formData = new FormData(e.currentTarget)
+        const body = formatBody(formData)
+        const response = await service.getTokenCliente(body)
+        handleResponse(response as AxiosResponse)
+    }
+
     return (
-        <AuthBase>
-            <div className="px-16 rounded-l-xl h-full min-w-80 w-[600px] z-50">
+        <FormAuthBase
+            greetings="Seja Bem-Vindo(a)!"
+            title="Entrar"
+            subtitle="Entre para se manter conectado."
+            typeForm="login"
+            form={
                 <form onSubmit={handleSubmit}>
-                    <h1 className="text-3xl font-semibold mb-8">
-                        Seja Bem-Vindo(a)!
-                    </h1>
-                    <h1 className="text-2xl font-semibold flex justify-center">
-                        Entrar
-                    </h1>
-                    <h1 className="text-md font-semibold mb-4 flex justify-center text-salmon-950/40">
-                        Entre para ficar conectado
-                    </h1>
-                    <div className="mb-4 mt-16">
+                    <div className="mb-4 mt-10">
                         <Label
-                            htmlFor="nome_usuario"
+                            htmlFor="credencial"
                             className="block text-salmon-950 mb-2"
                         >
                             Usuário ou e-mail
                         </Label>
                         <Input
-                            id="nome_usuario"
+                            id="credencial"
                             type="text"
-                            value={credencial}
-                            onChange={(e) => setNomeUsuario(e.target.value)}
+                            name="credencial"
                             className="border-sky-900"
                         />
                     </div>
-
                     <div className="mb-1">
                         <Label
                             htmlFor="senha"
@@ -102,12 +100,10 @@ export function Login() {
                         <Input
                             id="senha"
                             type="password"
-                            value={senha}
-                            onChange={(e) => setSenha(e.target.value)}
+                            name="senha"
                             className="border-sky-900"
                         />
                     </div>
-
                     <div className="flex justify-between">
                         <div className="flex space-x-2 items-center">
                             <Checkbox />
@@ -121,7 +117,6 @@ export function Login() {
                             Esqueci minha senha
                         </button>
                     </div>
-
                     <Button
                         type="submit"
                         className="w-full mt-8"
@@ -130,23 +125,8 @@ export function Login() {
                         Entrar
                     </Button>
                 </form>
-                <div className="flex items-center mt-4 flex-1 space-x-2">
-                    <div className="flex-grow h-px bg-salmon-950"></div>
-                    <span className="text-md">ou</span>
-                    <div className="flex-grow h-px bg-salmon-950"></div>
-                </div>
-
-                <div className="flex justify-around space-x-4 mt-4">
-                    <Button className="w-full" variant="primary">
-                        <Chrome />
-                        Login com o Google
-                    </Button>
-                    <Button className="w-full" variant="primary">
-                        <Phone />
-                        Login com o telefone
-                    </Button>
-                </div>
-
+            }
+            footerForm={
                 <div className="flex justify-center mt-8 space-x-1">
                     <span>Ainda não tem cadastro?</span>
                     <button
@@ -156,22 +136,7 @@ export function Login() {
                         Cadastrar-se
                     </button>
                 </div>
-            </div>
-
-            <div className="flex flex-1 justify-center h-screen w-full items-center">
-                <img
-                    alt="img-fundo"
-                    src="static/fundo-login.png"
-                    className="absolute bottom-8 right-[410px] z-10"
-                    width={250}
-                />
-                <img
-                    alt="img-fundo1"
-                    src="static/fundo-login1.png"
-                    className="absolute top-10 right-16"
-                    width={650}
-                />
-            </div>
-        </AuthBase>
+            }
+        />
     )
 }
