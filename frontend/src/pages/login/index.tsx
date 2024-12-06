@@ -7,6 +7,8 @@ import { Button } from "@/components/molecules/button"
 import { Chrome, Phone } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
+import { Checkbox } from "@/components/molecules/checkbox"
+import { AuthBase } from "@/components/organisms/auth-base"
 
 export function Login() {
     const [credencial, setNomeUsuario] = useState("")
@@ -49,81 +51,93 @@ export function Login() {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="w-[100%] h-[85%] flex bg-white">
-                <div className="w-[40%] flex justify-center items-center text-black">
-                    Imagem
-                </div>
-                <div className="bg-sky-900 flex-1 rounded-l-xl">
-                    <div className="bg-white/50 p-8 rounded-l-xl h-full px-40">
-                        <form onSubmit={handleSubmit}>
-                            <h1 className="text-3xl font-semibold mb-16">
-                                Seja Bem-Vindo(a)
-                            </h1>
-                            <h2 className="text-2xl font-semibold mb-4 flex justify-center">
-                                Login
-                            </h2>
-
-                            <div className="mb-4">
-                                <Label
-                                    htmlFor="nome_usuario"
-                                    className="block text-white mb-2"
-                                >
-                                    Usuário ou e-mail
-                                </Label>
-                                <Input
-                                    id="nome_usuario"
-                                    type="text"
-                                    value={credencial}
-                                    onChange={(e) =>
-                                        setNomeUsuario(e.target.value)
-                                    }
-                                    className="text-black border-sky-900"
-                                />
-                            </div>
-
-                            <div className="mb-4">
-                                <Label
-                                    htmlFor="senha"
-                                    className="block text-white mb-2"
-                                >
-                                    Senha
-                                </Label>
-                                <Input
-                                    id="senha"
-                                    type="password"
-                                    value={senha}
-                                    onChange={(e) => setSenha(e.target.value)}
-                                    className="text-black border-sky-900"
-                                />
-                            </div>
-                            <Button
-                                type="submit"
-                                className="w-full mt-2"
-                                variant="primary"
-                            >
-                                Entrar
-                            </Button>
-                        </form>
-                        <div className="flex items-center mt-4 flex-1 space-x-2">
-                            <div className="flex-grow h-px bg-gray-300"></div>
-                            <span className="text-md">ou</span>
-                            <div className="flex-grow h-px bg-gray-300"></div>
-                        </div>
-
-                        <div className="flex justify-around space-x-4 mt-4">
-                            <Button className="w-full" variant="primary">
-                                <Chrome />
-                                Login com o Google
-                            </Button>
-                            <Button className="w-full" variant="primary">
-                                <Phone />
-                                Login com o telefone
-                            </Button>
-                        </div>
+        <AuthBase>
+            <div className="px-16 rounded-l-xl h-full min-w-80 w-[600px] z-50">
+                <form onSubmit={handleSubmit}>
+                    <h1 className="text-3xl font-semibold mb-8">
+                        Seja Bem-Vindo(a)
+                    </h1>
+                    <h1 className="text-2xl font-semibold flex justify-center">
+                        Entrar
+                    </h1>
+                    <h1 className="text-md font-semibold mb-4 flex justify-center text-salmon-950/40">
+                        Entre para ficar conectado
+                    </h1>
+                    <div className="mb-4 mt-16">
+                        <Label
+                            htmlFor="nome_usuario"
+                            className="block text-salmon-950 mb-2"
+                        >
+                            Usuário ou e-mail
+                        </Label>
+                        <Input
+                            id="nome_usuario"
+                            type="text"
+                            value={credencial}
+                            onChange={(e) => setNomeUsuario(e.target.value)}
+                            className="border-sky-900"
+                        />
                     </div>
+
+                    <div className="mb-1">
+                        <Label
+                            htmlFor="senha"
+                            className="block text-salmon-950 mb-2"
+                        >
+                            Senha
+                        </Label>
+                        <Input
+                            id="senha"
+                            type="password"
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                            className="border-sky-900"
+                        />
+                    </div>
+
+                    <div className="flex justify-between">
+                        <div className="flex space-x-2 items-center">
+                            <Checkbox />
+                            <span>Lembrar de mim?</span>
+                        </div>
+                        <button
+                            type="reset"
+                            className="text-salmon-600"
+                            onClick={() => navigate("/pass-recovery")}
+                        >
+                            Esqueci minha senha
+                        </button>
+                    </div>
+
+                    <Button
+                        type="submit"
+                        className="w-full mt-8"
+                        variant="primary"
+                    >
+                        Entrar
+                    </Button>
+                </form>
+                <div className="flex items-center mt-4 flex-1 space-x-2">
+                    <div className="flex-grow h-px bg-salmon-950"></div>
+                    <span className="text-md">ou</span>
+                    <div className="flex-grow h-px bg-salmon-950"></div>
+                </div>
+
+                <div className="flex justify-around space-x-4 mt-4">
+                    <Button className="w-full" variant="primary">
+                        <Chrome />
+                        Login com o Google
+                    </Button>
+                    <Button className="w-full" variant="primary">
+                        <Phone />
+                        Login com o telefone
+                    </Button>
                 </div>
             </div>
-        </div>
+
+            <div className="flex flex-1 justify-center h-screen w-full items-center bg-white/10">
+                imgem de fundo
+            </div>
+        </AuthBase>
     )
 }
