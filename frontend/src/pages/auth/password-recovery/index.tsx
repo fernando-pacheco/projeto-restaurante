@@ -58,29 +58,15 @@ export function PasswordRecovery() {
                 <FormPassword
                     onNext={() => handleNext()}
                     onBack={() => handleBack()}
-                    onError={setError}
                 />
             ),
         },
     ]
 
     function handleNext() {
-        if (error) {
-            setupToast({
-                status: "error",
-                title: "Ocorreu um problem.",
-                description: error,
-            })
-        } else {
-            if (currentStep < steps.length) {
-                setCurrentStep((prev) => prev + 1)
-                setError("")
-                setupToast({
-                    status: "success",
-                    title: "Sucesso.",
-                    description: "",
-                })
-            }
+        if (currentStep < steps.length) {
+            setCurrentStep((prev) => prev + 1)
+            setError("")
         }
     }
 
@@ -183,11 +169,9 @@ function FormValidation({
 function FormPassword({
     onNext,
     onBack,
-    onError,
 }: {
     onNext: () => void
     onBack: () => void
-    onError: (error: string) => void
 }) {
     function validatePassword() {
         const novaSenha = (
@@ -197,8 +181,22 @@ function FormPassword({
             document.getElementById("confirmacao-senha") as HTMLInputElement
         )?.value
 
-        if (!confirmacaoSenha || novaSenha !== confirmacaoSenha) {
-            onError("Erro")
+        if (!novaSenha || !confirmacaoSenha) {
+            setupToast({
+                status: "error",
+                title: "Ocorreu um problema!",
+                description: "Os campos de senha não podem estar vazios.",
+            })
+            return
+        }
+
+        if (novaSenha !== confirmacaoSenha) {
+            setupToast({
+                status: "error",
+                title: "Ocorreu um problema!",
+                description: "As senhas não coincidem.",
+            })
+            return
         }
 
         onNext()
