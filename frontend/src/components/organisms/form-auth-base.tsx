@@ -1,15 +1,15 @@
 import { ReactNode } from "react"
 import { AuthBase } from "./auth-base"
 import { Chrome, LucideOctagon, Phone } from "lucide-react"
-import { Button } from "../molecules/button"
+import { Button } from "../atoms/button"
 
 interface FormAuthBaseProps {
-    form: ReactNode
-    footerForm: ReactNode
-    typeForm: "register" | "login"
-    greetings?: string
     title: string
     subtitle: string
+    form: ReactNode
+    typeForm: "register" | "login" | ""
+    greetings?: string
+    footerForm?: ReactNode
     loginGoogle?: () => void
     loginPhone?: () => void
 }
@@ -45,29 +45,33 @@ export function FormAuthBase({
                     {subtitle}
                 </h1>
                 {form}
-                <div className="flex items-center mt-4 flex-1 space-x-2">
-                    <div className="flex-grow h-px bg-salmon-950"></div>
-                    <span className="text-md">ou</span>
-                    <div className="flex-grow h-px bg-salmon-950"></div>
-                </div>
-                <div className="flex justify-around space-x-4 mt-4">
-                    <Button
-                        className="w-full"
-                        variant="primary"
-                        onClick={loginGoogle}
-                    >
-                        <Chrome />
-                        {nameForm[typeForm]}
-                    </Button>
-                    <Button
-                        className="w-full"
-                        variant="primary"
-                        onClick={loginPhone}
-                    >
-                        <Phone />
-                        {nameForm[typeForm]}
-                    </Button>
-                </div>
+                {typeForm && (
+                    <>
+                        <div className="flex items-center mt-4 flex-1 space-x-2">
+                            <div className="flex-grow h-px bg-salmon-950"></div>
+                            <span className="text-md">ou</span>
+                            <div className="flex-grow h-px bg-salmon-950"></div>
+                        </div>
+                        <div className="flex justify-around space-x-4 mt-4">
+                            <Button
+                                className="w-full"
+                                variant="primary"
+                                onClick={loginGoogle}
+                            >
+                                <Chrome />
+                                {nameForm[typeForm]}
+                            </Button>
+                            <Button
+                                className="w-full"
+                                variant="primary"
+                                onClick={loginPhone}
+                            >
+                                <Phone />
+                                {nameForm[typeForm]}
+                            </Button>
+                        </div>
+                    </>
+                )}
                 {footerForm}
             </div>
         </AuthBase>

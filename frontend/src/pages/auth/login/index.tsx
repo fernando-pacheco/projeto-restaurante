@@ -98,11 +98,7 @@ export function Login() {
                             Esqueci minha senha
                         </Button>
                     </div>
-                    <Button
-                        type="submit"
-                        className="w-full mt-8"
-                        variant="primary"
-                    >
+                    <Button type="submit" className="w-full mt-8">
                         Entrar
                     </Button>
                 </form>
@@ -113,7 +109,6 @@ export function Login() {
                     <Button
                         variant="link"
                         size={"clean"}
-                        className="items-center"
                         onClick={() => navigate("/register")}
                     >
                         Cadastrar-se

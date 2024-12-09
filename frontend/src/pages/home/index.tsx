@@ -1,4 +1,4 @@
-import { Button } from "@/components/molecules/button"
+import { Button } from "@/components/atoms/button"
 import { useState } from "react"
 import { InfosUsuarioProps } from "@/service/interface/infos-usuario-interface"
 import { UsuarioInfoService } from "@/service/usuario-info"

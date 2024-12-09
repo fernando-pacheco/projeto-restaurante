@@ -1,4 +1,4 @@
-import { Button } from "@/components/molecules/button"
+import { Button } from "@/components/atoms/button"
 import { LogIn, Pencil } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
