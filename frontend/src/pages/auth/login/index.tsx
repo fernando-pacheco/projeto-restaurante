@@ -1,10 +1,10 @@
 import Cookies from "js-cookie"
 import { FormEvent } from "react"
-import { Label } from "@/components/molecules/label"
-import { Input } from "@/components/molecules/input"
-import { Button } from "@/components/molecules/button"
+import { Label } from "@/components/atoms/label"
+import { Input } from "@/components/atoms/input"
+import { Button } from "@/components/atoms/button"
 import { useNavigate } from "react-router-dom"
-import { Checkbox } from "@/components/molecules/checkbox"
+import { Checkbox } from "@/components/atoms/checkbox"
 import { FormAuthBase } from "@/components/organisms/form-auth-base"
 import { setupToast } from "@/utils/setup-toast"
 import { AxiosResponse } from "axios"
@@ -89,13 +89,14 @@ export function Login() {
                             <Checkbox />
                             <span>Lembrar de mim?</span>
                         </div>
-                        <button
+                        <Button
                             type="reset"
-                            className="text-salmon-600 hover:underline hover:text-salmon-700"
+                            variant="link"
+                            size={"clean"}
                             onClick={() => navigate("/password-recovery")}
                         >
                             Esqueci minha senha
-                        </button>
+                        </Button>
                     </div>
                     <Button
                         type="submit"
@@ -109,12 +110,14 @@ export function Login() {
             footerForm={
                 <div className="flex justify-center mt-8 space-x-1">
                     <span>Ainda não tem cadastro?</span>
-                    <button
-                        className="text-salmon-600 hover:underline hover:text-salmon-700"
+                    <Button
+                        variant="link"
+                        size={"clean"}
+                        className="items-center"
                         onClick={() => navigate("/register")}
                     >
                         Cadastrar-se
-                    </button>
+                    </Button>
                 </div>
             }
         />

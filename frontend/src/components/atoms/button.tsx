@@ -18,7 +18,7 @@ const buttonVariants = cva(
                 secondary:
                     "bg-gradient-to-b from-zinc-500 to-zinc-700 text-zinc-50 hover:to-zinc-800 active:to-zinc-950 shadow-md dark:bg-zinc-100 dark:text-zinc-800 dark:hover:bg-zinc-100/80",
                 ghost: "hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
-                link: "text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50",
+                link: "text-salmon-600 hover:underline hover:text-salmon-700",
                 primary:
                     "bg-gradient-to-b from-salmon-500 to-salmon-600 text-zinc-50 py-2 px-4 rounded-lg hover:to-salmon-700 shadow-md active:to-salmon-900",
             },
@@ -27,10 +27,11 @@ const buttonVariants = cva(
                 sm: "h-9 rounded-md px-3",
                 lg: "h-11 rounded-md px-8",
                 icon: "h-10 w-10",
+                clean: "",
             },
         },
         defaultVariants: {
-            variant: "default",
+            variant: "primary",
             size: "default",
         },
     }
