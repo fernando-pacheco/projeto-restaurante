@@ -35,7 +35,7 @@ export function RegisterCliente() {
     function formatBodyCliente(formData: FormData) {
         const senha = passwordValidate(
             formData.get("senha") as string,
-            formData.get("confirmacaoSenha") as string
+            formData.get("confirmacaoSenha") as string,
         )
 
         return {
@@ -60,7 +60,7 @@ export function RegisterCliente() {
 
     function handleRegisterResponse(
         formData: FormData,
-        response: AxiosResponse
+        response: AxiosResponse,
     ) {
         if (response.status === 201) {
             if (formData.get("numero")) {
