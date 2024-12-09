@@ -1,0 +1,7 @@
+Organização para recuperação da senha
+
+ - Solicitação da token de recuperação de senha
+ - Envio de email com código de 6 dígitos
+ - Validar os dígitos
+ - Abrir tela de alteração da senha (nova senha e repetição)
+ - Concluir a alteração -> put da senha do usuário
