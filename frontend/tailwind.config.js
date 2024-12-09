@@ -23,6 +23,9 @@ module.exports = {
 					900: '#882614',
 					950: '#4a0f05'
 				}
+			},
+			fontFamily: {
+				sans: 'Inter'
 			}
 		}
 	},
