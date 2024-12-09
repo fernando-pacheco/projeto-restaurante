@@ -1,11 +1,11 @@
-import { Button } from "@/components/atoms/button"
 import { useState } from "react"
 import { InfosUsuarioProps } from "@/service/interface/infos-usuario-interface"
 import { UsuarioInfoService } from "@/service/usuario-info"
+import { LayoutHome } from "@/components/organisms/layout-home"
 
 export function Home() {
     const [infosUsuario, setInfosUsuario] = useState<InfosUsuarioProps | null>(
-        null
+        null,
     )
 
     async function obterInfosUsuario() {
@@ -19,11 +19,8 @@ export function Home() {
     }
 
     return (
-        <div className="space-y-4">
-            <h1>Página principal da aplicação</h1>
-            <Button onClick={obterInfosUsuario} variant={"primary"}>
-                Obter informações do usuário
-            </Button>
-        </div>
+        <LayoutHome>
+            <div>helloworld</div>
+        </LayoutHome>
     )
 }
