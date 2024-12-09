@@ -9,16 +9,15 @@ import { setupToast } from "@/utils/setup-toast"
 import { AxiosResponse } from "axios"
 import { TelefoneService } from "@/service/telefone"
 import { ClienteService } from "@/service/cliente"
+import { LoginService } from "@/service/login"
 
 export function RegisterCliente() {
     const navigate = useNavigate()
     const [error, setError] = useState("")
-    console.log(error)
 
     const MESSAGES = {
         success: {
-            title: "Bem-vindo ao sistema!",
-            description: "Login realizado com sucesso.",
+            description: "Cadastro realizado com sucesso.",
         },
         error: {
             title: "Problema ao realizar o cadastro.",
@@ -49,33 +48,34 @@ export function RegisterCliente() {
         }
     }
 
-    function handleSuccess(response: AxiosResponse) {
-        const { access_token } = response?.data
-
-        Cookies.set("jwt_token", access_token, {
-            secure: true,
-            sameSite: "strict",
-        })
-
+    function handleRegisterSuccess(response: AxiosResponse) {
         setupToast({
             status: "success",
-            title: MESSAGES.success.title,
+            title: `Seja bem-vindo(a) ${response.data.nome}`,
             description: MESSAGES.success.description,
         })
 
         navigate("/login")
     }
 
-    function handleResponse(formData: FormData, response: AxiosResponse) {
+    function handleRegisterResponse(
+        formData: FormData,
+        response: AxiosResponse
+    ) {
         if (response.status === 201) {
-            console.log(response.data)
-            registerTelefone(formData, response.data.id)
-            handleSuccess(response)
+            if (formData.get("numero")) {
+                makeAuth(formData)
+                registerTelefone(formData, response.data.id)
+            }
+
+            handleRegisterSuccess(response)
         } else {
-            setupToast({
-                status: "error",
-                title: MESSAGES.error.title,
-                description: response.data.message,
+            response.data.messages.map((message: string) => {
+                setupToast({
+                    status: "error",
+                    title: MESSAGES.error.title,
+                    description: message,
+                })
             })
         }
     }
@@ -88,12 +88,11 @@ export function RegisterCliente() {
 
         if (!error) {
             const response = await service.clienteRegister(bodyCliente)
-            handleResponse(formData, response as AxiosResponse)
+            handleRegisterResponse(formData, response as AxiosResponse)
         }
     }
 
     async function registerTelefone(formData: FormData, clienteID: string) {
-        console.log(clienteID)
         const service = new TelefoneService()
         const bodyTelefone = formatBodyTelefone(formData, clienteID)
         await service.telefoneRegister(bodyTelefone)
@@ -103,7 +102,31 @@ export function RegisterCliente() {
         return {
             numero: formData.get("numero") as string,
             cliente_id: clienteID as string,
+            principal: true,
         }
+    }
+
+    async function makeAuth(formData: FormData) {
+        const service = new LoginService()
+        const body = formatBodyAuth(formData)
+        const response = await service.getTokenCliente(body)
+        handleAuthSuccess(response as AxiosResponse)
+    }
+
+    function formatBodyAuth(formData: FormData) {
+        return {
+            credencial: formData.get("nomeUsuario") as string,
+            senha: formData.get("senha") as string,
+        }
+    }
+
+    function handleAuthSuccess(response: AxiosResponse) {
+        const { access_token } = response?.data
+
+        Cookies.set("jwt_token", access_token, {
+            secure: true,
+            sameSite: "strict",
+        })
     }
 
     return (
@@ -137,13 +160,13 @@ export function RegisterCliente() {
                             />
                         </div>
                         <div className="flex-1">
-                            <Label>E-mail</Label>
+                            <Label>E-mail *</Label>
                             <Input id="email" name="email" type="text" />
                         </div>
                     </div>
                     <div className="flex justify-between space-x-2">
                         <div className="flex-1">
-                            <Label>CPF</Label>
+                            <Label>CPF *</Label>
                             <Input id="cpf" name="cpf" type="text" />
                         </div>
                         <div className="flex-1">
@@ -153,11 +176,11 @@ export function RegisterCliente() {
                     </div>
                     <div className="flex flex-col">
                         <div className="flex-1">
-                            <Label>Senha</Label>
+                            <Label>Senha *</Label>
                             <Input id="senha" name="senha" type="password" />
                         </div>
                         <div className="flex-1">
-                            <Label>Confirme sua senha</Label>
+                            <Label>Confirme sua senha *</Label>
                             <Input
                                 id="confirmacaoSenha"
                                 name="confirmacaoSenha"

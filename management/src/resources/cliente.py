@@ -26,24 +26,31 @@ class ClientesResource(MethodResource, Resource):
     @use_kwargs(ClienteRequestPostSchema, location='json')
     @doc(description='Registrar novo usuário')
     def post(self, **kwargs):
+        mensagens = []
         resposta = make_response(
             {'message': 'Erro ao registrar um novo usuário'}, 400
         )
 
         if ClienteModel.encontrar_por_nome_usuario(kwargs['nome_usuario']):
-            resposta = make_response(
-                {'message': 'Esse nome de usuário já existe'}, 400
-            )
+            # resposta = make_response(
+            #     {'message': 'Esse nome de usuário já existe'}, 400
+            # )
+            mensagens.append({'message': 'Esse nome de usuário já existe.'})
 
         if ClienteModel.encontrar_por_email(kwargs['email']):
-            resposta = make_response(
-                {'message': 'Esse email já está cadastrado'}, 400
-            )
+            # resposta = make_response(
+            #     {'message': 'Esse email já está cadastrado'}, 400
+            # )
+            mensagens.append({'message': 'Esse email já está cadastrado.'})
 
         if ClienteModel.encontrar_por_cpf(kwargs['cpf']):
-            resposta = make_response(
-                {'message': 'Esse cpf já está cadastrado.'}, 400
-            )
+            # resposta = make_response(
+            #     {'message': 'Esse cpf já está cadastrado.'}, 400
+            # )
+            mensagens.append({'message': 'Esse cpf já está cadastrado.'})
+
+        if mensagens:
+            resposta = make_response({'messages': mensagens}, 400)
 
         cliente = ClienteModel(**kwargs)
 

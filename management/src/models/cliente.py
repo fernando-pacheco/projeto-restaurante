@@ -39,6 +39,14 @@ class ClienteModel(db.Model, UserMixin):
     )
     ativo = db.Column(db.Boolean, default=True)
 
+    def __init__(self, nome_usuario, nome, sobrenome, senha, email, cpf):
+        self.nome_usuario = nome_usuario
+        self.definir_senha(senha)
+        self.email = email
+        self.nome = nome
+        self.sobrenome = sobrenome
+        self.cpf = cpf
+
     def __repr__(self):
         return f'<ClienteModel(id={self.id}, nome_usuario={self.nome_usuario}), senha={self.senha})>'
 
