@@ -1,14 +1,5 @@
 import { AppSidebar } from "@/components/molecules/app-sidebar"
 import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@/components/atoms/breadcrumb"
-import { Separator } from "@/components/atoms/separator"
-import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger,
