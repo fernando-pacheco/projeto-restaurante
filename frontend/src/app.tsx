@@ -5,7 +5,6 @@ import { Login } from "./pages/auth/login"
 import { Home } from "./pages/home"
 import { RegisterCliente } from "./pages/auth/register/cliente"
 import { PasswordRecovery } from "./pages/auth/password-recovery"
-import { ConfirmedPassword } from "./pages/auth/confirmed-password"
 
 export function App() {
     return (
@@ -19,10 +18,6 @@ export function App() {
                 <Route
                     path="/password-recovery"
                     element={<PasswordRecovery />}
-                />
-                <Route
-                    path="/confirmed-password"
-                    element={<ConfirmedPassword />}
                 />
             </Routes>
         </div>
