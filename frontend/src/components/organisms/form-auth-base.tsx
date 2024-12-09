@@ -31,7 +31,7 @@ export function FormAuthBase({
 
     return (
         <AuthBase>
-            <div className="px-16 rounded-l-xl h-full min-w-80 w-[600px] z-50">
+            <div className="px-24 rounded-l-xl h-full min-w-80 w-[800px] z-50">
                 <div className="h-[64px] w-[64px] mb-2">
                     <LucideOctagon width={64} height={64} />
                 </div>
