@@ -18,9 +18,7 @@ import {
     SidebarMenuSubItem,
 } from "@/components/atoms/sidebar"
 
-export function NavMain({
-    items,
-}: {
+interface NavMainProps {
     items: {
         title: string
         url: string
@@ -31,7 +29,9 @@ export function NavMain({
             url: string
         }[]
     }[]
-}) {
+}
+
+export function NavMain({ items }: NavMainProps) {
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>

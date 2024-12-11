@@ -25,15 +25,15 @@ import {
     useSidebar,
 } from "@/components/atoms/sidebar"
 
-export function NavProjects({
-    projects,
-}: {
+interface NavProjectsProps {
     projects: {
         name: string
         url: string
         icon: LucideIcon
     }[]
-}) {
+}
+
+export function NavProjects({ projects }: NavProjectsProps) {
     const { isMobile } = useSidebar()
 
     return (

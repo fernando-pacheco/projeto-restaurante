@@ -24,15 +24,15 @@ import {
     useSidebar,
 } from "@/components/atoms/sidebar"
 
-export function NavUser({
-    user,
-}: {
+interface NavUserProps {
     user: {
         name: string
         email: string
         avatar: string
     }
-}) {
+}
+
+export function NavUser({ user }: NavUserProps) {
     const { isMobile } = useSidebar()
 
     return (
