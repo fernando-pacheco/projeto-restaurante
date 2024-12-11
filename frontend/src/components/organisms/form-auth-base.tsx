@@ -1,6 +1,7 @@
 import { ReactNode } from "react"
 import { AuthBase } from "./auth-base"
-import { Chrome, LucideOctagon, Phone } from "lucide-react"
+import { LucideOctagon } from "lucide-react"
+import { BrandGoogleSolid, TelephoneSolid } from "@mynaui/icons-react"
 import { Button } from "../atoms/button"
 
 interface FormAuthBaseProps {
@@ -58,7 +59,7 @@ export function FormAuthBase({
                                 variant="primary"
                                 onClick={loginGoogle}
                             >
-                                <Chrome />
+                                <BrandGoogleSolid />
                                 {nameForm[typeForm]}
                             </Button>
                             <Button
@@ -66,7 +67,7 @@ export function FormAuthBase({
                                 variant="primary"
                                 onClick={loginPhone}
                             >
-                                <Phone />
+                                <TelephoneSolid />
                                 {nameForm[typeForm]}
                             </Button>
                         </div>
