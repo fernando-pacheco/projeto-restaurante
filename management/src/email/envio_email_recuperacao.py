@@ -15,12 +15,8 @@ class EnvioEmailRecuperacao:
         self.cliente_smtp = ClienteSMTP()
 
     def _carregar_template_email(self, data):
-        template = self.template_env.get_template(
-            'recuperacao_senha.html'
-        )
-        corpo_email = template.render(
-            data={'data': data}
-        )
+        template = self.template_env.get_template('recuperacao_senha.html')
+        corpo_email = template.render(data={'data': data})
         return corpo_email
 
     def _configurar_mensagem_email(self, conteudo_email):
