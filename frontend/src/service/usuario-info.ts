@@ -1,4 +1,5 @@
 import { api } from "@/api"
+import { AxiosError } from "axios"
 
 export class UsuarioInfoService {
     async getInfoUsuario() {
@@ -6,7 +7,11 @@ export class UsuarioInfoService {
             const response = await api.get("/usuario-info")
             return response
         } catch (error) {
-            console.error(error)
+            if (error instanceof AxiosError) {
+                return error.response
+            }
+
+            return error
         }
     }
 }
