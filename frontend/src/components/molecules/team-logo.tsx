@@ -9,7 +9,7 @@ export function TeamLogo({ team }: TeamLogoProps) {
     return (
         <SidebarMenu>
             <SidebarMenuItem className="flex justify-center py-8">
-                <div className="aspect-square size-8 rounded-lg flex items-center justify-center text-salmon-600 border">
+                <div className="flex items-center justify-center text-salmon-600">
                     <team.logo className="size-8" />
                 </div>
             </SidebarMenuItem>
