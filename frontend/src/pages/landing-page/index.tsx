@@ -1,4 +1,5 @@
 import { Button } from "@/components/atoms/button"
+import { Catalog } from "@/components/organisms/catalog"
 import { LogIn, Pencil } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
@@ -31,14 +32,8 @@ export function LandingPage() {
                     </Button>
                 </div>
             </header>
-            <body className="flex flex-col space-x-6 space-y-6 py-6 flex-1 items-center justify-center">
-                Página principal - Landing Page
-                <img
-                    src="static/bg-logo.png"
-                    alt="LOGO"
-                    width={300}
-                    height={300}
-                />
+            <body>
+                <Catalog />
             </body>
             <footer className="flex py-6 justify-center">Footer</footer>
         </div>
