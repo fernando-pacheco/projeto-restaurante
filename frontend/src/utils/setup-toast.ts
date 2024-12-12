@@ -1,13 +1,20 @@
 import { toast } from "sonner"
 
 interface SetupToastProps {
-    status: "success" | "error" | "info"
+    id: string
     title: string
     description: string
+    status: "success" | "error" | "info"
 }
 
-export function setupToast({ status, title, description }: SetupToastProps) {
+export function setupToast({
+    id,
+    title,
+    description,
+    status,
+}: SetupToastProps) {
     const baseToastConfig = {
+        id: id,
         description,
         duration: 5000,
         className: "custom-toast",
@@ -21,22 +28,22 @@ export function setupToast({ status, title, description }: SetupToastProps) {
         success: {
             style: {
                 backgroundColor: "#f",
-                color: "green",
-                border: "1px solid #fbd4c4",
+                color: "#1f911d",
+                border: "3px solid #8fe88d",
             },
         },
         error: {
             style: {
                 backgroundColor: "#f",
                 color: "#ed3615",
-                border: "1px solid #fbd4c4",
+                border: "3px solid #ff7c64",
             },
         },
         info: {
             style: {
-                backgroundColor: "#e3f2fd",
+                backgroundColor: "#f",
                 color: "#0288d1",
-                border: "1px solid #bbdefb",
+                border: "3px solid #bbdefb",
             },
         },
     }
