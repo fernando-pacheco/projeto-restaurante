@@ -50,6 +50,7 @@ export function RegisterCliente() {
 
     function handleRegisterSuccess(response: AxiosResponse) {
         setupToast({
+            id: MESSAGES.success.description,
             status: "success",
             title: `Seja bem-vindo(a) ${response.data.nome}`,
             description: MESSAGES.success.description,
@@ -70,11 +71,12 @@ export function RegisterCliente() {
 
             handleRegisterSuccess(response)
         } else {
-            response.data.messages.map((message: string) => {
+            response.data.messages.map((erro: { message: string }) => {
                 setupToast({
+                    id: erro.message,
                     status: "error",
                     title: MESSAGES.error.title,
-                    description: message,
+                    description: erro.message,
                 })
             })
         }
