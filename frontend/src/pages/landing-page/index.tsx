@@ -7,7 +7,7 @@ export function LandingPage() {
     const navigate = useNavigate()
 
     return (
-        <div className="h-screen flex flex-col px-24">
+        <div className="h-screen flex flex-col px-10">
             <header className="flex justify-between py-6">
                 <div className="flex space-x-6">
                     <div>Logo</div>

@@ -10,15 +10,15 @@ export function LayoutHome({ children }: { children: ReactNode }) {
     return (
         <SidebarProvider>
             <AppSidebar />
-            <SidebarInset className="bg-zinc-5050">
+            <SidebarInset className="bg-zinc-50 flex flex-col w-full">
                 <header className="flex h-12 shrink-0 items-center transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
                     <div className="flex items-center gap-2 px-4">
                         <SidebarTrigger />
                     </div>
                 </header>
-                <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                <body className="flex flex-1 flex-col gap-4 p-4 pt-0">
                     {children}
-                </div>
+                </body>
             </SidebarInset>
         </SidebarProvider>
     )
