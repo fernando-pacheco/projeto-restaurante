@@ -1,38 +1,13 @@
-import { setupToast } from "@/utils/setup-toast"
 import { Button } from "../atoms/button"
 
 export function Catalog() {
     const len = Array.from({ length: 15 }, (_, i) => i + 1)
-    const toasts = [
-        {
-            status: "success",
-            title: "Teste - sucesso",
-            description: "Esse toaster foi executado",
-        },
-        {
-            status: "error",
-            title: "Teste - erro",
-            description: "Esse toaster foi executado",
-        },
-        {
-            status: "info",
-            title: "Teste - info",
-            description: "Esse toaster foi executado",
-        },
-    ]
 
     return (
-        <>
-            <div className="flex overflow-x-auto [&::-webkit-scrollbar]:hidden gap-4 swiper">
+        <body>
+            <div className="flex overflow-x-auto [&::-webkit-scrollbar]:hidden gap-4 pb-4">
                 {len.map((item) => (
-                    <Button
-                        key={item}
-                        onClick={() => {
-                            toasts.map((toast) => setupToast(toast))
-                        }}
-                    >
-                        Layer {item}
-                    </Button>
+                    <Button key={item}>Layer {item}</Button>
                 ))}
             </div>
             <div className="flex gap-4 flex-col">
@@ -50,6 +25,6 @@ export function Catalog() {
                 </div>
                 <div className="w-full h-[1000px] bg-black"></div>
             </div>
-        </>
+        </body>
     )
 }
