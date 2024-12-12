@@ -1,11 +1,4 @@
-import {
-    BadgeCheck,
-    Bell,
-    ChevronsUpDown,
-    CreditCard,
-    LogOut,
-    Sparkles,
-} from "lucide-react"
+import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/avatar"
 import {
@@ -27,6 +20,8 @@ import {
 interface NavUserProps {
     user: {
         name: string
+        surname: string
+        username: string
         email: string
         avatar: string
     }
@@ -36,32 +31,32 @@ export function NavUser({ user }: NavUserProps) {
     const { isMobile } = useSidebar()
 
     return (
-        <SidebarMenu>
+        <SidebarMenu className="w-auto">
             <SidebarMenuItem>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             size="lg"
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground border border-salmon-500 flex justify-end py-7 px-4"
                         >
-                            <Avatar className="h-8 w-8 rounded-lg">
-                                <AvatarImage
-                                    src={user.avatar}
-                                    alt={user.name}
-                                />
-                                <AvatarFallback className="rounded-lg">
-                                    CN
-                                </AvatarFallback>
-                            </Avatar>
-                            <div className="grid flex-1 text-left text-sm leading-tight">
+                            <div className="grid text-right text-sm leading-tight">
                                 <span className="truncate font-semibold">
-                                    {user.name}
+                                    {`${user.name} ${user.surname || "."}`}
                                 </span>
                                 <span className="truncate text-xs">
                                     {user.email}
                                 </span>
                             </div>
-                            <ChevronsUpDown className="ml-auto size-4" />
+                            <Avatar className="h-10 w-10 rounded-lg">
+                                <AvatarImage
+                                    src={user.avatar}
+                                    alt={user.name}
+                                />
+                                <AvatarFallback className="rounded-lg bg-salmon-200">
+                                    {user.name[0]}
+                                    {user.surname[0] || "."}
+                                </AvatarFallback>
+                            </Avatar>
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
@@ -72,18 +67,19 @@ export function NavUser({ user }: NavUserProps) {
                     >
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                <Avatar className="h-8 w-8 rounded-lg">
+                                <Avatar className="h-10 w-10 rounded-lg">
                                     <AvatarImage
                                         src={user.avatar}
                                         alt={user.name}
                                     />
-                                    <AvatarFallback className="rounded-lg">
-                                        CN
+                                    <AvatarFallback className="rounded-lg bg-salmon-200">
+                                        {user.name[0]}
+                                        {user.surname[0] || "."}
                                     </AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">
-                                        {user.name}
+                                        {user.username}
                                     </span>
                                     <span className="truncate text-xs">
                                         {user.email}
