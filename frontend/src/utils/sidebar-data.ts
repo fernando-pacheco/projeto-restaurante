@@ -10,11 +10,6 @@ import {
 } from "lucide-react"
 
 export const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
-    },
     team: {
         name: "Acme Inc",
         logo: AudioWaveform,
