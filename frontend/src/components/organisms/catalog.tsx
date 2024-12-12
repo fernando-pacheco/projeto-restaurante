@@ -1,14 +1,25 @@
-import { Button } from "../atoms/button"
+import { dataSearch } from "@/utils/label-search"
+import { CardSearch } from "../molecules/card-search"
+import { SearchBar } from "../molecules/search-bar"
 
 export function Catalog() {
-    const len = Array.from({ length: 15 }, (_, i) => i + 1)
-
     return (
-        <body>
-            <div className="flex overflow-x-auto [&::-webkit-scrollbar]:hidden gap-4 pb-4">
-                {len.map((item) => (
-                    <Button key={item}>Layer {item}</Button>
-                ))}
+        <div>
+            <div className="flex flex-col gap-4">
+                <SearchBar />
+                <div className="flex items-center justify-center px-16 overflow-x-auto [&::-webkit-scrollbar]:hidden gap-4 pb-4">
+                    {dataSearch.map((item, index) => {
+                        if (index <= 8) {
+                            return (
+                                <CardSearch
+                                    key={item.description}
+                                    description={item.description}
+                                    icon={<item.icon className="size-10" />}
+                                />
+                            )
+                        }
+                    })}
+                </div>
             </div>
             <div className="flex gap-4 flex-col">
                 <div className="grid grid-cols-8 gap-4 h-[400px]">
@@ -25,6 +36,6 @@ export function Catalog() {
                 </div>
                 <div className="w-full h-[1000px] bg-black"></div>
             </div>
-        </body>
+        </div>
     )
 }
