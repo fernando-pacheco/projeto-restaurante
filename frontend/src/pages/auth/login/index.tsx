@@ -39,6 +39,7 @@ export function Login() {
         })
 
         setupToast({
+            id: "success",
             status: "success",
             title: MESSAGES.success.title,
             description: MESSAGES.success.description,
@@ -52,6 +53,7 @@ export function Login() {
             handleSuccess(response)
         } else {
             setupToast({
+                id: "error",
                 status: "error",
                 title: MESSAGES.error.title,
                 description: response.data.message,
