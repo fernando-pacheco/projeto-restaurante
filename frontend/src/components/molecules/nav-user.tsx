@@ -19,6 +19,7 @@ import {
 import { useUser } from "@/hooks/use-user"
 import { revokeToken } from "@/utils/token"
 import { useNavigate } from "react-router-dom"
+import { setupToast } from "@/utils/setup-toast"
 
 export function NavUser() {
     const { isMobile } = useSidebar()
@@ -27,6 +28,12 @@ export function NavUser() {
 
     function handleLogout() {
         revokeToken()
+        setupToast({
+            id: "logout",
+            description: "Espero te ver novamente logo.",
+            status: "success",
+            title: "Você saiu da sua conta :(",
+        })
         navigate("/")
     }
 
@@ -110,9 +117,14 @@ export function NavUser() {
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => handleLogout()}>
-                            <LogOut />
-                            Log out
+                        <DropdownMenuItem>
+                            <button
+                                className="flex gap-2 w-full"
+                                onClick={() => handleLogout()}
+                            >
+                                <LogOut />
+                                Sair
+                            </button>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
