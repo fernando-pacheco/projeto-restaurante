@@ -1,5 +1,6 @@
 import { Button } from "@/components/atoms/button"
 import { Catalog } from "@/components/organisms/catalog"
+import { HeaderBase } from "@/components/organisms/header-base"
 import { LogIn, Pencil } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
@@ -9,12 +10,7 @@ export function LandingPage() {
     return (
         <div className="h-screen flex flex-col px-10">
             <header className="flex justify-between py-6">
-                <div className="flex space-x-6">
-                    <div>Logo</div>
-                    <div>Restaurantes</div>
-                    <div>Seja Parceiro</div>
-                    <div>Fale conosco</div>
-                </div>
+                <HeaderBase />
                 <div className="flex space-x-6 items-center">
                     <Button
                         onClick={() => navigate("/register")}
