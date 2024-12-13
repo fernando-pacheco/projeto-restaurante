@@ -16,7 +16,7 @@ const buttonVariants = cva(
                 outline:
                     "border border-salmon-400 bg-salmon-50 hover:bg-salmon-100 hover:text-salmon-950 dark:border-salmon-800 dark:bg-salmon-950 dark:hover:bg-salmon-800 dark:hover:text-salmon-50",
                 secondary:
-                    "bg-gradient-to-b from-zinc-500 to-zinc-700 text-zinc-50 hover:to-zinc-800 active:to-zinc-950 shadow-md dark:bg-zinc-100 dark:text-zinc-800 dark:hover:bg-zinc-100/80",
+                    "bg-gradient-to-b from-zinc-500 to-zinc-700 text-zinc-50 hover:to-zinc-800 active:to-zinc-950 shadow-md dark:bg-zinc-100 dark:text-zinc-800 dark:hover:bg-zinc-100/80 rounded-lg",
                 ghost: "hover:bg-salmon-100 hover:text-salmon-900 dark:hover:bg-salmon-800 dark:hover:text-salmon-50",
                 link: "text-salmon-600 hover:underline hover:text-salmon-700",
                 search: "rounded-l-lg border border-l-salmon-700 border-t-salmon-700 border-b-salmon-700",
