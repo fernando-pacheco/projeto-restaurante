@@ -1,4 +1,3 @@
-import Cookies from "js-cookie"
 import { FormEvent } from "react"
 import { Label } from "@/components/atoms/label"
 import { Input } from "@/components/atoms/input"
@@ -9,6 +8,7 @@ import { FormAuthBase } from "@/components/organisms/form-auth-base"
 import { setupToast } from "@/utils/setup-toast"
 import { AxiosResponse } from "axios"
 import { LoginService } from "@/service/login"
+import { setToken } from "@/utils/set-token"
 
 export function Login() {
     const navigate = useNavigate()
@@ -33,10 +33,7 @@ export function Login() {
     function handleSuccess(response: AxiosResponse) {
         const { access_token } = response?.data
 
-        Cookies.set("jwt_token", access_token, {
-            secure: true,
-            sameSite: "strict",
-        })
+        setToken(access_token)
 
         setupToast({
             id: "success",
