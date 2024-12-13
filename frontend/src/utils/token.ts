@@ -6,3 +6,11 @@ export function setToken(access_token: string) {
         sameSite: "strict",
     })
 }
+
+export function revokeToken() {
+    Cookies.remove("jwt_token")
+}
+
+export function getToken() {
+    return Cookies.get("jwt_token")
+}
