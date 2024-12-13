@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { HeaderBase } from "./header-base"
 
 interface AuthBaseProps {
     children: ReactNode
@@ -7,6 +8,9 @@ interface AuthBaseProps {
 export function AuthBase({ children }: AuthBaseProps) {
     return (
         <div className="relative flex items-center min-h-screen w-screen bg-gradient-to-b from-salmon-50 to bg-salmon-700/15 pl-12 overflow-hidden">
+            <div className="absolute left-10 top-6">
+                <HeaderBase />
+            </div>
             {children}
             <div className="absolute inset-0 -z-10">
                 <div className="border-4 border-salmon-900/10 w-[800px] h-[800px] rounded-full absolute bottom-1/2 left-10 z-0" />
