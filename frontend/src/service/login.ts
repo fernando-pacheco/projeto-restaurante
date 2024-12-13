@@ -1,5 +1,5 @@
 import { api } from "@/api/index"
-import { LoginProps } from "./interface/login-interface"
+import { LoginProps } from "../interface/login"
 import { AxiosError } from "axios"
 
 export class LoginService {
