@@ -16,15 +16,10 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/atoms/sidebar"
+import { UserDataProps } from "@/interface/infos-usuario"
 
 interface NavUserProps {
-    user: {
-        name: string
-        surname: string
-        username: string
-        email: string
-        avatar: string
-    }
+    user: UserDataProps
 }
 
 export function NavUser({ user }: NavUserProps) {

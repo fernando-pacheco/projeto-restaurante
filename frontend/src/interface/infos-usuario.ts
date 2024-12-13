@@ -41,3 +41,11 @@ export interface InfosUsuarioProps {
     telefones: TelefoneUsuarioProps[]
     enderecos: EnderecoUsuarioProps[]
 }
+
+export interface UserDataProps {
+    name: string
+    surname: string
+    email: string
+    username: string
+    avatar: string
+}
