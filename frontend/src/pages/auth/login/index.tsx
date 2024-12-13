@@ -8,7 +8,8 @@ import { FormAuthBase } from "@/components/organisms/form-auth-base"
 import { setupToast } from "@/utils/setup-toast"
 import { AxiosResponse } from "axios"
 import { LoginService } from "@/service/login"
-import { setToken } from "@/utils/set-token"
+import { setToken } from "@/utils/token"
+import { LogInIcon } from "lucide-react"
 
 export function Login() {
     const navigate = useNavigate()
@@ -34,14 +35,12 @@ export function Login() {
         const { access_token } = response?.data
 
         setToken(access_token)
-
         setupToast({
             id: "success",
             status: "success",
             title: MESSAGES.success.title,
             description: MESSAGES.success.description,
         })
-
         navigate("/home")
     }
 
@@ -98,6 +97,7 @@ export function Login() {
                         </Button>
                     </div>
                     <Button type="submit" className="w-full mt-8">
+                        <LogInIcon />
                         Entrar
                     </Button>
                 </form>
