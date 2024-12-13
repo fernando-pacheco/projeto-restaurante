@@ -1,5 +1,4 @@
 import {
-    AudioWaveform,
     BookOpen,
     Bot,
     Frame,
@@ -12,7 +11,7 @@ import {
 export const data = {
     team: {
         name: "Acme Inc",
-        logo: AudioWaveform,
+        logo: "static/ks-logo.png",
         plan: "Enterprise",
     },
     navMain: [

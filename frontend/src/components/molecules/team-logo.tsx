@@ -1,16 +1,16 @@
 import { SidebarMenu, SidebarMenuItem } from "@/components/atoms/sidebar"
-import { ElementType } from "react"
+import { Logo } from "../atoms/logo"
 
 interface TeamLogoProps {
-    team: { logo: ElementType }
+    team: { logo: string }
 }
 
 export function TeamLogo({ team }: TeamLogoProps) {
     return (
         <SidebarMenu>
-            <SidebarMenuItem className="flex justify-center py-8">
-                <div className="flex items-center justify-center text-salmon-600">
-                    <team.logo className="size-8" />
+            <SidebarMenuItem className="flex justify-center">
+                <div className="flex items-center justify-center">
+                    <Logo alt="team-logo" src={team.logo} width={200} />
                 </div>
             </SidebarMenuItem>
         </SidebarMenu>
