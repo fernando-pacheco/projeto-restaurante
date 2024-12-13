@@ -22,6 +22,7 @@ const buttonVariants = cva(
                 search: "rounded-l-lg border border-l-salmon-700 border-t-salmon-700 border-b-salmon-700",
                 primary:
                     "bg-gradient-to-b from-salmon-500 to-salmon-600 text-zinc-50 py-2 px-4 rounded-lg hover:to-salmon-700 shadow-md active:to-salmon-900",
+                flat: "bg-salmon-500 text-salmon-50 rounded-lg hover:bg-salmon-600 active:bg-salmon-700",
             },
             size: {
                 default: "h-10 px-4 py-2",
