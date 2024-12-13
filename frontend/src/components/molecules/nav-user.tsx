@@ -16,14 +16,19 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/atoms/sidebar"
-import { UserDataProps } from "@/interface/infos-usuario"
+import { useUser } from "@/hooks/use-user"
+import { revokeToken } from "@/utils/token"
+import { useNavigate } from "react-router-dom"
 
-interface NavUserProps {
-    user: UserDataProps
-}
-
-export function NavUser({ user }: NavUserProps) {
+export function NavUser() {
     const { isMobile } = useSidebar()
+    const { userData } = useUser()
+    const navigate = useNavigate()
+
+    function handleLogout() {
+        revokeToken()
+        navigate("/")
+    }
 
     return (
         <SidebarMenu className="w-auto">
@@ -32,24 +37,24 @@ export function NavUser({ user }: NavUserProps) {
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             size="lg"
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground border border-salmon-500 flex justify-end py-7 px-4"
+                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground flex justify-end py-7 px-4 bg-salmon-600 hover:bg-salmon-500 text-salmon-50 gap-5 hover:text-salmon-50 drop-shadow-md"
                         >
                             <div className="grid text-right text-sm leading-tight">
                                 <span className="truncate font-semibold">
-                                    {`${user.name} ${user.surname || "."}`}
+                                    {`${userData.name} ${userData.surname || "."}`}
                                 </span>
-                                <span className="truncate text-xs">
-                                    {user.email}
+                                <span className="truncate text-xs text-zinc-200">
+                                    {userData.email}
                                 </span>
                             </div>
                             <Avatar className="h-10 w-10 rounded-lg">
                                 <AvatarImage
-                                    src={user.avatar}
-                                    alt={user.name}
+                                    src={userData.avatar}
+                                    alt={userData.name}
                                 />
-                                <AvatarFallback className="rounded-lg bg-salmon-200">
-                                    {user.name[0]}
-                                    {user.surname[0] || "."}
+                                <AvatarFallback className="rounded-lg bg-salmon-200 text-salmon-950">
+                                    {userData.name[0]}
+                                    {userData.surname[0] || "."}
                                 </AvatarFallback>
                             </Avatar>
                         </SidebarMenuButton>
@@ -64,20 +69,20 @@ export function NavUser({ user }: NavUserProps) {
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <Avatar className="h-10 w-10 rounded-lg">
                                     <AvatarImage
-                                        src={user.avatar}
-                                        alt={user.name}
+                                        src={userData.avatar}
+                                        alt={userData.name}
                                     />
                                     <AvatarFallback className="rounded-lg bg-salmon-200">
-                                        {user.name[0]}
-                                        {user.surname[0] || "."}
+                                        {userData.name[0]}
+                                        {userData.surname[0] || "."}
                                     </AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">
-                                        {user.username}
+                                        {userData.username}
                                     </span>
                                     <span className="truncate text-xs">
-                                        {user.email}
+                                        {userData.email}
                                     </span>
                                 </div>
                             </div>
@@ -105,7 +110,7 @@ export function NavUser({ user }: NavUserProps) {
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleLogout()}>
                             <LogOut />
                             Log out
                         </DropdownMenuItem>
