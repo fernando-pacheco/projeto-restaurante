@@ -1,44 +1,22 @@
-import { ChefHat, CircleStop, HardHat, SquareMenu } from "lucide-react"
-
 export const dataSearch = [
     {
-        icon: SquareMenu,
-        description: "Categoria 1",
+        id: "promocao",
+        icon: "static/ks-logo.png",
+        description: "Promoções",
     },
     {
-        icon: CircleStop,
-        description: "Categoria 2",
+        id: "entrada",
+        icon: "static/entrada-icon.png",
+        description: "Entradas",
     },
     {
-        icon: HardHat,
-        description: "Categoria 3",
+        id: "burger",
+        icon: "static/burger-icon.png",
+        description: "Burgers",
     },
     {
-        icon: ChefHat,
+        id: "extra",
+        icon: "static/ks-logo.png",
         description: "Categoria 4",
-    },
-    {
-        icon: CircleStop,
-        description: "Categoria 5",
-    },
-    {
-        icon: CircleStop,
-        description: "Categoria 6",
-    },
-    {
-        icon: CircleStop,
-        description: "Categoria 7",
-    },
-    {
-        icon: CircleStop,
-        description: "Categoria 8",
-    },
-    {
-        icon: CircleStop,
-        description: "Categoria 9",
-    },
-    {
-        icon: CircleStop,
-        description: "Categoria 10",
     },
 ]
