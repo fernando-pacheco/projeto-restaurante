@@ -10,6 +10,7 @@ export const useUser = () => {
         username: "",
         avatar: "/avatars/shadcn.jpg",
     })
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -18,15 +19,17 @@ export const useUser = () => {
                 const response = await service.getInfoUsuario()
                 const parsedData = handleResponse(response as AxiosResponse)
                 setUserData(parsedData)
+                setIsAuthenticated(!!parsedData.email || !!parsedData.username)
             } catch (error) {
                 console.error("Failed to fetch user data", error)
+                setIsAuthenticated(false)
             }
         }
 
         fetchUserData()
     }, [])
 
-    return userData
+    return { userData, isAuthenticated }
 }
 
 function handleResponse(response: AxiosResponse) {
