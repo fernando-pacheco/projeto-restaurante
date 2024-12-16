@@ -3,6 +3,7 @@ import { dataSearch } from "@/utils/label-search"
 import { CardSearch } from "./card-search"
 import { Logo } from "../atoms/logo"
 import { Products } from "./products"
+import { Cart } from "./cart"
 
 export function Menu() {
     const carouselRef = useRef<HTMLDivElement>(null)
@@ -78,7 +79,7 @@ export function Menu() {
                 </div>
                 <Products tag={selectedId} />
             </div>
-            <div className="w-full h-[2000px] bg-salmon-200 rounded-lg drop-shadow-lg"></div>
+            <Cart />
         </div>
     )
 }
