@@ -34,7 +34,7 @@ export function Login() {
     function handleSuccess(response: AxiosResponse) {
         const { access_token } = response?.data
 
-        setToken(access_token)
+        setToken(access_token, 43200)
         setupToast({
             id: "success",
             status: "success",
