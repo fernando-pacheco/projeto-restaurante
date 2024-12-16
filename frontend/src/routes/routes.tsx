@@ -7,6 +7,7 @@ import { RegisterCliente } from "@/pages/auth/register/cliente"
 import { PasswordRecovery } from "@/pages/auth/password-recovery"
 import { ProtectedRoute } from "./protected-route"
 import { Home } from "@/pages/home"
+import { AuthRedirectedRoute } from "./auth-redirected"
 
 export function AppRoutes() {
     return (
@@ -19,7 +20,14 @@ export function AppRoutes() {
                 }}
             />
             <Routes>
-                <Route path="/" element={<LandingPage />} />
+                <Route
+                    path="/"
+                    element={
+                        <AuthRedirectedRoute>
+                            <LandingPage />
+                        </AuthRedirectedRoute>
+                    }
+                />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<RegisterCliente />} />
                 <Route
