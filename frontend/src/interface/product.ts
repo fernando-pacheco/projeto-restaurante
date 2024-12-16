@@ -1,0 +1,9 @@
+export interface ProductProps {
+    id: string
+    tag: string
+    name: string
+    description: string
+    price: number
+    newPrice?: number
+    amount?: number
+}
