@@ -44,8 +44,8 @@ export function Menu() {
     }
 
     return (
-        <div className="grid grid-cols-3 gap-6">
-            <div className="col-span-2 rounded-lg gap-4 flex flex-col">
+        <div className="grid grid-cols-3 gap-8">
+            <div className="col-span-2 rounded-lg gap-8 flex flex-col">
                 <span className="text-4xl font-semibold">Menu</span>
                 <div
                     ref={carouselRef}
@@ -76,11 +76,9 @@ export function Menu() {
                         </button>
                     ))}
                 </div>
-                <div>
-                    <Products tag={selectedId} />
-                </div>
+                <Products tag={selectedId} />
             </div>
-            <div className="w-full h-[500px] bg-salmon-200 rounded-lg drop-shadow-lg"></div>
+            <div className="w-full h-[2000px] bg-salmon-200 rounded-lg drop-shadow-lg"></div>
         </div>
     )
 }
