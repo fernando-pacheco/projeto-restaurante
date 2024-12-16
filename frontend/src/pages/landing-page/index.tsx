@@ -8,7 +8,7 @@ export function LandingPage() {
     const navigate = useNavigate()
 
     return (
-        <div className="h-screen flex flex-col px-10">
+        <div className="h-full flex flex-col px-10">
             <header className="flex justify-between py-6">
                 <HeaderBase />
                 <div className="flex space-x-6 items-center">
