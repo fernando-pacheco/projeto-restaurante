@@ -1,9 +1,5 @@
+import { getToken } from "@/utils/token"
 import axios from "axios"
-import Cookies from "js-cookie"
-
-const getAuthToken = (): string | undefined => {
-    return Cookies.get("jwt_token")
-}
 
 export const api = axios.create({
     baseURL: "http://localhost:8000/",
@@ -14,7 +10,7 @@ export const api = axios.create({
 
 api.interceptors.request.use(
     (config) => {
-        const token = getAuthToken()
+        const token = getToken()
         if (token) {
             config.headers["Authorization"] = `Bearer ${token}`
         }
