@@ -1,3 +1,3 @@
 import { ProductProps } from "@/interface/product"
 
-export const productsList: ProductProps[] = []
+export const cart: ProductProps[] = []
