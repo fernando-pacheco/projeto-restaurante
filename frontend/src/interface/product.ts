@@ -7,3 +7,7 @@ export interface ProductProps {
     newPrice?: number
     amount?: number
 }
+
+export interface ProductItemProps {
+    product: ProductProps
+}
