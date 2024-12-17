@@ -10,11 +10,11 @@ export function Products({ tag }: ProductsProps) {
         <div>
             <div className="grid grid-cols-3 gap-4">
                 {productItens.map((product) => (
-                    <div className="">
+                    <>
                         {product.tag === tag && (
                             <ProductItem product={product} />
                         )}
-                    </div>
+                    </>
                 ))}
             </div>
         </div>
