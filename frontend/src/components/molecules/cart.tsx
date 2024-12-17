@@ -1,12 +1,9 @@
-import { productsList } from "@/utils/products-list"
-import { ProductItem } from "./product-item"
+import { cart } from "@/utils/cart"
 import { ProductProps } from "@/interface/product"
+import { CartItem } from "./cart-item"
 
 export function Cart() {
-    const sum = productsList.reduce(
-        (total, item) => conditionalCartSum(total, item),
-        0,
-    )
+    const sum = cart.reduce((total, item) => conditionalCartSum(total, item), 0)
 
     function conditionalCartSum(total: number, item: ProductProps) {
         let productValue = item.price
@@ -23,16 +20,17 @@ export function Cart() {
     }
 
     return (
-        <div className="flex flex-col gap-4">
-            <div>
-                {productsList.map((product) => (
+        <div className="flex flex-col gap-8">
+            <span className="text-4xl font-semibold">Meu Carrinho</span>
+            <div className="flex flex-col gap-4">
+                {cart.map((product) => (
                     <div>
-                        <ProductItem product={product} />
+                        <CartItem product={product} />
                     </div>
                 ))}
             </div>
             <div>
-                <div>total: {sum}</div>
+                <div>Total: R$ {sum.toFixed(2)}</div>
             </div>
         </div>
     )
