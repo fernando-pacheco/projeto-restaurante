@@ -41,7 +41,7 @@ export const productItens = [
     },
     {
         id: "hamburguervegetariano",
-        tag: "extra",
+        tag: "vegetariano",
         name: "Hamburguer Vegetariano",
         description:
             "Pão brioche, hamburguer vegetariano artesanal 180g, maionese e molho de alho",
