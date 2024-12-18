@@ -1,12 +1,33 @@
-import { ProductItemProps } from "@/interface/product"
+import { ProductItemProps, ProductProps } from "@/interface/product"
 import { Minus, Plus, X } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../atoms/tooltip"
 import { priceFormat } from "@/utils/price-format"
 import { cart } from "@/utils/cart"
 
 export function CartItem({ product }: ProductItemProps) {
-    function removeItem() {
-        cart.pop()
+    function updateItemAmount(product: ProductProps, newAmount: number) {
+        const index = cart.findIndex((item) => item.id === product.id)
+        if (index !== -1) {
+            if (newAmount <= 0) {
+                cart.splice(index, 1)
+            } else {
+                cart[index].amount = newAmount
+            }
+        }
+    }
+
+    function removeItem(product: ProductProps) {
+        if (product.amount) {
+            const newAmount = product.amount - 1
+            updateItemAmount(product, newAmount)
+        }
+    }
+
+    function addItem(product: ProductProps) {
+        if (product.amount) {
+            const newAmount = product.amount + 1
+            updateItemAmount(product, newAmount)
+        }
     }
 
     return (
@@ -33,7 +54,7 @@ export function CartItem({ product }: ProductItemProps) {
                             <TooltipTrigger>
                                 <button
                                     className="hover:bg-salmon-100 rounded-full p-1"
-                                    onClick={() => removeItem()}
+                                    onClick={() => updateItemAmount(product, 0)} // Limpar item
                                 >
                                     <X size={20} />
                                 </button>
@@ -59,14 +80,14 @@ export function CartItem({ product }: ProductItemProps) {
                     </div>
                     <div className="flex items-center gap-1 text-xs border border-salmon-500 rounded-md">
                         <button
-                            onClick={() => {}}
+                            onClick={() => removeItem(product)}
                             className="border border-r-salmon-500 p-1 hover:bg-salmon-100"
                         >
                             <Minus className="text-salmon-600 size-4 border-none" />
                         </button>
                         <div className="p-1">{product.amount}</div>
                         <button
-                            onClick={() => {}}
+                            onClick={() => addItem(product)}
                             className="border border-l-salmon-500 p-1 hover:bg-salmon-100"
                         >
                             <Plus className="text-green-500 size-4" />
