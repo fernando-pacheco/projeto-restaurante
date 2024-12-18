@@ -32,21 +32,12 @@ class ClientesResource(MethodResource, Resource):
         )
 
         if ClienteModel.encontrar_por_nome_usuario(kwargs['nome_usuario']):
-            # resposta = make_response(
-            #     {'message': 'Esse nome de usuário já existe'}, 400
-            # )
             mensagens.append({'message': 'Esse nome de usuário já existe.'})
 
         if ClienteModel.encontrar_por_email(kwargs['email']):
-            # resposta = make_response(
-            #     {'message': 'Esse email já está cadastrado'}, 400
-            # )
             mensagens.append({'message': 'Esse email já está cadastrado.'})
 
         if ClienteModel.encontrar_por_cpf(kwargs['cpf']):
-            # resposta = make_response(
-            #     {'message': 'Esse cpf já está cadastrado.'}, 400
-            # )
             mensagens.append({'message': 'Esse cpf já está cadastrado.'})
 
         if mensagens:
