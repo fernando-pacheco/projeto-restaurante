@@ -2,14 +2,16 @@ import { UsuarioInfoService } from "@/service/usuario-info"
 import { AxiosResponse } from "axios"
 import { useEffect, useState } from "react"
 
-export const useUser = () => {
-    const [userData, setUserData] = useState({
-        name: "",
-        surname: "",
-        email: "",
-        username: "",
-        avatar: "/avatars/shadcn.jpg",
-    })
+const userState = {
+    name: "",
+    surname: "",
+    email: "",
+    username: "",
+    avatar: "/avatars/shadcn.jpg",
+}
+
+export function useUser() {
+    const [userData, setUserData] = useState(userState)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
     useEffect(() => {
@@ -33,13 +35,7 @@ export const useUser = () => {
 }
 
 function handleResponse(response: AxiosResponse) {
-    const retorno = {
-        name: "",
-        surname: "",
-        email: "",
-        username: "",
-        avatar: "/avatars/shadcn.jpg",
-    }
+    const retorno = userState
 
     if (response.status === 200) {
         retorno["name"] = response.data.nome || ""
