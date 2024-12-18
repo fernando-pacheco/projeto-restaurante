@@ -21,8 +21,17 @@ export function ProductItem({ product }: ProductItemProps) {
     }
 
     function addToCart(product: ProductProps) {
-        product["amount"] = countItem
-        cart.push(product)
+        if (countItem > 0) {
+            const index = cart.findIndex((item) => item.id === product.id)
+            if (index !== -1) {
+                cart[index]["amount"] = cart[index]["amount"] + countItem
+                setCountItem(0)
+            } else {
+                product["amount"] = countItem
+                cart.push(product)
+                setCountItem(0)
+            }
+        }
     }
 
     return (
