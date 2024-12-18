@@ -24,35 +24,40 @@ export function Cart() {
     return (
         <div className="flex flex-col gap-8 flex-1">
             <span className="text-4xl font-semibold">Meu Carrinho</span>
-            {cart.length > 0 && (
-                <>
-                    <div className="flex flex-col gap-4">
-                        {cart.map((product) => (
-                            <div>
-                                <CartItem key={product.id} product={product} />
+            <div className="max-h-[600px] overflow-x-auto">
+                {cart.length > 0 && (
+                    <>
+                        <div className="flex flex-col gap-4">
+                            {cart.map((product) => (
+                                <div>
+                                    <CartItem
+                                        key={product.id}
+                                        product={product}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                        <Separator className="border-2 rounded-full border-salmon-500 mb-4 mt-6" />
+                        <div className="flex-1 px-2 font-semibold">
+                            <div className="flex justify-between">
+                                <div>Subtotal:</div>
+                                <div>{priceFormat(sum)}</div>
                             </div>
-                        ))}
-                    </div>
-                    <Separator className="border-2 rounded-full border-salmon-500" />
-                    <div className="flex-1 px-2 font-semibold -mt-4">
-                        <div className="flex justify-between">
-                            <div>Subtotal:</div>
-                            <div>{priceFormat(sum)}</div>
-                        </div>
-                        <div className="flex justify-between">
-                            <div>Taxa de entrega:</div>
-                            <div>{priceFormat(2)}</div>
-                        </div>
-                        <Separator className="border-2 rounded-full border-salmon-500 my-4" />
-                        <div className="flex justify-between">
-                            <div className="font-bold text-2xl">Total:</div>
-                            <div className="font-bold text-2xl">
-                                {priceFormat(sum + 2)}
+                            <div className="flex justify-between">
+                                <div>Taxa de entrega:</div>
+                                <div>{priceFormat(2)}</div>
+                            </div>
+                            <Separator className="border-2 rounded-full border-salmon-500 my-4" />
+                            <div className="flex justify-between">
+                                <div className="font-bold text-2xl">Total:</div>
+                                <div className="font-bold text-2xl">
+                                    {priceFormat(sum + 2)}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </>
-            )}
+                    </>
+                )}
+            </div>
         </div>
     )
 }
