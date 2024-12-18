@@ -15,7 +15,7 @@ export function setupToast({
 }: SetupToastProps) {
     const baseToastConfig = {
         id: id,
-        description,
+        description: description,
         duration: 5000,
         className: "custom-toast",
         action: {
