@@ -6,7 +6,7 @@ export const dataSearch = [
     },
     {
         id: "entrada",
-        icon: "static/entrada-icon.png",
+        icon: "static/starter-icon.png",
         description: "Entradas",
     },
     {
@@ -15,8 +15,18 @@ export const dataSearch = [
         description: "Burgers",
     },
     {
-        id: "extra",
-        icon: "static/ks-logo.png",
-        description: "Categoria 4",
+        id: "vegetariano",
+        icon: "static/veggie-icon.png",
+        description: "Vegetariano",
+    },
+    {
+        id: "sobremesa",
+        icon: "static/desert-icon.png",
+        description: "Sobremesas",
+    },
+    {
+        id: "bebida",
+        icon: "static/drink-icon.png",
+        description: "Bebidas",
     },
 ]
