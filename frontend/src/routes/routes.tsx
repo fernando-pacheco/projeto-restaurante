@@ -12,13 +12,6 @@ import { AuthRedirectedRoute } from "./auth-redirected"
 export function AppRoutes() {
     return (
         <div>
-            <Toaster
-                icons={{
-                    error: (
-                        <X className="rounded-full bg-[#ed3615] size-4 text-salmon-50 p-0.5" />
-                    ),
-                }}
-            />
             <Routes>
                 <Route
                     path="/"
