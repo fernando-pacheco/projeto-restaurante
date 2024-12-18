@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { dataSearch } from "@/utils/label-search"
-import { CardSearch } from "./card-search"
+import { CardSearch } from "../molecules/card-search"
 import { Logo } from "../atoms/logo"
 import { Products } from "./products"
 import { Cart } from "./cart"

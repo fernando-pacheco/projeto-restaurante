@@ -1,6 +1,6 @@
 import { Button } from "@/components/atoms/button"
-import { Catalog } from "@/components/organisms/catalog"
-import { HeaderBase } from "@/components/organisms/header-base"
+import { Catalog } from "@/components/templates/catalog"
+import { HeaderBase } from "@/components/molecules/header-base"
 import { LogIn, Pencil } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 

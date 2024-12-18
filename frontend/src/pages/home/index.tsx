@@ -1,5 +1,5 @@
-import { Catalog } from "@/components/organisms/catalog"
-import { LayoutHome } from "@/components/organisms/layout-home"
+import { Catalog } from "@/components/templates/catalog"
+import { LayoutHome } from "@/components/templates/layout-home"
 
 export function Home() {
     return (

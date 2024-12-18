@@ -1,5 +1,5 @@
 import { NavMain } from "@/components/molecules/nav-main"
-import { TeamLogo } from "./team-logo"
+import { TeamLogo } from "../molecules/team-logo"
 import {
     Sidebar,
     SidebarContent,

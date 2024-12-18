@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/molecules/app-sidebar"
+import { AppSidebar } from "@/components/organisms/app-sidebar"
 import {
     SidebarInset,
     SidebarProvider,

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { FormAuthBase } from "@/components/organisms/form-auth-base"
+import { FormAuthBase } from "@/components/templates/form-auth-base"
 import { Button } from "@/components/atoms/button"
 import {
     Card,
@@ -183,6 +183,7 @@ function FormPassword({
 
         if (!novaSenha || !confirmacaoSenha) {
             setupToast({
+                id: "error1",
                 status: "error",
                 title: "Ocorreu um problema!",
                 description: "Os campos de senha não podem estar vazios.",
@@ -192,6 +193,7 @@ function FormPassword({
 
         if (novaSenha !== confirmacaoSenha) {
             setupToast({
+                id: "error1",
                 status: "error",
                 title: "Ocorreu um problema!",
                 description: "As senhas não coincidem.",

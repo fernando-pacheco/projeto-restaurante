@@ -1,5 +1,5 @@
-import { MainCard } from "../molecules/main-card"
-import { Menu } from "../molecules/menu"
+import { MainCard } from "../organisms/main-card"
+import { Menu } from "../organisms/menu"
 
 export function Catalog() {
     return (

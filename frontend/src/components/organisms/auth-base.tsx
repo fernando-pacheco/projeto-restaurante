@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { HeaderBase } from "./header-base"
+import { HeaderBase } from "../molecules/header-base"
 
 interface AuthBaseProps {
     children: ReactNode

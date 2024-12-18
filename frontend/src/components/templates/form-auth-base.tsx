@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { AuthBase } from "./auth-base"
+import { AuthBase } from "../organisms/auth-base"
 import { LucideOctagon } from "lucide-react"
 import { BrandGoogleSolid, TelephoneSolid } from "@mynaui/icons-react"
 import { Button } from "../atoms/button"

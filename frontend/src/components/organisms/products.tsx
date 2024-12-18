@@ -1,5 +1,5 @@
 import { productItens } from "@/utils/product-itens"
-import { ProductItem } from "./product-item"
+import { ProductItem } from "../molecules/product-item"
 
 interface ProductsProps {
     tag: string
