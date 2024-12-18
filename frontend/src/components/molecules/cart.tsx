@@ -22,7 +22,7 @@ export function Cart() {
     }
 
     return (
-        <div className="flex flex-col gap-8 bg-white rounded-lg p-4 flex-1 drop-shadow-lg">
+        <div className="flex flex-col gap-8 flex-1">
             <span className="text-4xl font-semibold">Meu Carrinho</span>
             {cart.length > 0 && (
                 <>
@@ -45,8 +45,10 @@ export function Cart() {
                         </div>
                         <Separator className="border-2 rounded-full border-salmon-500 my-4" />
                         <div className="flex justify-between">
-                            <div className="font-bold text-xl">Total:</div>
-                            <div>{priceFormat(sum + 2)}</div>
+                            <div className="font-bold text-2xl">Total:</div>
+                            <div className="font-bold text-2xl">
+                                {priceFormat(sum + 2)}
+                            </div>
                         </div>
                     </div>
                 </>
