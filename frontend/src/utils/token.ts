@@ -8,9 +8,7 @@ export function setToken(access_token: string, expiresIn: number) {
         secure: true,
     })
 
-    if (tokenTimeout) {
-        clearTimeout(tokenTimeout)
-    }
+    clearTokenTimeout()
 
     tokenTimeout = setTimeout(() => {
         revokeToken()
@@ -19,9 +17,8 @@ export function setToken(access_token: string, expiresIn: number) {
 }
 
 export function revokeToken() {
-    if (tokenTimeout) {
-        clearTimeout(tokenTimeout)
-    }
+    clearTokenTimeout()
+
     Cookies.remove("jwt_token", {
         sameSite: "strict",
         secure: true,
@@ -30,4 +27,10 @@ export function revokeToken() {
 
 export function getToken() {
     return Cookies.get("jwt_token")
+}
+
+function clearTokenTimeout() {
+    if (tokenTimeout) {
+        clearTimeout(tokenTimeout)
+    }
 }
