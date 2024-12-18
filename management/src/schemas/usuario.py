@@ -3,7 +3,7 @@ from src.schemas.endereco import EnderecoResponseSchema
 from src.schemas.funcao_funcionario import FuncaoFuncionarioResponseSchema
 
 
-class TelefoneResponseSchema(Schema):
+class TelefoneResponseUsuarioSchema(Schema):
     id = fields.Int()
     numero = fields.Str()
     principal = fields.Bool()
@@ -26,7 +26,7 @@ class FuncionarioInfoSchema(Schema):
     ativo = fields.Bool()
     empresa = fields.Nested(EmpresaSchema)
     funcoes = fields.Nested(FuncaoFuncionarioResponseSchema)
-    telefones = fields.List(fields.Nested(TelefoneResponseSchema))
+    telefones = fields.List(fields.Nested(TelefoneResponseUsuarioSchema))
 
 
 class ClienteInfoSchema(Schema):
@@ -37,11 +37,11 @@ class ClienteInfoSchema(Schema):
     email = fields.Str()
     cpf = fields.Str()
     ativo = fields.Bool()
-    telefones = fields.List(fields.Nested(TelefoneResponseSchema))
+    telefones = fields.List(fields.Nested(TelefoneResponseUsuarioSchema))
     enderecos = fields.List(fields.Nested(EnderecoResponseSchema))
 
 
 funcionario_schema = FuncionarioInfoSchema()
 cliente_schema = ClienteInfoSchema()
 empresa_schema = EmpresaSchema()
-telefone_schema = TelefoneResponseSchema()
+telefone_schema = TelefoneResponseUsuarioSchema()
