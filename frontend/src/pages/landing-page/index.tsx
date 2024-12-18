@@ -28,9 +28,9 @@ export function LandingPage() {
                     </Button>
                 </div>
             </header>
-            <body>
+            <div>
                 <Catalog />
-            </body>
+            </div>
             <footer className="flex py-6 justify-center">Footer</footer>
         </div>
     )
