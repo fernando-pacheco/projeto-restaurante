@@ -5,28 +5,26 @@ import { priceFormat } from "@/utils/price-format"
 import { cart } from "@/utils/cart"
 
 export function CartItem({ product }: ProductItemProps) {
-    function updateItemAmount(product: ProductProps, newAmount: number) {
-        const index = cart.findIndex((item) => item.id === product.id)
-        if (index !== -1) {
-            if (newAmount <= 0) {
-                cart.splice(index, 1)
-            } else {
-                cart[index].amount = newAmount
-            }
-        }
-    }
-
     function removeItem(product: ProductProps) {
-        if (product.amount) {
-            const newAmount = product.amount - 1
-            updateItemAmount(product, newAmount)
+        if (!product.amount || product.amount === 0) {
+            cleanUpItem(product.id)
+        } else {
+            product.amount = product.amount - 1
         }
     }
 
     function addItem(product: ProductProps) {
-        if (product.amount) {
-            const newAmount = product.amount + 1
-            updateItemAmount(product, newAmount)
+        if (!product.amount) {
+            product.amount = 0
+        }
+
+        product.amount = product.amount + 1
+    }
+
+    function cleanUpItem(id: string) {
+        const index = cart.findIndex((item) => item.id === id)
+        if (index !== -1) {
+            cart.splice(index, 1)
         }
     }
 
@@ -54,7 +52,7 @@ export function CartItem({ product }: ProductItemProps) {
                             <TooltipTrigger>
                                 <button
                                     className="hover:bg-salmon-100 rounded-full p-1"
-                                    onClick={() => updateItemAmount(product, 0)} // Limpar item
+                                    onClick={() => cleanUpItem(product.id)}
                                 >
                                     <X size={20} />
                                 </button>
