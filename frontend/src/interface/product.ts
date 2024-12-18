@@ -5,7 +5,7 @@ export interface ProductProps {
     description: string
     price: number
     newPrice?: number
-    amount?: number
+    amount: number
 }
 
 export interface ProductItemProps {

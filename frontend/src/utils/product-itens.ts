@@ -6,6 +6,7 @@ export const productItens = [
         description: "2 Tradiças e 1 batata",
         price: 40,
         newPrice: 32,
+        amount: 0,
     },
     {
         id: "combo2",
@@ -14,6 +15,7 @@ export const productItens = [
         description: "2 Salada Burguer e 1 batata",
         price: 45,
         newPrice: 40,
+        amount: 0,
     },
     {
         id: "combo3",
@@ -22,6 +24,7 @@ export const productItens = [
         description: "2 Hambúrguer Vegetariano e 1 batata",
         price: 45,
         newPrice: 36,
+        amount: 0,
     },
     {
         id: "tradica",
@@ -30,6 +33,7 @@ export const productItens = [
         description:
             "Pão brioche, hamburguer artesanal 180g, maionese e molho de alho",
         price: 23,
+        amount: 0,
     },
     {
         id: "saladaburguer",
@@ -38,6 +42,7 @@ export const productItens = [
         description:
             "Pão brioche, hamburguer artesanal 180g, maionese e molho de alho",
         price: 25,
+        amount: 0,
     },
     {
         id: "hamburguervegetariano",
@@ -46,6 +51,7 @@ export const productItens = [
         description:
             "Pão brioche, hamburguer vegetariano artesanal 180g, maionese e molho de alho",
         price: 34,
+        amount: 0,
     },
     {
         id: "batata",
@@ -53,5 +59,6 @@ export const productItens = [
         name: "Batata frita",
         description: "Porção de 200g de batatas fritas",
         price: 12,
+        amount: 0,
     },
 ]
