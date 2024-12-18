@@ -1,4 +1,4 @@
-import { MainCard } from "../organisms/main-card"
+import { MainCard } from "../molecules/main-card"
 import { Menu } from "../organisms/menu"
 
 export function Catalog() {
