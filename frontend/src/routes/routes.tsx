@@ -1,6 +1,4 @@
 import { Routes, Route } from "react-router-dom"
-import { Toaster } from "sonner"
-import { X } from "lucide-react"
 import { LandingPage } from "@/pages/landing-page"
 import { Login } from "@/pages/auth/login"
 import { RegisterCliente } from "@/pages/auth/register/cliente"
