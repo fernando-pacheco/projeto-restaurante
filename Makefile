@@ -1,14 +1,12 @@
 ISORT_OPTIONS = --profile black --line-length 79
 
-cleanup:
-	clear
-lint: cleanup
+lint:
 	blue . && isort . $(ISORT_OPTIONS)
-test: cleanup lint
+test: lint
 	pytest -s -x --cov=src -vv
-build: cleanup
-	docker compose up --build
-db: cleanup
+build:
+	docker compose up --build -d
+db:
 	docker compose up --force-recreate db
-backend: cleanup
+backend:
 	docker compose up --force-recreate db management
