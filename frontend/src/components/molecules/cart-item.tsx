@@ -6,7 +6,7 @@ import { cart } from "@/utils/cart"
 
 export function CartItem({ product }: ProductItemProps) {
     function removeItem(product: ProductProps) {
-        if (!product.amount || product.amount === 0) {
+        if (product.amount === 0) {
             cleanUpItem(product.id)
         } else {
             product.amount = product.amount - 1
@@ -14,10 +14,6 @@ export function CartItem({ product }: ProductItemProps) {
     }
 
     function addItem(product: ProductProps) {
-        if (!product.amount) {
-            product.amount = 0
-        }
-
         product.amount = product.amount + 1
     }
 
