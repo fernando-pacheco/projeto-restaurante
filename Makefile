@@ -1,7 +1,5 @@
-ISORT_OPTIONS = --profile black --line-length 79
-
 lint:
-	blue . && isort . $(ISORT_OPTIONS)
+	blue . && isort . --profile black --line-length 79
 test: lint
 	pytest -s -x --cov=src -vv
 build:
