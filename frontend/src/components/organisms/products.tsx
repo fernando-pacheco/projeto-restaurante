@@ -1,5 +1,5 @@
 import { productItens } from "@/utils/product-itens"
-import { ProductItem } from "../molecules/product-item"
+import { Product } from "./product"
 
 interface ProductsProps {
     tag: string
@@ -12,7 +12,7 @@ export function Products({ tag }: ProductsProps) {
                 {productItens
                     .filter((product) => product.tag === tag)
                     .map((product) => (
-                        <ProductItem key={product.id} product={product} />
+                        <Product key={product.id} product={product} />
                     ))}
             </div>
         </div>
