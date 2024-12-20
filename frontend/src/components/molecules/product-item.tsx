@@ -1,26 +1,29 @@
 import { ProductItemProps, ProductProps } from "@/interface/product"
 import { cart } from "@/utils/cart"
 import { ChevronDownCircle, Minus, Plus, ShoppingCart } from "lucide-react"
-import { useState } from "react"
+import { MouseEvent, useState } from "react"
 import { Button } from "../atoms/button"
 import { priceFormat } from "@/utils/price-format"
 
 export function ProductItem({ product }: ProductItemProps) {
     const [countItem, setCountItem] = useState<number>(0)
 
-    function removeItem() {
+    function removeItem(event: MouseEvent) {
         if (countItem === 0) {
             setCountItem(countItem)
         } else {
             setCountItem(countItem - 1)
         }
+
+        event.stopPropagation()
     }
 
-    function addItem() {
+    function addItem(event: MouseEvent) {
         setCountItem(countItem + 1)
+        event.stopPropagation()
     }
 
-    function addToCart(product: ProductProps) {
+    function addToCart(product: ProductProps, event: MouseEvent) {
         if (countItem > 0) {
             const index = cart.findIndex((item) => item.id === product.id)
             if (index !== -1) {
@@ -32,6 +35,7 @@ export function ProductItem({ product }: ProductItemProps) {
                 setCountItem(0)
             }
         }
+        event.stopPropagation()
     }
 
     return (
@@ -76,14 +80,14 @@ export function ProductItem({ product }: ProductItemProps) {
                     <div className="flex justify-end gap-2">
                         <div className="flex items-center gap-1 text-xs border border-salmon-500 rounded-md">
                             <button
-                                onClick={() => removeItem()}
+                                onClick={(event) => removeItem(event)}
                                 className="border border-r-salmon-500 p-1 hover:bg-salmon-100"
                             >
                                 <Minus className="text-salmon-600 size-4 border-none" />
                             </button>
                             <div className="p-1">{countItem}</div>
                             <button
-                                onClick={() => addItem()}
+                                onClick={(event) => addItem(event)}
                                 className="border border-l-salmon-500 p-1 hover:bg-salmon-100"
                             >
                                 <Plus className="text-green-500 size-4" />
@@ -92,7 +96,7 @@ export function ProductItem({ product }: ProductItemProps) {
                         <div className="flex justify-end">
                             <Button
                                 size={"xs"}
-                                onClick={() => addToCart(product)}
+                                onClick={(event) => addToCart(product, event)}
                             >
                                 <ShoppingCart />
                             </Button>
