@@ -10,6 +10,9 @@ export function CartItem({ product }: ProductItemProps) {
             cleanUpItem(product.id)
         } else {
             product.amount = product.amount - 1
+            if (product.amount === 0) {
+                cleanUpItem(product.id)
+            }
         }
     }
 
