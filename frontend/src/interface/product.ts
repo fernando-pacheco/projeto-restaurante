@@ -3,6 +3,7 @@ export interface ProductProps {
     tag: string
     name: string
     description: string
+    fullDescription: string
     price: number
     newPrice?: number
     amount: number
