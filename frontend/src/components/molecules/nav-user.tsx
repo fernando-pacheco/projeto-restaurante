@@ -50,7 +50,7 @@ export function NavUser() {
                                 <span className="truncate font-semibold">
                                     {`${userData.name} ${userData.surname || "."}`}
                                 </span>
-                                <span className="truncate text-xs text-zinc-200">
+                                <span className="truncate text-xs">
                                     {userData.email}
                                 </span>
                             </div>
@@ -94,6 +94,7 @@ export function NavUser() {
                                 </div>
                             </div>
                         </DropdownMenuLabel>
+
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
