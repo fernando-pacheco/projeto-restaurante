@@ -11,7 +11,7 @@ import {
 export const data = {
     team: {
         name: "Acme Inc",
-        logo: "static/ks-logo.png",
+        logo: "/static/ks-logo.png",
         plan: "Enterprise",
     },
     navMain: [
