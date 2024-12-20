@@ -4,6 +4,9 @@ import { CardSearch } from "../molecules/card-search"
 import { Logo } from "../atoms/logo"
 import { Products } from "./products"
 import { Cart } from "./cart"
+import { ArrowRight } from "lucide-react"
+import { Button } from "../atoms/button"
+import { useNavigate } from "react-router-dom"
 
 export function Menu() {
     const carouselRef = useRef<HTMLDivElement>(null)
@@ -11,6 +14,7 @@ export function Menu() {
     const [startX, setStartX] = useState(0)
     const [scrollLeft, setScrollLeft] = useState(0)
     const [selectedId, setSelectedId] = useState<string>("promocao")
+    const navigate = useNavigate()
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         if (carouselRef.current) {
@@ -47,7 +51,16 @@ export function Menu() {
     return (
         <div className="grid grid-cols-3 gap-8">
             <div className="col-span-2 rounded-lg gap-8 flex flex-col">
-                <span className="text-4xl font-semibold">Menu</span>
+                <div className="flex items-baseline justify-between">
+                    <span className="text-4xl font-semibold">Menu</span>
+                    <Button
+                        variant={"link"}
+                        className="text-xl p-0"
+                        onClick={() => navigate("/ks-burguer/menu")}
+                    >
+                        Ver mais <ArrowRight />
+                    </Button>
+                </div>
                 <div
                     ref={carouselRef}
                     className={`flex overflow-x-auto gap-4 drop-shadow-lg [&::-webkit-scrollbar]:hidden ${
