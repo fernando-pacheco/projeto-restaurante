@@ -11,7 +11,7 @@ export function Product({ product }: ProductItemProps) {
                     <ProductItem product={product} />
                 </div>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="flex min-w-[60%] max-h-[80%] pr-1">
                 <ProductDetails product={product} />
             </DialogContent>
         </Dialog>
