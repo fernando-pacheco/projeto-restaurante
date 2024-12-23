@@ -61,3 +61,4 @@ tzlocal
 urllib3
 webargs
 Werkzeug
+gunicorn
